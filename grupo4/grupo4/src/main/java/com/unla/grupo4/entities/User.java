@@ -8,22 +8,26 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.unla.grupo4.models.UserRoleModel;
-
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "user_role_id"))
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_role_id", nullable=false)
+	private UserRole role;
 	
 	@Column(name = "name", nullable = false, length = 45)
 	private String name;
@@ -43,10 +47,6 @@ public class User {
 	@Column(name = "user_password", nullable = false, length = 25)
 	private String userPassword;
 	
-	@Column(name = "user_role", nullable = false, length = 25)
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private UserRoleModel role;
-	
 	@Column(name = "type_doc")
 	private int typeDoc;
 	
@@ -63,7 +63,7 @@ public class User {
 	}
 
 	public User(String name, String surname, String dni, String email, String userName, String userPassword,
-			UserRoleModel role) {
+			UserRole role) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -130,11 +130,11 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
-	public UserRoleModel getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(UserRoleModel role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
