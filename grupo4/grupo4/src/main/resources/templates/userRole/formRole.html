@@ -1,0 +1,5 @@
+<form action="#" th:action="@{/userRoles/saveRole}" th:object="${userRole}" method="post">
+	<p><input type="hidden" th:field="*{id}" /></p>
+	<p>Role: <input type="text" th:field="*{role}" /></p>
+	<input type="submit" value="Create role" />
+</form>

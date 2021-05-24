@@ -1,0 +1,23 @@
+<form action="#" th:action="@{/userRoles/newRole}" method="get">
+	<p><input type="submit" value="New role"/></p>
+</form>
+<form action="#" th:action="@{/userRoles/updateRole}" method="get">
+	<p><input type="submit" value="Edit role"/></p>
+</form>
+<form action="#" th:action="@{/userRoles/deleteRole}" method="get">
+	<p><input type="submit" value="Delete role"/></p>
+</form>
+<table>
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="userRole : ${userRoles}">
+			<td><span th:text="${userRole.id}" /></td>
+			<td><span th:text="${userRole.role}" /></td>
+		</tr>
+	</tbody>
+</table>
