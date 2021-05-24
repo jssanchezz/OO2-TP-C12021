@@ -12,7 +12,7 @@ public class UserModel {
 	private String name;
 	private String surname;
 	private String dni;
-	private String Email;
+	private String email;
 	private String userName;
 	private String userPassword;
 	private UserRoleModel role;
@@ -29,7 +29,7 @@ public class UserModel {
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
-		this.Email = email;
+		this.email = email;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role = role;
@@ -68,11 +68,11 @@ public class UserModel {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getUserName() {

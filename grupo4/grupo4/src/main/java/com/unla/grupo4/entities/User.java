@@ -50,6 +50,9 @@ public class User {
 	@Column(name = "type_doc")
 	private int typeDoc;
 	
+	@Column(name = "enabled")
+	private boolean enabled;
+	
 	@Column(name="createdat")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -145,5 +148,15 @@ public class User {
 	public void setTypeDoc(int typeDoc) {
 		this.typeDoc = typeDoc;
 	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	
 	
 }
