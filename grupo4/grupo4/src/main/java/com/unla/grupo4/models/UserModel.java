@@ -23,8 +23,7 @@ public class UserModel {
 		super();
 	}
 
-	public UserModel(String name, String surname, String dni, String email, String userName, String userPassword,
-			UserRoleModel role) {
+	public UserModel(String name, String surname, String dni, String email, String userName, String userPassword, UserRoleModel role) {
 		super();
 		this.name = name;
 		this.surname = surname;
