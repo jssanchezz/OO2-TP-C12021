@@ -27,6 +27,10 @@ public class UserService implements IUserService{
 		return userRepository.findAll();
 	}
 	
+	public List<User> findByEnabled(boolean enabled){
+		return userRepository.findByEnabled(enabled);
+	}
+	
 	@Override
 	public UserModel insertOrUpdate(UserModel userModel) {
 		User user = userRepository.save(userConverter.modelToEntity(userModel));

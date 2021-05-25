@@ -39,7 +39,7 @@ public class User {
 	private String dni;
 	
 	@Column(name = "email", nullable = false, length = 70)
-	private String Email;
+	private String email;
 	
 	@Column(name = "user_name", nullable = false, length = 25)
 	private String userName;
@@ -71,7 +71,7 @@ public class User {
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
-		this.Email = email;
+		this.email = email;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role = role;
@@ -110,11 +110,11 @@ public class User {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getUserName() {
