@@ -8,9 +8,7 @@ public class UserRoleModel {
 	
 	public UserRoleModel() { }
 
-	public UserRoleModel(int id, String role) {
-		super();
-		this.id = id;
+	public UserRoleModel(String role) {
 		this.role = role;
 	}
 

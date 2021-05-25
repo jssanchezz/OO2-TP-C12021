@@ -12,12 +12,12 @@ public class UserConverter {
 
 	public UserModel entityToModel(User user) {
 		return new UserModel(user.getName(), user.getSurname(), user.getDni(), user.getEmail(), user.getUserName(),
-				user.getUserPassword(), new UserRoleModel(1, "prueba"));
+				user.getUserPassword(), new UserRoleModel(user.getRole().getRole()));
 	}
 
 	public User modelToEntity(UserModel userModel) {
 		return new User(userModel.getName(), userModel.getSurname(), userModel.getDni(), userModel.getEmail(),
-				userModel.getUserName(), userModel.getUserPassword(), new UserRole(1, "prueba"));
+				userModel.getUserName(), userModel.getUserPassword(), new UserRole(userModel.getRole().getRole()));
 	}
 
 }
