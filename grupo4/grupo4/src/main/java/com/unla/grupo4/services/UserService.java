@@ -27,6 +27,12 @@ public class UserService implements IUserService{
 		return userRepository.findAll();
 	}
 	
+	@Override
+	public UserModel findById(int id) {
+		return userConverter.entityToModel(userRepository.findById(id).get());
+	}
+	
+	@Override
 	public List<User> findByEnabled(boolean enabled){
 		return userRepository.findByEnabled(enabled);
 	}
@@ -41,8 +47,7 @@ public class UserService implements IUserService{
 	public boolean remove(int id) {
 		try {
 			userRepository.findById(id).get().setEnabled(true);
-			UserModel user = userConverter.entityToModel(userRepository.findById(id).get());
-			insertOrUpdate(user);
+			userRepository.save(userRepository.findById(id).get());
 			return true;
 		}catch (Exception e) {
 			return false;

@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.grupo4.entities.User;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.models.TypeDoc;
 import com.unla.grupo4.models.UserModel;
@@ -38,9 +40,8 @@ public class UserController {
 
 	@GetMapping("/newUser")
 	public ModelAndView form() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);//"/user/prueba"
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
 		mAV.addObject("roles", userRoleService.getAll());
-		mAV.addObject("users", userService.getAll());
 		mAV.addObject("typeDoc", TypeDoc.values());
 		mAV.addObject("user", new UserModel());
 		return mAV;
@@ -55,28 +56,38 @@ public class UserController {
 	@GetMapping("/updateUser")
 	public ModelAndView update() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
-		mAV.addObject("users", userService.getAll());
-		mAV.addObject("user", new UserModel());
+		mAV.addObject("users", userService.findByEnabled(false));
 		return mAV;
 	}
-
-	@PostMapping("/updateUser")
-	public RedirectView updateUser(@ModelAttribute("user") UserModel userModel) {
-		userService.insertOrUpdate(userModel);
-		return new RedirectView(ViewRouteHelper.ROUTE_USER_UPDATE);
+	
+	@GetMapping("/updateUser/{id}/modUser}")
+	public ModelAndView updateForm(@PathVariable("id") int id) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
+		mAV.addObject("user", userService.findById(id));
+		return mAV;
+	}
+	
+	@GetMapping("/updateUser/{id}")
+	public ModelAndView updateUser(@PathVariable("id") int id) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
+		/*mAV.addObject("roles", userRoleService.getAll());*/
+		UserModel = user = userService.findById(id);
+		mAV.addObject("user", userService.findById(id));
+		mAV.addObject("typeDoc", TypeDoc.values());
+		
+		return mAV;
 	}
 
 	@GetMapping("/deleteUser")
 	public ModelAndView delete() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_DELETE);
-		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("user", new UserModel());
+		mAV.addObject("users", userService.findByEnabled(false));
 		return mAV;
 	}
 
-	@PostMapping("/deleteUser")
-	public RedirectView deleteUser(@ModelAttribute("user") UserModel userModel) {
-		userService.insertOrUpdate(userModel);
+	@PostMapping("/deleteUser/{id}")
+	public RedirectView deleteUser(@PathVariable("id") int id) {
+		userService.remove(id);
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
 	}
 

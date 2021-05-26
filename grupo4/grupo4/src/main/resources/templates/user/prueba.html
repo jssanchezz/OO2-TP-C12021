@@ -1,0 +1,25 @@
+<form action="#" th:action="@{/users/newUser}" th:object="${user}" method="POST">
+    <p>name: <input type="text" th:field="*{name}"/></p>
+    <p>surname: <input type="text" th:field="*{surname}"/></p>
+    <p>dni: <input type="text" th:field="*{dni}"/></p>
+    <p>email: <input type="text" th:field="*{email}"/></p>
+    <p>userName: <input type="text" th:field="*{userName}"/></p>
+    <p>userPassword: <input type="password" th:field="*{userPassword}"/></p>
+    <p>Type
+        <select th:field="*{typeDoc}">
+            <option th:each="typeDo : ${typeDoc}"
+                    th:value="${typeDo}"
+                    th:text="${typeDo}">
+            </option>
+        </select>
+
+        <p>Role:
+                                             
+            <select th:field="*{role}">
+                <option th:each="rol : ${roles}" 
+                        th:value="${rol.id}"
+                        th:text="${rol.role}">
+                </option>    
+            </select>
+    <input type="submit">
+</form>

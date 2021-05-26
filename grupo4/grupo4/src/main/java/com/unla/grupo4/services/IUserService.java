@@ -13,5 +13,7 @@ public interface IUserService {
 	
 	public UserModel insertOrUpdate(UserModel userModel);
 	
+	public UserModel findById(int id);
+	
 	public boolean remove(int id);
 }

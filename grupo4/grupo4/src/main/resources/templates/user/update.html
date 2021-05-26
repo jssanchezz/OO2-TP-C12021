@@ -55,7 +55,7 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Administrar Usuarios:</h6>
+                        <h6 class="collapse-header">Administrar usuarios:</h6>
                         <a class="collapse-item" th:href="@{/users/newUser}">New</a>
                         <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
 						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
@@ -86,7 +86,7 @@
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
-                    </button>                 
+                    </button>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -94,6 +94,61 @@
 
                 </nav>
                 <!-- End of Topbar -->
+				
+				<!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+
+                            <!-- Circle Buttons -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Editar Usuario</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Surname</th>
+                                                <th>Dni</th>
+                                                <th>Email</th>
+                                                <th>Username</th>
+												<th>Editar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="user : ${users}">
+												<td><span th:text="${user.name}" /></td>
+												<td><span th:text="${user.surname}" /></td>
+                                                <td><span th:text="${user.dni}" /></td>
+                                                <td><span th:text="${user.email}" /></td>
+                                                <td><span th:text="${user.userName}" /></td>
+												<td>
+													<form id="update" action="#" th:action="@{/users/updateUser/{id}(id=${user.id})}" th:object="${user}" method="get">
+														<a href="#" onclick="document.getElementById('update').submit()" class="btn btn-light btn-icon-split btn-sm">
+															<span class="icon text-gray-600">
+																<i class="fas fa-arrow-right"></i>
+															</span>
+															<span class="text">Editar</span>
+														</a>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
         </div>

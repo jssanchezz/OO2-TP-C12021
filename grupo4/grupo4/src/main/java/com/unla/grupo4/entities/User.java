@@ -54,7 +54,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private TypeDoc typeDoc;
 	
-	@Column(name = "enabled", columnDefinition = "tinyint(1) default 1")
+	@Column(name = "enabled", columnDefinition = "boolean default 1")
 	private boolean enabled;
 	
 	@Column(name="createdat")
@@ -69,9 +69,10 @@ public class User {
 		super();
 	}
 
-	public User(String name, String surname, TypeDoc typeDoc, String dni, String email, String userName, String userPassword,
+	public User(int id, String name, String surname, TypeDoc typeDoc, String dni, String email, String userName, String userPassword,
 			UserRole role) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
