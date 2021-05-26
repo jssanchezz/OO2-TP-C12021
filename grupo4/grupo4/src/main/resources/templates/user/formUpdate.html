@@ -51,11 +51,11 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Perfiles</span>
+                    <span>Usuarios</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Administrar perfiles:</h6>
+                        <h6 class="collapse-header">Administrar usuarios:</h6>
                         <a class="collapse-item" th:href="@{/users/newUser}">New</a>
                         <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
 						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
@@ -99,7 +99,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Usuario</h1>
 
                     <div class="row">
 
@@ -108,34 +108,39 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Eliminar usuario</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Agregar Usuario</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table>
-										<thead>
-											<tr>
-												<th>Username</th>
-												<th>dni</th>
-												<th>Eliminar</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="user : ${users}">
-												<td><span th:text="${user.userName}" /></td>
-												<td><span th:text="${user.dni}" /></td>
-												<td>
-													<form id="#" th:id="*{id}" action="#" th:action="@{/users/deleteUser/{id}(id=${user.id})}" th:object="${user}" method="post">
-														<a href="#" onclick="document.getElementById('id').submit()" class="btn btn-danger btn-icon-split btn-sm">
-															<span class="icon text-white-50">
-																<i class="fas fa-trash"></i>
-															</span>
-															<span class="text">Eliminar</span>
-														</a>
-													</form>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+                                    <form id="save" action="#" th:action="@{/users/newUser}" th:object="${user}" method="post">
+										<p>Name: <input type="text" th:field="*{name}" /></p>
+                                        <p>Surname: <input type="text" th:field="*{surname}" /></p>
+                                        <p>Type
+                                            <select th:field="*{typeDoc}">
+                                                <option th:each="typeDo : ${typeDoc}"
+                                                        th:value="${typeDo}"
+                                                        th:text="${typeDo}">
+                                                </option>
+                                            </select>
+                                        
+                                        Dni: <input type="text" th:field="*{dni}" /></p>
+                                        <p>Email: <input type="text" th:field="*{email}" /></p>
+                                        <p>Username: <input type="text" th:field="*{userName}" /></p>
+                                        <p>Userpassword: <input type="text" th:field="*{userPassword}" /></p>
+                                       
+                                        <p>Role:
+                                             
+                                        <select th:field="*{role}">
+                                            <option th:each="rol : ${roles}" 
+                                                    th:value="${rol.id}"
+                                                    th:text="${rol.role}">
+                                            </option>    
+                                        </select>
+                                    
+                                        </p>
+										<a href="#" onclick="document.getElementById('save').submit()" class="btn btn-success btn-circle">
+											<i class="fas fa-check"></i>
+										</a>
+									</form>
                                 </div>
                             </div>
                         </div>

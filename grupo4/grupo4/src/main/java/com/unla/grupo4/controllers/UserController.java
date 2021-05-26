@@ -69,9 +69,8 @@ public class UserController {
 	
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
-		/*mAV.addObject("roles", userRoleService.getAll());*/
-		UserModel = user = userService.findById(id);
+		ModelAndView mAV = new ModelAndView("user/");
+		mAV.addObject("roles", userRoleService.getAll());
 		mAV.addObject("user", userService.findById(id));
 		mAV.addObject("typeDoc", TypeDoc.values());
 		

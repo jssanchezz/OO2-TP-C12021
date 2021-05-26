@@ -10,7 +10,7 @@ public class ViewRouteHelper {
 	
 	//Redirect
 	public final static String ROUTE_USER_ROOT = "/index";
-	public final static String ROUTE_USER_FORM = "/newUser";
-	public final static String ROUTE_USER_UPDATE = "/update";
-	public final static String ROUTE_USER_DELETE = "/delete";
+	public final static String ROUTE_USER_FORM = "/users/newUser";
+	public final static String ROUTE_USER_UPDATE = "/users/update";
+	public final static String ROUTE_USER_DELETE = "/users/deleteUser";
 }
