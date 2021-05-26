@@ -1,5 +1,13 @@
 package com.unla.grupo4.controllers;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,7 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.lowagie.text.DocumentException;
+import com.unla.grupo4.entities.UserRole;
 import com.unla.grupo4.helpers.ViewRouteHelper;
+import com.unla.grupo4.miscelaneo.UserRolePDFExporter;
 import com.unla.grupo4.models.UserRoleModel;
 import com.unla.grupo4.services.implementation.IUserRoleService;
 
@@ -90,4 +101,20 @@ public class UserRoleController {
 		mAV.addObject("userRoles", userRoleService.getAll());
 		return mAV;
 	}
+	
+	@GetMapping("/exportPDF")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+         
+        List<UserRole> listUserRoles = userRoleService.getAll();
+         
+        UserRolePDFExporter exporter = new UserRolePDFExporter(listUserRoles);
+        exporter.export(response);         
+    }
 }
