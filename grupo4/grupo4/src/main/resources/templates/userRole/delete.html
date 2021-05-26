@@ -117,14 +117,13 @@
 												<td><span th:text="${userRole.id}" /></td>
 												<td><span th:text="${userRole.role}" /></td>
 												<td>
-													<form id="#" th:id="${userRole.role}" action="#" th:action="@{/userRoles/deleteRole/{id}(id=${userRole.id})}" th:object="${userRole}" method="post">
-														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${userRole.role}" class="btn btn-danger btn-icon-split btn-sm">
+													<form id="#" th:id="${userRole.id}" action="#" th:action="@{/userRoles/deleteRole/{id}(id=${userRole.id})}" th:object="${userRole}" method="post">
+														<a onclick="myFunction(id, '¿Esta seguro de eliminar?')" id="#" th:id="${userRole.id}" class="btn btn-danger btn-icon-split btn-sm">
 															<span class="icon text-white-50">
 																<i class="fas fa-trash"></i>
 															</span>
 															<span class="text">Eliminar</span>
-														</a>
-														
+														</a>														
 													</form>
 												</td>
 											</tr>
