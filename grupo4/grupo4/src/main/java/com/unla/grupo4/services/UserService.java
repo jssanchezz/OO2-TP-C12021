@@ -21,15 +21,15 @@ public class UserService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		com.unla.grupo4.entities.User user = userRepository.findByUserName(userName);
+		com.unla.grupo4.entities.User user = userRepository.findByUsernameAndFetchRole(userName);
 		UserBuilder builder = null;
 		
 		if(user != null) {
-			System.out.println("user:"+user.getName());
-			builder = User.withUsername(userName);
+			System.out.println("rol: "+user.getRole().getRole());
+			builder = User.withUsername(user.getUserName());
 			builder.disabled(false);
 			builder.password(user.getUserPassword());
-			builder.authorities(new SimpleGrantedAuthority("ROLE_USER"));
+			builder.authorities(new SimpleGrantedAuthority(user.getRole().getRole()));
 		}
 		else{
 			throw new UsernameNotFoundException("Usuario no encontrado");
