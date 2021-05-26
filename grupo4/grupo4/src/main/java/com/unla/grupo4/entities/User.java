@@ -18,7 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "user_role_id"))
+@Table(name = "user")
 public class User {
 	
 	@Id
@@ -44,7 +44,7 @@ public class User {
 	@Column(name = "user_name", nullable = false, length = 25)
 	private String userName;
 	
-	@Column(name = "user_password", nullable = false, length = 25)
+	@Column(name = "user_password", nullable = false, length = 100)
 	private String userPassword;
 	
 	@Column(name = "type_doc")
