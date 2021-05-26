@@ -13,6 +13,8 @@ import com.unla.grupo4.helpers.ViewRouteHelper;
 
 @Controller
 public class LoginController {
+	
+	
 
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam(name="error", required=false) String error,
