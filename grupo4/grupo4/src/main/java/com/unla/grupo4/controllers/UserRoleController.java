@@ -83,4 +83,11 @@ public class UserRoleController {
 		}
 		return new RedirectView(ViewRouteHelper.USER_ROLE_DELETE_ROOT);
 	}
+	
+	@GetMapping("/listRoles")
+	public ModelAndView listar() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_LIST);
+		mAV.addObject("userRoles", userRoleService.getAll());
+		return mAV;
+	}
 }

@@ -7,6 +7,7 @@ public class ViewRouteHelper {
 		public final static String USER_ROLE_INSERT = "userRole/form";		
 		public final static String USER_ROLE_DELETE = "userRole/delete";
 		public final static String USER_ROLE_UPDATE = "userRole/update";
+		public final static String USER_ROLE_LIST = "userRole/list";
 		
 		public final static String USER_ROLE_ROOT = "/userRoles/";
 		public final static String USER_ROLE_DELETE_ROOT = "/userRoles/deleteRole";
