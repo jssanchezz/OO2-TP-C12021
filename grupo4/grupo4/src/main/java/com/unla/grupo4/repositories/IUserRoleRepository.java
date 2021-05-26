@@ -11,4 +11,6 @@ import com.unla.grupo4.entities.UserRole;
 public interface IUserRoleRepository extends JpaRepository<UserRole, Serializable> {
 	
 	public abstract UserRole findById(int id);
+	
+	public abstract UserRole findByRole(String role);
 }

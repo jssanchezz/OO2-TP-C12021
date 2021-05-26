@@ -11,6 +11,8 @@ public interface IUserRoleService {
 	
 	public UserRole findById(int id);
 	
+	public UserRole findByRole(String role);
+	
 	public UserRoleModel insertOrUpdate(UserRoleModel userRoleModel);
 	
 	public boolean remove(int id);

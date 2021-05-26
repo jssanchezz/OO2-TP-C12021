@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.helpers.ViewRouteHelper;
@@ -26,7 +27,6 @@ public class UserRoleController {
 	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INDEX);
-		mAV.addObject("userRoles", userRoleService.getAll());
 		return mAV;
 	}
 	
@@ -38,9 +38,17 @@ public class UserRoleController {
 	}
 	
 	@PostMapping("/saveRole")
-	public RedirectView save(@ModelAttribute("userRole") UserRoleModel userRoleModel) {
-		userRoleService.insertOrUpdate(userRoleModel);
-		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
+	public RedirectView save(@ModelAttribute("userRole") UserRoleModel userRoleModel, RedirectAttributes attribute) {
+		
+		if(userRoleService.findByRole(userRoleModel.getRole()) == null) {
+			userRoleService.insertOrUpdate(userRoleModel);
+			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+	        attribute.addFlashAttribute("clase", "success");
+		}else {
+			attribute.addFlashAttribute("mensaje", "Perfil ya existente: " + userRoleModel.getRole());
+	        attribute.addFlashAttribute("clase", "warning");
+		}
+		return new RedirectView(ViewRouteHelper.USER_ROLE_INSERT_ROOT);
 	}
 	
 	@GetMapping("/updateRole")
@@ -65,8 +73,14 @@ public class UserRoleController {
 	}
 	
 	@PostMapping("/deleteRole/{id}")
-	public RedirectView deleteRoleById(@PathVariable("id") int id) {
-		userRoleService.remove(id);
-		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
+	public RedirectView deleteRoleById(@PathVariable("id") int id, RedirectAttributes attribute) {
+		if(userRoleService.remove(id)) {
+			attribute.addFlashAttribute("mensaje", "Eliminado correctamente");
+	        attribute.addFlashAttribute("clase", "success");
+		}else {
+			attribute.addFlashAttribute("mensaje", "Perfil no existente");
+	        attribute.addFlashAttribute("clase", "danger");
+		}
+		return new RedirectView(ViewRouteHelper.USER_ROLE_DELETE_ROOT);
 	}
 }
