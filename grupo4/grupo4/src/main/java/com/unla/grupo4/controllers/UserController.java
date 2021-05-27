@@ -1,6 +1,12 @@
 package com.unla.grupo4.controllers;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.lowagie.text.DocumentException;
 import com.unla.grupo4.entities.User;
 import com.unla.grupo4.entities.UserRole;
 import com.unla.grupo4.helpers.ViewRouteHelper;
+import com.unla.grupo4.miscelaneo.UserPDFExporter;
 import com.unla.grupo4.models.TypeDoc;
 import com.unla.grupo4.models.UserModel;
 import com.unla.grupo4.models.UserRoleModel;
@@ -98,6 +106,22 @@ public class UserController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_LIST);
 		mAV.addObject("users", userService.findByEnabled(false));
 		return mAV;
+	}
+	
+	@GetMapping("/exportPDF")
+	public void pdfExporter(HttpServletResponse response)throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+         
+        List<User> listUsers = userService.getAll();
+         
+        UserPDFExporter exporter = new UserPDFExporter(listUsers);
+        exporter.export(response);
 	}
 	
 }
