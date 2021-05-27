@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.entities.User;
+import com.unla.grupo4.entities.UserRole;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.models.TypeDoc;
 import com.unla.grupo4.models.UserModel;
@@ -69,9 +70,11 @@ public class UserController {
 	
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
-		ModelAndView mAV = new ModelAndView("user/");
-		mAV.addObject("roles", userRoleService.getAll());
-		mAV.addObject("user", userService.findById(id));
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE_FORM);
+		List<UserRole> roles = userRoleService.getAll();
+		UserModel user = userService.findById(id);
+		mAV.addObject("roles", roles);
+		mAV.addObject("user", user);
 		mAV.addObject("typeDoc", TypeDoc.values());
 		
 		return mAV;
@@ -87,7 +90,14 @@ public class UserController {
 	@PostMapping("/deleteUser/{id}")
 	public RedirectView deleteUser(@PathVariable("id") int id) {
 		userService.remove(id);
-		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
+		return new RedirectView(ViewRouteHelper.USER_DELETE);
 	}
-
+	
+	@GetMapping("/listUsers")
+	public ModelAndView listsUser() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_LIST);
+		mAV.addObject("users", userService.findByEnabled(false));
+		return mAV;
+	}
+	
 }

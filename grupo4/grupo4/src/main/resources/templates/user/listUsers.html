@@ -59,6 +59,7 @@
                         <a class="collapse-item" th:href="@{/users/newUser}">New</a>
                         <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
 						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">List Users</a>
                     </div>
                 </div>
             </li>
@@ -108,7 +109,7 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Editar Usuario</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Usuarios</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">
@@ -119,7 +120,7 @@
                                                 <th>Dni</th>
                                                 <th>Email</th>
                                                 <th>Username</th>
-												<th>Editar</th>
+												<th>role</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -129,16 +130,7 @@
                                                 <td><span th:text="${user.dni}" /></td>
                                                 <td><span th:text="${user.email}" /></td>
                                                 <td><span th:text="${user.userName}" /></td>
-												<td>
-													<form id="update" action="#" th:action="@{/users/updateUser/{id}(id=${user.id})}" th:object="${user}" method="get">
-														<a href="#" onclick="document.getElementById('update').submit()" class="btn btn-light btn-icon-split btn-sm">
-															<span class="icon text-gray-600">
-																<i class="fas fa-arrow-right"></i>
-															</span>
-															<span class="text">Editar</span>
-														</a>
-													</form>
-												</td>
+                                                <td><span th:text="${user.role.role}" /></td>
 											</tr>
 										</tbody>
 									</table>
