@@ -47,7 +47,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+           <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
                     <i class="fas fa-fw fa-cog"></i>
@@ -102,41 +102,25 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Eliminar perfil</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Agregar perfil</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Id</th>
-												<th>Perfil</th>
-												<th>Eliminar</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="userRole : ${userRoles}">
-												<td><span th:text="${userRole.id}" /></td>
-												<td><span th:text="${userRole.role}" /></td>
-												<td>
-													<form id="#" th:id="${userRole.role}" action="#" th:action="@{/userRoles/deleteRole/{id}(id=${userRole.id})}" th:object="${userRole}" method="post">
-														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${userRole.role}" class="btn btn-danger btn-icon-split btn-sm">
-															<span class="icon text-white-50">
-																<i class="fas fa-trash"></i>
-															</span>
-															<span class="text">Eliminar</span>
-														</a>
-														
-													</form>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									<a th:href="@{/userRoles/}" class="btn btn-warning btn-icon-split">
-										<span class="icon text-white-50">
-											<i class="fas fa-exclamation-triangle"></i>
-										</span>
-										<span class="text">Cancelar</span>
-									</a>
+                                    <form id="save" action="#" th:action="@{/userRoles/saveRole}" th:object="${userRole}" method="post">
+										<p><input type="hidden" th:field="*{id}" /></p>
+										<p>Perfil: <input type="text" th:field="*{role}" /></p>										
+										<a href="#" onclick="document.getElementById('save').submit()" class="btn btn-success btn-icon-split">
+											<span class="icon text-white-50">
+												<i class="fas fa-check"></i>
+											</span>
+											<span class="text">Guardar</span>
+											<a th:href="@{/userRoles/}" class="btn btn-warning btn-icon-split">
+												<span class="icon text-white-50">
+												<i class="fas fa-exclamation-triangle"></i>
+												</span>
+												<span class="text">Cancelar</span>
+											</a>
+										</a>
+									</form>
                                 </div>
                             </div>
                         </div>
