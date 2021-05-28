@@ -13,7 +13,6 @@ import com.unla.grupo4.helpers.ViewRouteHelper;
 @RequestMapping("/")
 public class HomeController {
 	
-	//GET Example: SERVER/index
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.INDEX);
