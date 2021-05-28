@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -48,7 +46,7 @@ public class User {
 	@Column(name = "user_name", nullable = false, length = 25)
 	private String userName;
 	
-	@Column(name = "user_password", nullable = false, length = 25)
+	@Column(name = "user_password", nullable = false, length = 100)
 	private String userPassword;
 	
 	@Enumerated(EnumType.STRING)
