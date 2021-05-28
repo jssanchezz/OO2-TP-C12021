@@ -38,6 +38,26 @@ public class UserService implements IUserService{
 	}
 	
 	@Override
+	public User findByDni(String dni) {
+		return userRepository.findByDni(dni);
+	}
+	
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	@Override
+	public User findByUserName(String username) {
+		return userRepository.findByUserName(username);
+	}
+	
+	@Override
+	public User findByUserPassword(String password) {
+		return userRepository.findByUserPassword(password);
+	}
+	
+	@Override
 	public UserModel insertOrUpdate(UserModel userModel) {
 		User user = userRepository.save(userConverter.modelToEntity(userModel));
 		return userConverter.entityToModel(user);

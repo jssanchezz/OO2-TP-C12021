@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.lowagie.text.DocumentException;
@@ -57,8 +58,25 @@ public class UserController {
 	}
 
 	@PostMapping("/newUser")
-	public RedirectView createUser(@ModelAttribute("user") UserModel userModel) {
+	public RedirectView createUser(@ModelAttribute("user") UserModel userModel, RedirectAttributes attribute) {
 		userModel.setRole(userRoleService.findById(userModel.getRole().getId()));
+		if(userService.findByDni(userModel.getDni()) != null) {
+			attribute.addFlashAttribute("mensaje", "El DNI ya existe");
+	        attribute.addFlashAttribute("clase", "warning");
+		}else if(userService.findByEmail(userModel.getEmail()) != null) {
+			attribute.addFlashAttribute("mensaje", "el Email ya esta tomado");
+	        attribute.addFlashAttribute("clase", "warning");
+		}else if(userService.findByUserName(userModel.getUserName()) != null){
+			attribute.addFlashAttribute("mensaje", "el Usuario ya esta tomado");
+	        attribute.addFlashAttribute("clase", "warning");
+		}
+		else if(userModel.getUserPassword() == null) {
+			attribute.addFlashAttribute("mensaje", "el password es nulo");
+	        attribute.addFlashAttribute("clase", "warning");
+		}else {
+			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+	        attribute.addFlashAttribute("clase", "success");
+		}
 		userService.insertOrUpdate(userModel);
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_FORM);
 	}
@@ -89,8 +107,14 @@ public class UserController {
 	}
 
 	@PostMapping("/deleteUser/{id}")
-	public RedirectView deleteUser(@PathVariable("id") int id) {
-		userService.remove(id);
+	public RedirectView deleteUser(@PathVariable("id") int id, RedirectAttributes attribute) {
+		if(userService.remove(id)) {
+			attribute.addFlashAttribute("mensaje", "Eliminado correctamente");
+	        attribute.addFlashAttribute("clase", "success");
+		}else {
+			attribute.addFlashAttribute("mensaje", "Perfil no existente");
+	        attribute.addFlashAttribute("clase", "danger");
+		}
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
 	}
 	

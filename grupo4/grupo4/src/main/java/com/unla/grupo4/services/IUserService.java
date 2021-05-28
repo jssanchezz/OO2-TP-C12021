@@ -11,6 +11,14 @@ public interface IUserService {
 	
 	public List<User> findByEnabled(boolean enabled);
 	
+	public User findByDni(String dni);
+	
+	public User findByEmail(String email);
+	
+	public User findByUserPassword(String password);
+	
+	public User findByUserName(String username);
+	
 	public UserModel insertOrUpdate(UserModel userModel);
 	
 	public UserModel findById(int id);

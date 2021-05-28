@@ -13,6 +13,12 @@ public interface IUserRepository extends JpaRepository<User, Serializable>{
 	
 	public abstract User findByDni(String dni);
 	
+	public abstract User findByEmail(String email);
+	
+	public abstract User findByUserPassword(String password);
+	
+	public abstract User findByUserName(String username);
+	
 	public abstract User findByTypeDoc(int typeDoc);
 	
 	public abstract List<User> findByEnabled(boolean enabled);
