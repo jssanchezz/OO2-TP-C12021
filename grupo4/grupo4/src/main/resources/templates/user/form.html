@@ -130,11 +130,11 @@
                                        
                                         <p>Role:
                                              
-                                        <select th:field="*{role}">
+                                        <select th:field="*{role.id}">
                                             <option th:each="rol : ${roles}" 
                                                     th:value="${rol.id}"
                                                     th:text="${rol.role}">
-                                            </option>    
+                                            </option>
                                         </select>
                                     
                                         </p>

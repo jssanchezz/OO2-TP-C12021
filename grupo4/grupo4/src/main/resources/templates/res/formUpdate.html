@@ -129,16 +129,11 @@
                                         <p>Userpassword: <input type="text" th:field="*{userPassword}" /></p>
                                        
                                         <p>Role:
-                                            <select id="multiSelectUser"
-                                                    name="multiSelectUser"
-                                                    multiple="multiple" 
-                                                    th:field="*{role}">
-
-                                        
+                                            <select th:field="*{role.id}">
                                             <option th:each="rol : ${roles}" 
                                                     th:value="${rol.id}"
                                                     th:text="${rol.role}">
-                                            </option>    
+                                            </option>
                                         </select>
                                     
                                         </p>

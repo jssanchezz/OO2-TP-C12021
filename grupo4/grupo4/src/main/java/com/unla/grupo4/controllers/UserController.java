@@ -58,6 +58,7 @@ public class UserController {
 
 	@PostMapping("/newUser")
 	public RedirectView createUser(@ModelAttribute("user") UserModel userModel) {
+		userModel.setRole(userRoleService.findById(userModel.getRole().getId()));
 		userService.insertOrUpdate(userModel);
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_FORM);
 	}
@@ -69,13 +70,6 @@ public class UserController {
 		return mAV;
 	}
 	
-	@GetMapping("/updateUser/{id}/modUser}")
-	public ModelAndView updateForm(@PathVariable("id") int id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
-		mAV.addObject("user", userService.findById(id));
-		return mAV;
-	}
-	
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE_FORM);
@@ -83,8 +77,7 @@ public class UserController {
 		UserModel user = userService.findById(id);
 		mAV.addObject("roles", roles);
 		mAV.addObject("user", user);
-		mAV.addObject("typeDoc", TypeDoc.values());
-		
+		mAV.addObject("typeDoc", TypeDoc.values());		
 		return mAV;
 	}
 
@@ -98,7 +91,7 @@ public class UserController {
 	@PostMapping("/deleteUser/{id}")
 	public RedirectView deleteUser(@PathVariable("id") int id) {
 		userService.remove(id);
-		return new RedirectView(ViewRouteHelper.USER_DELETE);
+		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
 	}
 	
 	@GetMapping("/listUsers")

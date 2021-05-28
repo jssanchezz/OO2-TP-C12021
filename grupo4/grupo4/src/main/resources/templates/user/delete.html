@@ -124,14 +124,14 @@
 											<tr th:each="user : ${users}">
 												<td><span th:text="${user.userName}" /></td>
 												<td><span th:text="${user.dni}" /></td>
-												<td>
-													<form id='delete' action="#" th:action="@{/users/deleteUser/{id}(id=${user.id})}" th:object="${user}" method="post">
-														<a href="#" th:ref="/users/deleteUser/{id}(id=${user.id})" onclick="document.getElementById('delete').submit()" class="btn btn-danger btn-icon-split btn-sm">
+												<td>										
+													<form id="#" th:id="${user.id}" action="#" th:action="@{/users/deleteUser/{id}(id=${user.id})}" th:object="${user}" method="post">
+														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${user.id}" class="btn btn-danger btn-icon-split btn-sm">
 															<span class="icon text-white-50">
 																<i class="fas fa-trash"></i>
 															</span>
 															<span class="text">Eliminar</span>
-														</a>
+														</a>														
 													</form>
 												</td>
 											</tr>
@@ -173,6 +173,15 @@
     <!-- Page level custom scripts -->
     <script src="/js/demo/chart-area-demo.js"></script>
     <script src="/js/demo/chart-pie-demo.js"></script>
+    
+    <script>
+	function myFunction(id, mensaje) {
+	  var r = confirm(mensaje)
+	  if (r == true) {
+			document.getElementById(id).submit()
+		}
+	}
+	</script>
 
 </body>
 

@@ -30,7 +30,7 @@ public class UserModel {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role = role;
-		this.typeDoc = null;
+		this.typeDoc = typeDoc;
 	}
 
 	
