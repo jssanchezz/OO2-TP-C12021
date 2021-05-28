@@ -1,10 +1,6 @@
 package com.unla.grupo4.models;
 
-enum TypeDoc {
-	DNI,
-	LE,
-	LC
-}
+
 
 public class UserModel {
 	
@@ -12,7 +8,7 @@ public class UserModel {
 	private String name;
 	private String surname;
 	private String dni;
-	private String Email;
+	private String email;
 	private String userName;
 	private String userPassword;
 	private UserRoleModel role;
@@ -23,18 +19,23 @@ public class UserModel {
 		super();
 	}
 
-	public UserModel(String name, String surname, String dni, String email, String userName, String userPassword,
+	public UserModel(int id,String name, String surname, TypeDoc typeDoc,String dni, String email, String userName, String userPassword,
 			UserRoleModel role) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
-		this.Email = email;
+		this.email = email;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role = role;
+		this.typeDoc = null;
 	}
 
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -68,11 +69,11 @@ public class UserModel {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getUserName() {
@@ -106,5 +107,20 @@ public class UserModel {
 	public void setTypeDoc(TypeDoc typeDoc) {
 		this.typeDoc = typeDoc;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.id == ((UserModel)obj).getId();
+	}
+	
+	
 	
 }

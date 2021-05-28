@@ -38,7 +38,6 @@ public class UserRole {
 	public UserRole() { }
 
 	public UserRole(int id, String role) {
-		super();
 		this.id = id;
 		this.role = role;
 	}
@@ -57,5 +56,24 @@ public class UserRole {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return role;
 	}	
+	
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.id == ((UserRole)obj).id;
+    }
+	
 }

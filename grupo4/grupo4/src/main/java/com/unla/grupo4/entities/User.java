@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +18,11 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.unla.grupo4.models.TypeDoc;
+
 
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "user_role_id"))
+@Table(name = "user")
 public class User {
 	
 	@Id
@@ -39,7 +43,7 @@ public class User {
 	private String dni;
 	
 	@Column(name = "email", nullable = false, length = 70)
-	private String Email;
+	private String email;
 	
 	@Column(name = "user_name", nullable = false, length = 25)
 	private String userName;
@@ -47,8 +51,11 @@ public class User {
 	@Column(name = "user_password", nullable = false, length = 25)
 	private String userPassword;
 	
-	@Column(name = "type_doc")
-	private int typeDoc;
+	@Enumerated(EnumType.STRING)
+	private TypeDoc typeDoc;
+	
+	@Column(name = "enabled", columnDefinition = "boolean default 1")
+	private boolean enabled;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -62,16 +69,18 @@ public class User {
 		super();
 	}
 
-	public User(String name, String surname, String dni, String email, String userName, String userPassword,
+	public User(int id, String name, String surname, TypeDoc typeDoc, String dni, String email, String userName, String userPassword,
 			UserRole role) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
-		this.Email = email;
+		this.email = email;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role = role;
+		this.typeDoc = typeDoc;
 	}
 
 	public int getId() {
@@ -107,11 +116,11 @@ public class User {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getUserName() {
@@ -138,12 +147,35 @@ public class User {
 		this.role = role;
 	}
 
-	public int getTypeDoc() {
+	public TypeDoc getTypeDoc() {
 		return typeDoc;
 	}
 
-	public void setTypeDoc(int typeDoc) {
+	public void setTypeDoc(TypeDoc typeDoc) {
 		this.typeDoc = typeDoc;
 	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.id == ((User)obj).getId();
+	}
+	
+	
 	
 }
