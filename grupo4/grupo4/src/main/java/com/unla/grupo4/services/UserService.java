@@ -25,7 +25,6 @@ public class UserService implements UserDetailsService{
 		UserBuilder builder = null;
 		
 		if(user != null) {
-			System.out.println("rol: "+user.getRole().getRole());
 			builder = User.withUsername(user.getUserName());
 			builder.disabled(false);
 			builder.password(user.getUserPassword());
