@@ -62,13 +62,13 @@ public class UserController {
 	@PostMapping("/newUser")
 	public RedirectView createUser(@ModelAttribute("user") UserModel userModel, RedirectAttributes attribute) {
 		userModel.setRole(userRoleService.findById(userModel.getRole().getId()));
-		if(userService.findByDni(userModel.getDni()) != null) {
+		if(userService.findByDni(userModel.getDni()) != null && userService.findById(userModel.getId()) != null) {
 			attribute.addFlashAttribute("mensaje", "El DNI ya existe");
 	        attribute.addFlashAttribute("clase", "warning");
-		}else if(userService.findByEmail(userModel.getEmail()) != null) {
+		}else if(userService.findByEmail(userModel.getEmail()) != null && userService.findById(userModel.getId()) != null) {
 			attribute.addFlashAttribute("mensaje", "el Email ya esta tomado");
 	        attribute.addFlashAttribute("clase", "warning");
-		}else if(userService.findByUserName(userModel.getUserName()) != null){
+		}else if(userService.findByUserName(userModel.getUserName()) != null && userService.findById(userModel.getId()) != null){
 			attribute.addFlashAttribute("mensaje", "el Usuario ya esta tomado");
 	        attribute.addFlashAttribute("clase", "warning");
 		}
