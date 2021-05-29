@@ -73,10 +73,10 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Administrar Usuarios:</h6>
-                        <a class="collapse-item" th:href="@{/users/newUser}">New</a>
-                        <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
-						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
-                        <a class="collapse-item" th:href="@{/users/listUsers}">List Users</a>
+                        <a class="collapse-item" th:href="@{/users/newUser}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/users/updateUser}">Editar</a>
+						<a class="collapse-item" th:href="@{/users/deleteUser}">Eliminar</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">Lista de usuarios</a>
                     </div>
                 </div>
             </li>
@@ -135,7 +135,7 @@
 
                     <div class="row1">
 
-                        <div class="col-lg-6">
+                        <div class="modified-table">
 
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
@@ -146,12 +146,12 @@
                                     <table class="table table-bordered">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Surname</th>
+												<th>Nombre</th>
+												<th>Apellido</th>
                                                 <th>Dni</th>
                                                 <th>Email</th>
-                                                <th>Username</th>
-												<th>role</th>
+                                                <th>Nombre de Usuario</th>
+												<th>Rol</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -165,7 +165,7 @@
 											</tr>
 										</tbody>
 									</table>
-                                <a th:href="@{/users/exportPDF}" class="btn btn-secondary btn-icon-split">Download PDF</a>
+                                <a th:href="@{/users/exportPDF}" class="btn btn-secondary btn-icon-split">Descargar PDF</a>
                                 </div>
                             </div>
                         </div>

@@ -73,10 +73,10 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Administrar Usuarios:</h6>
-                        <a class="collapse-item" th:href="@{/users/newUser}">New</a>
-                        <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
-						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
-                        <a class="collapse-item" th:href="@{/users/listUsers}">List Users</a>
+                        <a class="collapse-item" th:href="@{/users/newUser}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/users/updateUser}">Editar</a>
+						<a class="collapse-item" th:href="@{/users/deleteUser}">Eliminar</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">Lista de usarios</a>
                     </div>
                 </div>
             </li>
@@ -144,9 +144,9 @@
                                 </div>
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/users/newUser}" th:object="${user}" method="post">
-										<p>Name: <input type="text" th:field="*{name}" /></p>
-                                        <p>Surname: <input type="text" th:field="*{surname}" /></p>
-                                        <p>Type
+										<p>Nombre: <input type="text" th:field="*{name}" /></p>
+                                        <p>Apellido: <input type="text" th:field="*{surname}" /></p>
+                                        <p>Tipo
                                             <select th:field="*{typeDoc}">
                                                 <option th:each="typeDo : ${typeDoc}"
                                                         th:value="${typeDo}"
@@ -156,10 +156,10 @@
                                         
                                         Dni: <input type="text" th:field="*{dni}" /></p>
                                         <p>Email: <input type="text" th:field="*{email}" /></p>
-                                        <p>Username: <input type="text" th:field="*{userName}" /></p>
-                                        <p>Userpassword: <input type="text" th:field="*{userPassword}" /></p>
+                                        <p>Nombre de usuario: <input type="text" th:field="*{userName}" /></p>
+                                        <p>Clave: <input type="password" th:field="*{userPassword}" /></p>
                                        
-                                        <p>Role:
+                                        <p>Rol:
                                              
                                         <select th:field="*{role.id}">
                                             <option th:each="rol : ${roles}" 

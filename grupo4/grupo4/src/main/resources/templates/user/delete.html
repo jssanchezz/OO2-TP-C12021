@@ -73,10 +73,10 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Administrar Usuarios:</h6>
-                        <a class="collapse-item" th:href="@{/users/newUser}">New</a>
-                        <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
-						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
-                        <a class="collapse-item" th:href="@{/users/listUsers}">List Users</a>
+                        <a class="collapse-item" th:href="@{/users/newUser}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/users/updateUser}">Editar</a>
+						<a class="collapse-item" th:href="@{/users/deleteUser}">Eliminar</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">Lista de Usuarios</a>
                     </div>
                 </div>
             </li>
@@ -133,9 +133,9 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
 
-                    <div class="row">
+                    <div class="row1">
 
-                        <div class="col-lg-6">
+                        <div class="modified-table">
 
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
@@ -143,18 +143,24 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Eliminar usuario</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table>
+                                    <table class="table table-bordered">
 										<thead>
 											<tr>
-												<th>Username</th>
-												<th>dni</th>
+												<th>Nombre</th>
+												<th>Apellido</th>
+                                                <th>Dni</th>
+                                                <th>Email</th>
+                                                <th>Nombre de Usuario</th>
 												<th>Eliminar</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="user : ${users}">
-												<td><span th:text="${user.userName}" /></td>
-												<td><span th:text="${user.dni}" /></td>
+                                            <tr th:each="user : ${users}">
+												<td><span th:text="${user.name}" /></td>
+												<td><span th:text="${user.surname}" /></td>
+                                                <td><span th:text="${user.dni}" /></td>
+                                                <td><span th:text="${user.email}" /></td>
+                                                <td><span th:text="${user.userName}" /></td>
 												<td>										
 													<form id="#" th:id="${user.id}" action="#" th:action="@{/users/deleteUser/{id}(id=${user.id})}" th:object="${user}" method="post">
 														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${user.id}" class="btn btn-danger btn-icon-split btn-sm">
