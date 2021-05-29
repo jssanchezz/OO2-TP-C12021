@@ -49,7 +49,8 @@ public class UserController {
 	public String index() {
 		return ViewRouteHelper.USER_INDEX;
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/newUser")
 	public ModelAndView form() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
@@ -58,7 +59,8 @@ public class UserController {
 		mAV.addObject("user", new UserModel());
 		return mAV;
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/newUser")
 	public RedirectView createUser(@ModelAttribute("user") UserModel userModel, RedirectAttributes attribute) {
 		userModel.setRole(userRoleService.findById(userModel.getRole().getId()));
@@ -84,7 +86,8 @@ public class UserController {
 		userService.insertOrUpdate(userModel);
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_FORM);
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateUser")
 	public ModelAndView update() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
@@ -92,6 +95,7 @@ public class UserController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE_FORM);
@@ -102,14 +106,16 @@ public class UserController {
 		mAV.addObject("typeDoc", TypeDoc.values());		
 		return mAV;
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/deleteUser")
 	public ModelAndView delete() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_DELETE);
 		mAV.addObject("users", userService.findByEnabled(true));
 		return mAV;
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/deleteUser/{id}")
 	public RedirectView deleteUser(@PathVariable("id") int id, RedirectAttributes attribute) {
 		if(userService.remove(id)) {
@@ -121,6 +127,7 @@ public class UserController {
 		}
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
 	}
+	
 	
 	@GetMapping("/listUsers")
 	public ModelAndView listsUser() {

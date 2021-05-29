@@ -50,6 +50,7 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/saveRole")
 	public RedirectView save(@ModelAttribute("userRole") UserRoleModel userRoleModel, RedirectAttributes attribute) {
 		
@@ -64,6 +65,7 @@ public class UserRoleController {
 		return new RedirectView(ViewRouteHelper.USER_ROLE_INSERT_ROOT);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateRole")
 	public ModelAndView updateRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_UPDATE);
@@ -71,6 +73,7 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateRole/{id}")
 	public ModelAndView updateRoleById(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
@@ -78,6 +81,7 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/deleteRole")
 	public ModelAndView deleteRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_DELETE);
@@ -85,6 +89,7 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/deleteRole/{id}")
 	public RedirectView deleteRoleById(@PathVariable("id") int id, RedirectAttributes attribute) {
 		if(userRoleService.remove(id)) {
