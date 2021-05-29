@@ -80,10 +80,10 @@ public class UserController {
 		}else {
 			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
 	        attribute.addFlashAttribute("clase", "success");
+	        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+	        userModel.setUserPassword(pe.encode(userModel.getUserPassword()));
+	        userService.insertOrUpdate(userModel);
 		}
-		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		userModel.setUserPassword(pe.encode(userModel.getUserPassword()));
-		userService.insertOrUpdate(userModel);
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_FORM);
 	}
 	
@@ -146,7 +146,7 @@ public class UserController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
          
-        List<User> listUsers = userService.getAll();
+        List<User> listUsers = userService.findByEnabled(true);
          
         UserPDFExporter exporter = new UserPDFExporter(listUsers);
         exporter.export(response);
