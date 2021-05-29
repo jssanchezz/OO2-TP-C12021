@@ -88,7 +88,7 @@ public class UserController {
 	@GetMapping("/updateUser")
 	public ModelAndView update() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
-		mAV.addObject("users", userService.findByEnabled(false));
+		mAV.addObject("users", userService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -106,7 +106,7 @@ public class UserController {
 	@GetMapping("/deleteUser")
 	public ModelAndView delete() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_DELETE);
-		mAV.addObject("users", userService.findByEnabled(false));
+		mAV.addObject("users", userService.findByEnabled(true));
 		return mAV;
 	}
 
@@ -125,7 +125,7 @@ public class UserController {
 	@GetMapping("/listUsers")
 	public ModelAndView listsUser() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_LIST);
-		mAV.addObject("users", userService.findByEnabled(false));
+		mAV.addObject("users", userService.findByEnabled(true));
 		return mAV;
 	}
 	

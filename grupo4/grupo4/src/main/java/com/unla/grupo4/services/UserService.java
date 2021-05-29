@@ -71,7 +71,7 @@ public class UserService implements IUserService, UserDetailsService{
 	@Override
 	public boolean remove(int id) {
 		try {
-			userRepository.findById(id).get().setEnabled(true);
+			userRepository.findById(id).get().setEnabled(false);
 			userRepository.save(userRepository.findById(id).get());
 			return true;
 		}catch (Exception e) {

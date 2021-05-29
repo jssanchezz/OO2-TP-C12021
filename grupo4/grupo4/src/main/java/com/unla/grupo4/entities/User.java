@@ -52,8 +52,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private TypeDoc typeDoc;
 	
-	@Column(name = "enabled", columnDefinition = "boolean default 1")
-	private boolean enabled;
+	@Column(name = "enabled", columnDefinition = "boolean default true")
+	private boolean enabled = true;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
