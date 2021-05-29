@@ -47,23 +47,39 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item"> -->
-                <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" -->
-                    <!-- aria-expanded="true" aria-controls="collapseFour"> -->
-                    <!-- <i class="fas fa-fw fa-cog"></i> -->
-                    <!-- <span>Perfiles</span> -->
-                <!-- </a> -->
-                <!-- <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar"> -->
-                    <!-- <div class="bg-white py-2 collapse-inner rounded"> -->
-                        <!-- <h6 class="collapse-header">Administrar perfiles:</h6> -->
-                        <!-- <a class="collapse-item" th:href="@{/userRoles/newRole}">Agregar</a> -->
-                        <!-- <a class="collapse-item" th:href="@{/userRoles/updateRole}">Editar</a> -->
-						<!-- <a class="collapse-item" th:href="@{/userRoles/deleteRole}">Eliminar</a> -->
-						<!-- <a class="collapse-item" th:href="@{/userRoles/listRoles}">Listar</a> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-            <!-- </li> -->
-
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administrar perfiles</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Administrar perfiles:</h6>
+                        <a class="collapse-item" th:href="@{/userRoles/newRole}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/userRoles/updateRole}">Editar</a>
+						<a class="collapse-item" th:href="@{/userRoles/deleteRole}">Eliminar</a>
+						<a class="collapse-item" th:href="@{/userRoles/listRoles}">Listar</a>
+                    </div>
+                </div>                
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administrar usuarios</span>
+                </a>                
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Administrar Usuarios:</h6>
+                        <a class="collapse-item" th:href="@{/users/newUser}">New</a>
+                        <a class="collapse-item" th:href="@{/users/updateUser}">Edit</a>
+						<a class="collapse-item" th:href="@{/users/deleteUser}">Delete</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">List Users</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

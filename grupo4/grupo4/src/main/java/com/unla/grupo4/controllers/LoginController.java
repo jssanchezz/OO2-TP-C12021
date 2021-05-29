@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 
 @Controller
-public class LoginController {
-	
-	
+public class LoginController {	
 
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam(name="error", required=false) String error,
@@ -28,9 +26,4 @@ public class LoginController {
 	public String loginChech() {
 		return "redirect:/index";
 	}
-	
-	/*@GetMapping("/olvidemicontraseña")
-	public String olvidoContraseña() {
-		return ViewRouteHelper.OLVIDOCONTRASEÑA;
-	}*/
 }

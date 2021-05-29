@@ -11,13 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 
 @Controller
-@PreAuthorize("hasRole('administrador')")
-@RequestMapping("/prueba")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/")
 public class IndexController {
 	
-	@GetMapping("/")
+	@GetMapping("/index")
 	public ModelAndView index() {
-		ModelAndView mav= new ModelAndView(ViewRouteHelper.INDEX2);
+		ModelAndView mav= new ModelAndView(ViewRouteHelper.INDEX);
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mav.addObject("username", user.getPassword());
 		return mav;

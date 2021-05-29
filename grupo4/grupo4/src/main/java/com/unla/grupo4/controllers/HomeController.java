@@ -13,7 +13,7 @@ import com.unla.grupo4.helpers.ViewRouteHelper;
 @RequestMapping("/")
 public class HomeController {
 	
-	@GetMapping("/index")
+	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.INDEX);
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

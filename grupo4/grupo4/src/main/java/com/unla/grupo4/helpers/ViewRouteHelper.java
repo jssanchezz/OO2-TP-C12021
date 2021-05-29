@@ -2,6 +2,11 @@ package com.unla.grupo4.helpers;
 
 public class ViewRouteHelper {
 	
+	//Login
+		public final static String LOGIN = "login/login";
+		public final static String LOGOUT ="login/logout";
+		public final static String INDEX ="home/index";
+	
 	//User
 		//Views
 		public final static String USER_INDEX = "user/index";

@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo4.converters.UserConverter;
@@ -12,7 +17,7 @@ import com.unla.grupo4.models.UserModel;
 import com.unla.grupo4.repositories.IUserRepository;
 
 @Service("userService")
-public class UserService implements IUserService{
+public class UserService implements IUserService, UserDetailsService{
 	
 	@Autowired
 	@Qualifier("userRepository")
@@ -74,4 +79,20 @@ public class UserService implements IUserService{
 		}
 	}
 	
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		com.unla.grupo4.entities.User user = userRepository.findByUsernameAndFetchRole(userName);
+		UserBuilder builder = null;
+		
+		if(user != null) {
+			builder = org.springframework.security.core.userdetails.User.withUsername(user.getUserName());
+			builder.disabled(false);
+			builder.password(user.getUserPassword());
+			builder.authorities(new SimpleGrantedAuthority(user.getRole().getRole()));
+		}
+		else{
+			throw new UsernameNotFoundException("Usuario no encontrado");
+		}
+		return builder.build();
+	}
 }
