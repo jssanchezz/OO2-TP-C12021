@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/")
 public class IndexController {
 	

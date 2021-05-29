@@ -29,7 +29,6 @@ import com.unla.grupo4.models.UserRoleModel;
 import com.unla.grupo4.services.IUserRoleService;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/userRoles")
 public class UserRoleController {
 	
@@ -43,6 +42,7 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/newRole")
 	public ModelAndView newRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
