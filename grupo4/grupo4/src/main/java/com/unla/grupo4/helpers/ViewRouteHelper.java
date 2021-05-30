@@ -34,4 +34,10 @@ public class ViewRouteHelper {
 		public final static String USER_ROLE_ROOT = "/userRoles/";
 		public final static String USER_ROLE_DELETE_ROOT = "/userRoles/deleteRole";
 		public final static String USER_ROLE_INSERT_ROOT = "/userRoles/newRole";
+		
+	//Rodado
+		//Views
+		public final static String RODADO_INSERT = "rodado/rodado";
+		//Redirects
+		public final static String RODADO_ROOT = "/rodado/newRodado";
 }

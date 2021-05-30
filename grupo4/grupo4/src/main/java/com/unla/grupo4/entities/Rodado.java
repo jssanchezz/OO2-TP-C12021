@@ -18,7 +18,7 @@ public class Rodado {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idRodado;
+	private int id;
 	
 	@Column(name = "dominio", nullable = false, length = 7)
 	private String dominio;
@@ -36,19 +36,19 @@ public class Rodado {
 	
 	public Rodado() {}
 
-	public Rodado(int idRodado, String dominio, String vehiculo) {
+	public Rodado(int id, String dominio, String vehiculo) {
 		super();
-		this.idRodado = idRodado;
+		this.id = id;
 		this.dominio = dominio;
 		this.vehiculo = vehiculo;
 	}
 
-	public int getIdRodado() {
-		return idRodado;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdRodado(int idRodado) {
-		this.idRodado = idRodado;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDominio() {
@@ -71,12 +71,12 @@ public class Rodado {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idRodado;
+		result = prime * result + id;
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.idRodado == ((Rodado)obj).getIdRodado();
+		return this.id == ((Rodado)obj).getId();
 	}	
 }
