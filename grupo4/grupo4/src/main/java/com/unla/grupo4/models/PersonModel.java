@@ -2,7 +2,7 @@ package com.unla.grupo4.models;
 
 public class PersonModel {
 	
-	private int idPerson;
+	private int id;
 	private String name;
 	private String surname;
 	private long dni;
@@ -11,20 +11,20 @@ public class PersonModel {
 		super();
 	}
 
-	public PersonModel(int idPerson, String name, String surname, long dni) {
+	public PersonModel(int id, String name, String surname, long dni) {
 		super();
-		this.idPerson = idPerson;
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
 	}
 
-	public int getIdPerson() {
-		return idPerson;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -55,18 +55,18 @@ public class PersonModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idPerson;
+		result = prime * result + id;
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.idPerson == ((PersonModel)obj).getIdPerson();
+		return this.id == ((PersonModel)obj).getId();
 	}
 
 	@Override
 	public String toString() {
-		return "Person [idPerson=" + idPerson + ", name=" + name + ", surname=" + surname + ", dni=" + dni + "]";
+		return "Person [idPerson=" + id + ", name=" + name + ", surname=" + surname + ", dni=" + dni + "]";
 	}
 	
 }

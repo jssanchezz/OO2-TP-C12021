@@ -13,7 +13,7 @@ public class Person {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPerson;
+	private int id;
 	
 	@Column(name = "name", length = 45, nullable = false)
 	private String name;
@@ -21,27 +21,27 @@ public class Person {
 	@Column(name = "surname", length = 45, nullable = false)
 	private String surname;
 	
-	@Column(name = "dni", length = 8, nullable = false)
+	@Column(name = "dni", length = 8)
 	private long dni;
 	
 	public Person() {
 		super();
 	}
 
-	public Person(int idPerson, String name, String surname, long dni) {
+	public Person(int id, String name, String surname, long dni) {
 		super();
-		this.idPerson = idPerson;
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
 	}
 
-	public int getIdPerson() {
-		return idPerson;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -72,18 +72,18 @@ public class Person {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idPerson;
+		result = prime * result + id;
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.idPerson == ((Person)obj).getIdPerson();
+		return this.id == ((Person)obj).getId();
 	}
 
 	@Override
 	public String toString() {
-		return "Person [idPerson=" + idPerson + ", name=" + name + ", surname=" + surname + ", dni=" + dni + "]";
+		return "Person [idPerson=" + id + ", name=" + name + ", surname=" + surname + ", dni=" + dni + "]";
 	}
 	
 }
