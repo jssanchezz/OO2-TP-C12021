@@ -40,4 +40,9 @@ public class ViewRouteHelper {
 		public final static String RODADO_INSERT = "rodado/rodado";
 		//Redirects
 		public final static String RODADO_ROOT = "/rodado/newRodado";
+		
+	//Permiso
+		public final static String PERMISO_DIARIO_NEW = "permiso/permiso";
+		
+		public final static String PERMISO_DIARIO_ROOT = "/permiso/newPermisoDiario";
 }

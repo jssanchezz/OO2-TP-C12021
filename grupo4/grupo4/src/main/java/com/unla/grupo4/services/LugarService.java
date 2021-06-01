@@ -1,5 +1,7 @@
 package com.unla.grupo4.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,11 @@ public class LugarService implements ILugarService{
 	public LugarModel insertOrUpdate(LugarModel lugarModel) {
 		Lugar lugar = lugarRepository.save(lugarConverter.modelToEntity(lugarModel));
 		return lugarConverter.entityToModel(lugar);
+	}
+
+	@Override
+	public List<Lugar> getAll() {
+		return lugarRepository.findAll();
 	}
 	
 }
