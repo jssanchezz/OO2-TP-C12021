@@ -16,6 +16,7 @@ import com.unla.grupo4.models.PermisoDiarioModel;
 import com.unla.grupo4.services.ILugarService;
 import com.unla.grupo4.services.IPermisoDiarioService;
 import com.unla.grupo4.services.IPermisoPeriodoService;
+import com.unla.grupo4.services.IPersonService;
 
 @Controller
 @RequestMapping("/permiso")
@@ -33,14 +34,15 @@ public class PermisoController {
 	@Qualifier("lugarService")
 	private ILugarService lugarService;
 	
-	/*@Autowired
-	@Qualifier("personaService")
-	private IPersonService personService;*/
+	@Autowired
+	@Qualifier("personService")
+	private IPersonService personService;
 	
 	@GetMapping("/newPermisoDiario")
 	public ModelAndView nuevoPermisoDiario() {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
-		//mav.addObject("lugar", );
+		mav.addObject("lugares", lugarService.getAll());
+		mav.addObject("personas", personService.getAll());
 		mav.addObject("permisoDiario", new PermisoDiario());
 		return mav;
 	}

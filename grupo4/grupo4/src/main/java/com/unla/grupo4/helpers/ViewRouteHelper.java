@@ -47,4 +47,11 @@ public class ViewRouteHelper {
 		
 		//Redirects
 		public final static String ROUTE_PERSON_FORM = "/persons/newPerson";
+		
+	//Permiso
+		//Views
+		public final static String PERMISO_DIARIO_NEW = "permiso/newPermisoDiario";
+		
+		//Redirects
+		public final static String PERMISO_DIARIO_ROOT = "/permiso/permiso";
 }

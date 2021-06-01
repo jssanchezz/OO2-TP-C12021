@@ -108,14 +108,43 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Alta rodado</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
                                 </div>
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/permiso/permisoDiarioProcess}" th:object="${permisoDiario}" method="post">
-                                    	<p>Persona: <input type="text" th:field="*{persona.id}"/></p>
-                                    	<p>Fecha: <input type="text" th:field="*{fecha}" /></p>
-                                    	<p>Desde: <input type="text" th:field="*{lugar[1].id}" /></p>
-                                    	<p>Hasta: <input type="text" th:field="*{lugar[2]}.id}" /></p>
+                                    	<p>Persona:
+                                             
+                                        <select th:field="*{person.id}">
+                                            <option th:each="persona : ${personas}" 
+                                                    th:value="${persona.id}"
+                                                    th:text="${persona.name}">
+                                            </option>
+                                        </select>
+                                    
+                                        </p>
+                                    	
+                                    	<p>Desde:
+                                             
+                                        <select th:field="*{lugar.id}">
+                                            <option th:each="lugar1 : ${lugares}" 
+                                                    th:value="${lugar1.id}"
+                                                    th:text="${lugar1.lugar}">
+                                            </option>
+                                        </select>
+                                    
+                                        </p>
+                                        
+                                        <p>Hasta:
+                                             
+                                        <select th:field="*{lugar.id}">
+                                            <option th:each="lugar : ${lugares}" 
+                                                    th:value="${lugar.id}"
+                                                    th:text="${lugar.lugar}">
+                                            </option>
+                                        </select>
+                                    
+                                        </p>
+                                    	
                                     	<p>Fecha: <input type="text" th:field="*{fecha}" /></p>
                                     	<p>Motivo: <input type="text" th:field="*{motivo}" /></p>
 										
