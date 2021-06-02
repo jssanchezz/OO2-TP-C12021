@@ -11,7 +11,7 @@ import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.models.LugarModel;
 import com.unla.grupo4.repositories.ILugarRepository;
 
-@Service
+@Service("lugarService")
 public class LugarService implements ILugarService{
 
 	@Autowired

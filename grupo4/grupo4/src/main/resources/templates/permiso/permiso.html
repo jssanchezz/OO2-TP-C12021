@@ -122,26 +122,25 @@
 											</select>
 
 										</p>
-
-										<div th:object="${desde}">
-											<p>Desde:
-												<select id="desde" th:field="*{id}" name="desde">
-													<option th:each="lugar: ${lugares}" th:value="${lugar.id}"
-														th:text="${lugar.lugar}">
-													</option>
-												</select>
-											</p>
-										</div>
-										<div th:object="${hasta}">
-											<p>Hasta:
-												<select id="hasta" th:field="*{id}" name="hasta">
-													<option th:each="lugar : ${lugares}" 
+										
+										<p>Desde:										
+											<select name="idDesde">
+												<option th:each="lugar : ${lugares}" 
 														th:value="${lugar.id}"
 														th:text="${lugar.lugar}">
-													</option>
-												</select>
-											</p>
-										</div>
+												</option>
+											</select>
+										</p>
+										
+										<p>Hasta:
+											<select name="idHasta">
+												<option 
+													th:each="lugar : ${lugares}" 
+													th:value="${lugar.id}"
+													th:text="${lugar.lugar}">
+												</option>
+											</select>
+										</p>
 
 										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
 										<p>Motivo: <input type="text" th:field="*{motivo}" /></p>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,17 +50,15 @@ public class PermisoController {
 		mav.addObject("lugares", lugarService.getAll());
 		mav.addObject("personas", personService.getAll());
 		mav.addObject("permisoDiario", new PermisoDiario());
-		mav.addObject("desde", new LugarModel());
-		mav.addObject("hasta", new LugarModel());
 		return mav;
 	}
 	
 	@PostMapping("/permisoDiarioProcess")
-	public RedirectView toNuevoPermisoDiario(@ModelAttribute("permisoDiario") PermisoDiarioModel permisoDiarioModel, 
-			@ModelAttribute("desde") LugarModel desde, @ModelAttribute("hasta") LugarModel hasta) {
+	public RedirectView toNuevoPermisoDiario(@ModelAttribute("permisoDiario") PermisoDiarioModel permisoDiarioModel,
+											 @RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta) {
 		Set<Lugar> lugares = new HashSet<Lugar>();
-		lugares.add(lugarService.findById(desde.getId()));
-		lugares.add(lugarService.findById(hasta.getId()));
+		lugares.add(lugarService.findById(idDesde));
+		lugares.add(lugarService.findById(idHasta));
 		permisoDiarioModel.setDesdeHasta(lugares);
 		permisoDiarioService.insertOrUpdate(permisoDiarioModel);
 		return new RedirectView(ViewRouteHelper.PERMISO_DIARIO_ROOT);
