@@ -32,5 +32,10 @@ public class LugarService implements ILugarService{
 	public List<Lugar> getAll() {
 		return lugarRepository.findAll();
 	}
+
+	@Override
+	public Lugar findById(int id) {
+		return lugarRepository.findById(id);
+	}
 	
 }

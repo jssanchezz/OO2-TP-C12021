@@ -53,8 +53,8 @@ public class Lugar {
 	public String getLugar() {
 		return lugar;
 	}
-
-	public void setName(String lugar) {
+	
+	public void setLugar(String lugar) {
 		this.lugar = lugar;
 	}
 
@@ -64,7 +64,7 @@ public class Lugar {
 
 	public void setCodigoPostal(String codigoPostal) {
 		this.codigoPostal = codigoPostal;
-	}
+	}	
 
 	@Override
 	public int hashCode() {

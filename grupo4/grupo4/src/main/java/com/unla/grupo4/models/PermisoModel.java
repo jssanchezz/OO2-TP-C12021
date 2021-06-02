@@ -4,14 +4,19 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.Person;
 
 public class PermisoModel {
 	protected int id;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fecha;
+	
 	protected Person person;
-	protected Set<Lugar> desdeHasta = new HashSet<Lugar>();
+	protected Set<Lugar> desdeHasta;
 	
 	protected PermisoModel() {}
 
@@ -29,7 +34,7 @@ public class PermisoModel {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public LocalDate getFecha() {
 		return fecha;
 	}

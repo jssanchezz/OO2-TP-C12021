@@ -30,7 +30,6 @@ public abstract class Permiso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fecha;
 	
 	@CreationTimestamp
