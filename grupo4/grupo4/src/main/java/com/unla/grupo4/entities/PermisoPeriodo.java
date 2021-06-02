@@ -14,7 +14,7 @@ public class PermisoPeriodo extends Permiso {
 	private boolean vacaciones;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="person_id", nullable=false)
+	@JoinColumn(name="rodado_id", nullable=false)
 	private Rodado rodado;
 
 	public PermisoPeriodo() {}
