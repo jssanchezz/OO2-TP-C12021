@@ -3,14 +3,19 @@ package com.unla.grupo4.entities;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "permiso_periodo")
 public class PermisoPeriodo extends Permiso {
+	@Column(name = "cantDias")
 	private int cantDias;
+	@Column(name = "vacaciones")
 	private boolean vacaciones;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -50,6 +55,7 @@ public class PermisoPeriodo extends Permiso {
 	public void setRodado(Rodado rodado) {
 		this.rodado = rodado;
 	}
+	
 	
 	
 }
