@@ -1,6 +1,7 @@
 package com.unla.grupo4.controllers;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.entities.Lugar;
+import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
 import com.unla.grupo4.entities.PermisoPeriodo;
+import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.models.LugarModel;
 import com.unla.grupo4.models.PermisoDiarioModel;
@@ -93,4 +97,21 @@ public class PermisoController {
 		permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}
+	
+	@GetMapping("/listPermisosRodado/{id}")
+	public ModelAndView mostrarListaRodado(@PathVariable("id") int id) {
+		ModelAndView mav = new ModelAndView("/person/listPermisosRodado");
+		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(id); 
+		mav.addObject("permisos", permisos);
+		return mav;
+	}
+	
+	/***@GetMapping("/listPermisosPersona/{id}")
+	public ModelAndView mostrarListaPersona(@PathVariable("id") int id) {
+		ModelAndView mav = new ModelAndView("/person/listPermisosPersona");
+		List<Person> permisos = personService.findPermisosxPersona(id); 
+		mav.addObject("permisos", permisos);
+		return mav;
+	}*/
+	
 }

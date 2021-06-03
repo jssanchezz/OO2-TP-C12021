@@ -1,10 +1,13 @@
 package com.unla.grupo4.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo4.converters.PermisoConverter;
+import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.models.PermisoPeriodoModel;
 import com.unla.grupo4.repositories.IPermisoPeriodoRepository;
@@ -26,5 +29,12 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 		PermisoPeriodo permisoPeriodo = permisoPeriodoRepository.save(permisoConverter.modelToEntity(permisoPeriodoModel));
 		return permisoConverter.entityToModel(permisoPeriodo);
 	}
+	
+
+	@Override
+	public List<PermisoPeriodo> findPermisosxRodado(int id) {
+		return permisoPeriodoRepository.findPermisosxRodado(id);
+	}
+	
 
 }
