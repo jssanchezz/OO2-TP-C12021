@@ -1,5 +1,8 @@
 package com.unla.grupo4.services;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,11 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 	public PermisoDiarioModel insertOrUpdate(PermisoDiarioModel permisoDiarioModel) {
 		PermisoDiario permisoDiario = permisoDiarioRepository.save(permisoConverter.modelToEntity(permisoDiarioModel));
 		return permisoConverter.entityToModel(permisoDiario);
+	}
+
+	@Override
+	public List<PermisoDiario> findByFechaAFecha(LocalDate fechaInicio, LocalDate fechaFinal) {
+		return permisoDiarioRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 	}
 	
 }

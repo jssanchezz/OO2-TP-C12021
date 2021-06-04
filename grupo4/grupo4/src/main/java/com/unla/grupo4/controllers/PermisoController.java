@@ -1,5 +1,6 @@
 package com.unla.grupo4.controllers;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -113,5 +114,18 @@ public class PermisoController {
 		mav.addObject("permisos", permisos);
 		return mav;
 	}*/
+	@GetMapping("/requestFechas")
+	public String formFechas() {
+		return "permiso/formFechas";
+	}
 	
+	
+	@PostMapping("/listPermisosFechaAFecha")
+	public ModelAndView mostrarListaRodado(@RequestParam("fechaInicio") LocalDate fechaInicio,
+										   @RequestParam("fechaFinal") LocalDate fechaFinal) {
+		ModelAndView mav = new ModelAndView("permiso/listPermisosFechaAFecha");
+		List<PermisoDiario> permisos = permisoDiarioService.findByFechaAFecha(fechaInicio, fechaFinal);
+		mav.addObject("permisos", permisos);
+		return mav;
+	}
 }
