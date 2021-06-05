@@ -50,8 +50,8 @@ public class ViewRouteHelper {
 		
 	//Permiso
 		//Views
-		public final static String PERMISO_DIARIO_NEW = "permiso/permiso";
-		public final static String PERMISO_PERIODO_NEW = "permiso/permisoperiodo";
+		public final static String PERMISO_DIARIO_NEW = "permiso/permisoDiario";
+		public final static String PERMISO_PERIODO_NEW = "permiso/permisoPeriodo";
 		
 		//Redirects
 		public final static String PERMISO_DIARIO_ROOT = "/permiso/newPermisoDiario";

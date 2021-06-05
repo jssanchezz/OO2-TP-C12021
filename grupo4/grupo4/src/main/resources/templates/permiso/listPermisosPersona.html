@@ -43,68 +43,43 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Interfaceeeeeeeeee
             </div>
 
-            <!-- Barra de navegacion - Opciones desplegables segun role -->
-			<li th:if="${userlogrole} != ''" class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-					aria-expanded="true" aria-controls="collapseThree">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Administrar perfiles</span>
-				</a>
-				<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Administrar perfiles:</h6>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/userRoles/newRole}">Agregar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/userRoles/updateRole}">Editar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/userRoles/deleteRole}">Eliminar</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/userRoles/listRoles}">Listar perfiles</a>
-					</div>
-				</div>
-			</li>
-
-			<li th:if="${userlogrole} != ''" class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-					aria-expanded="true" aria-controls="collapseThree">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Administrar usuarios</span>
-				</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Administrar Usuarios:</h6>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/users/newUser}">Agregar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/users/updateUser}">Editar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
-							th:href="@{/users/deleteUser}">Eliminar</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/users/listUsers}">Listar usuarios</a>
-					</div>
-				</div>
-			</li>
-
-			<li th:if="${userlogrole} == 'ROLE_AUDITOR' or ${userlogrole} == ''" class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-					aria-expanded="true" aria-controls="collapseThree">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Permisos</span>
-				</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Permisos:</h6>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
-							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
-							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
-					</div>
-				</div>
-			</li>
+            <!-- Nav Item - Pages Collapse Menu -->
+           <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administrar perfiles</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Administrar perfiles:</h6>
+                        <a class="collapse-item" th:href="@{/userRoles/newRole}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/userRoles/updateRole}">Editar</a>
+						<a class="collapse-item" th:href="@{/userRoles/deleteRole}">Eliminar</a>
+						<a class="collapse-item" th:href="@{/userRoles/listRoles}">Listar</a>
+                    </div>
+                </div>                
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administrar usuarios</span>
+                </a>                
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Administrar Usuarios:</h6>
+                        <a class="collapse-item" th:href="@{/users/newUser}">Agregar</a>
+                        <a class="collapse-item" th:href="@{/users/updateUser}">Editar</a>
+						<a class="collapse-item" th:href="@{/users/deleteUser}">Eliminar</a>
+                        <a class="collapse-item" th:href="@{/users/listUsers}">Lista de usuarios</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -142,13 +117,7 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<div class="dropdown-divider"></div>
-								<a th:if="${userlogrole} == ''" class="dropdown-item" th:href="@{/login}">
-									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Iniciar sesión
-								</a>
-								<div class="dropdown-divider"></div>
-								<a th:if="${userlogrole} != ''" class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal">
+								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
 								</a>
@@ -177,22 +146,20 @@
                                     <table class="table table-bordered">
 										<thead>
 											<tr>
-												<th>Nombre</th>
-												<th>Apellido</th>
-                                                <th>Dni</th>
-                                                <th>Email</th>
-                                                <th>Nombre de Usuario</th>
-												<th>Rol</th>
+												<th>cantidad de dias</th>
+												<th>vacaciones</th>
+                                                <th>permiso id</th>
+                                                <th>persona id</th>
+                                                <th>rodado id</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="user : ${users}">
-												<td><span th:text="${user.name}" /></td>
-												<td><span th:text="${user.surname}" /></td>
-                                                <td><span th:text="${user.dni}" /></td>
-                                                <td><span th:text="${user.email}" /></td>
-                                                <td><span th:text="${user.userName}" /></td>
-                                                <td><span th:text="${user.role.role}" /></td>
+											<tr th:each="permiso : ${permisosPeriodo}">
+												<td><span th:text="${permiso.cantDias}" /></td>
+												<td><span th:text="${permiso.vacaciones}" /></td>
+                                                <td><span th:text="${permiso.id}" /></td>
+                                                <td><span th:text="${permiso.person.id}" /></td>
+                                                <td><span th:text="${permiso.rodado.id}" /></td>
 											</tr>
 										</tbody>
 									</table>

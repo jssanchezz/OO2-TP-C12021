@@ -46,8 +46,65 @@
 				Interface
 			</div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
+			<!-- Barra de navegacion - Opciones desplegables segun role -->
+			<li th:if="${userlogrole} != ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Administrar perfiles</span>
+				</a>
+				<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Administrar perfiles:</h6>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/newRole}">Agregar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/updateRole}">Editar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/deleteRole}">Eliminar</a>
+						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+							th:href="@{/userRoles/listRoles}">Listar perfiles</a>
+					</div>
+				</div>
+			</li>
 
+			<li th:if="${userlogrole} != ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Administrar usuarios</span>
+				</a>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Administrar Usuarios:</h6>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/newUser}">Agregar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/updateUser}">Editar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/deleteUser}">Eliminar</a>
+						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+							th:href="@{/users/listUsers}">Listar usuarios</a>
+					</div>
+				</div>
+			</li>
+
+			<li th:if="${userlogrole} == 'ROLE_AUDITOR' or ${userlogrole} == ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Permisos</span>
+				</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Permisos:</h6>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
+					</div>
+				</div>
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -85,7 +142,13 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+								<a th:if="${userlogrole} == ''" class="dropdown-item" th:href="@{/login}">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Iniciar sesión
+								</a>
+								<div class="dropdown-divider"></div>
+								<a th:if="${userlogrole} != ''" class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
 								</a>
@@ -108,11 +171,11 @@
 							<!-- Circle Buttons -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso periodo</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
 								</div>
 								<div class="card-body">
-									<form id="save" action="#" th:action="@{/permiso/permisoPeriodoProcess}"
-										th:object="${permisoPeriodo}" method="post">
+									<form id="save" action="#" th:action="@{/permiso/permisoDiarioProcess}"
+										th:object="${permisoDiario}" method="post">
 										<p>Persona:
 
 											<select th:field="*{person.id}">
@@ -123,36 +186,24 @@
 
 										</p>
 
-										<p>Desde:										
+										<p>Desde:
 											<select name="idDesde">
-												<option th:each="lugar : ${lugares}" 
-														th:value="${lugar.id}"
-														th:text="${lugar.lugar}">
+												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
+													th:text="${lugar.lugar}">
 												</option>
 											</select>
 										</p>
-										
+
 										<p>Hasta:
 											<select name="idHasta">
-												<option 
-													th:each="lugar : ${lugares}" 
-													th:value="${lugar.id}"
+												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
 													th:text="${lugar.lugar}">
 												</option>
 											</select>
 										</p>
 
 										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
-										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" /></p>
-										<p>Rodado:
-
-											<select th:field="*{rodado.id}">
-												<option th:each="road : ${rodados}" th:value="${road.id}"
-													th:text="${road.dominio}">
-												</option>
-											</select>
-
-										</p>
+										<p>Motivo: <input type="text" th:field="*{motivo}" /></p>
 
 										<a href="#" onclick="document.getElementById('save').submit()"
 											class="btn btn-success btn-circle">

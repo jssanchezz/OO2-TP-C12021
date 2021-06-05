@@ -27,6 +27,7 @@ import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.miscelaneo.UserRolePDFExporter;
 import com.unla.grupo4.models.UserRoleModel;
 import com.unla.grupo4.services.IUserRoleService;
+import com.unla.grupo4.services.IUserService;
 
 @Controller
 @RequestMapping("/userRoles")
@@ -35,6 +36,10 @@ public class UserRoleController {
 	@Autowired
 	@Qualifier("userRoleService")
 	private IUserRoleService userRoleService;
+	
+	@Autowired
+	@Qualifier("userService")
+	private IUserService userService;
 	
 	@GetMapping("/")
 	public ModelAndView index() {
@@ -47,6 +52,7 @@ public class UserRoleController {
 	public ModelAndView newRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
 		mAV.addObject("userRole", new UserRoleModel());
+		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -70,6 +76,7 @@ public class UserRoleController {
 	public ModelAndView updateRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_UPDATE);
 		mAV.addObject("userRoles",userRoleService.getAll());
+		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -86,6 +93,7 @@ public class UserRoleController {
 	public ModelAndView deleteRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_DELETE);
 		mAV.addObject("userRoles",userRoleService.getAll());
+		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -102,13 +110,16 @@ public class UserRoleController {
 		return new RedirectView(ViewRouteHelper.USER_ROLE_DELETE_ROOT);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/listRoles")
 	public ModelAndView listar() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_LIST);
 		mAV.addObject("userRoles", userRoleService.getAll());
+		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/exportPDF")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");

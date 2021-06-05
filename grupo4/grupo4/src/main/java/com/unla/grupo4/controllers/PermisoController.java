@@ -30,6 +30,8 @@ import com.unla.grupo4.services.IPermisoDiarioService;
 import com.unla.grupo4.services.IPermisoPeriodoService;
 import com.unla.grupo4.services.IPersonService;
 import com.unla.grupo4.services.IRodadoService;
+import com.unla.grupo4.services.IUserService;
+import com.unla.grupo4.services.UserService;
 
 @Controller
 @RequestMapping("/permiso")
@@ -55,12 +57,17 @@ public class PermisoController {
 	@Qualifier("rodadoService")
 	private IRodadoService rodadoService;
 	
+	@Autowired
+	@Qualifier("userService")
+	private IUserService userService;
+	
 	@GetMapping("/newPermisoDiario")
 	public ModelAndView nuevoPermisoDiario() {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
 		mav.addObject("lugares", lugarService.getAll());
 		mav.addObject("personas", personService.getAll());
 		mav.addObject("permisoDiario", new PermisoDiario());
+		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
 	
@@ -81,9 +88,8 @@ public class PermisoController {
 		mav.addObject("lugares", lugarService.getAll());
 		mav.addObject("personas", personService.getAll());
 		mav.addObject("permisoPeriodo", new PermisoPeriodo());
-		mav.addObject("desde", new LugarModel());
-		mav.addObject("hasta", new LugarModel());
 		mav.addObject("rodados", rodadoService.getAll());
+		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
 	
