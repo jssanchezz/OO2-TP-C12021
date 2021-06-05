@@ -122,7 +122,6 @@ public class PermisoController {
 		return mav;
 	}	
 	
-	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/listPermisosPorPersona")
 	public ModelAndView mostrarListaRodado(@RequestParam(name="dni",defaultValue = "0") long dni) {
 		ModelAndView mav = new ModelAndView("/permiso/listPermisosPersona");
