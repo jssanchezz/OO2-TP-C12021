@@ -43,3 +43,15 @@ foreign key (`user_role_id`) references `user_role` (`id`)
  insert into user values(2,'romina@gmail.com',"2021-05-26 10:00:00",
 '87654321','Romina','Mansilla','DNI',"2021-05-26 10:00:00",
 'Romi','$2a$04$wTGoL/HvuR2LDnhoNv4qY.UO2S/kdEVTP6unESkABUFan9is5LVCm',2);
+
+-- CREACION DE LUGARES
+insert into lugar values(1,'1842',"2021-05-26 10:00:00",
+'El Jaguel',"2021-05-26 10:00:00");
+insert into lugar values(2,'7600',"2021-05-26 10:00:00",
+'Mar Del Plata',"2021-05-26 10:00:00");
+insert into lugar values(3,'1286',"2021-05-26 10:00:00",
+'Lanus',"2021-05-26 10:00:00");
+insert into lugar values(4,'1001',"2021-05-26 10:00:00",
+'CABA',"2021-05-26 10:00:00");
+insert into lugar values(5,'1870',"2021-05-26 10:00:00",
+'Avellaneda',"2021-05-26 10:00:00");
