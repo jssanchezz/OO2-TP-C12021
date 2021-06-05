@@ -35,6 +35,12 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 	public List<PermisoPeriodo> getAll() {
 		return permisoPeriodoRepository.findAll();
 	}
+
+
+	@Override
+	public List<PermisoPeriodo> traerPermisosPorPersona(int id) {
+		return permisoPeriodoRepository.traerPermisosPorPersona(id);
+	}
 	
 	
 

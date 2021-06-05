@@ -43,43 +43,68 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interfaceeeeeeeeee
+                Interface
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-           <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Administrar perfiles</span>
-                </a>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Administrar perfiles:</h6>
-                        <a class="collapse-item" th:href="@{/userRoles/newRole}">Agregar</a>
-                        <a class="collapse-item" th:href="@{/userRoles/updateRole}">Editar</a>
-						<a class="collapse-item" th:href="@{/userRoles/deleteRole}">Eliminar</a>
-						<a class="collapse-item" th:href="@{/userRoles/listRoles}">Listar</a>
-                    </div>
-                </div>                
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Administrar usuarios</span>
-                </a>                
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Administrar Usuarios:</h6>
-                        <a class="collapse-item" th:href="@{/users/newUser}">Agregar</a>
-                        <a class="collapse-item" th:href="@{/users/updateUser}">Editar</a>
-						<a class="collapse-item" th:href="@{/users/deleteUser}">Eliminar</a>
-                        <a class="collapse-item" th:href="@{/users/listUsers}">Lista de usuarios</a>
-                    </div>
-                </div>
-            </li>
+            <!-- Barra de navegacion - Opciones desplegables segun role -->
+			<li th:if="${userlogrole} != ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Administrar perfiles</span>
+				</a>
+				<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Administrar perfiles:</h6>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/newRole}">Agregar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/updateRole}">Editar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/userRoles/deleteRole}">Eliminar</a>
+						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+							th:href="@{/userRoles/listRoles}">Listar perfiles</a>
+					</div>
+				</div>
+			</li>
+
+			<li th:if="${userlogrole} != ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Administrar usuarios</span>
+				</a>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Administrar Usuarios:</h6>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/newUser}">Agregar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/updateUser}">Editar</a>
+						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+							th:href="@{/users/deleteUser}">Eliminar</a>
+						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+							th:href="@{/users/listUsers}">Listar usuarios</a>
+					</div>
+				</div>
+			</li>
+
+			<li th:if="${userlogrole} == 'ROLE_AUDITOR' or ${userlogrole} == ''" class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+					aria-expanded="true" aria-controls="collapseThree">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Permisos</span>
+				</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Permisos:</h6>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
+					</div>
+				</div>
+			</li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -100,7 +125,19 @@
 
                 <!-- Topbar -->
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+					<!-- Topbar Search -->
+                    <form id="save" action="#" th:action="@{/permiso/listPermisosPorPersona/}" method="GET"
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" name="dni" class="form-control bg-light border-0 small" placeholder="Ingrese dni..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
 					<!-- Alerts -->
 					<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
 						th:text="${mensaje}" class="alert">
@@ -117,7 +154,13 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+								<a th:if="${userlogrole} == ''" class="dropdown-item" th:href="@{/login}">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Iniciar sesión
+								</a>
+								<div class="dropdown-divider"></div>
+								<a th:if="${userlogrole} != ''" class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
 								</a>
@@ -140,30 +183,63 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Usuarios</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Permisos Diarios</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered">
 										<thead>
 											<tr>
-												<th>cantidad de dias</th>
-												<th>vacaciones</th>
-                                                <th>permiso id</th>
-                                                <th>persona id</th>
-                                                <th>rodado id</th>
+												<th>Fecha</th>
+												<th>Nombre y Apellido</th>
+												<th>DNI</th>
+                                                <th>Motivo</th>
+                                                <th>Desde</th>
+                                                <th>Hasta</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="permiso : ${permisosDiarios}">
+												<td><span th:text="${permiso.fecha}" /></td>
+												<td><span th:text="${permiso.person.name}" /></td>
+												 <td><span th:text="${permiso.person.dni}" /></td>
+                                                <td><span th:text="${permiso.motivo}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+											</tr>
+										</tbody>
+									</table>
+                                </div>
+                                
+								<div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Permisos por periodo</h6>
+                                </div>
+                                <div class="card-body">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Nombre y Apellido</th>
+												<th>DNI</th>
+                                                <th>¿Vacaciones?</th>
+                                                <th>Cantidad de dias</th>
+                                                <th>Patente del vehiculo</th>
+                                                <th>Desde</th>
+                                                <th>Hasta</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="permiso : ${permisosPeriodo}">
-												<td><span th:text="${permiso.cantDias}" /></td>
-												<td><span th:text="${permiso.vacaciones}" /></td>
-                                                <td><span th:text="${permiso.id}" /></td>
-                                                <td><span th:text="${permiso.person.id}" /></td>
-                                                <td><span th:text="${permiso.rodado.id}" /></td>
+												<td><span th:text="${permiso.fecha}" /></td>
+												<td><span th:text="${permiso.person.name}" /></td>
+                                                <td><span th:text="${permiso.person.dni}" /></td>
+                                                <td><span th:text="${permiso.vacaciones}" /></td>
+                                                <td><span th:text="${permiso.cantDias}" /></td>
+                                                <td><span th:text="${permiso.rodado.dominio}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
 											</tr>
 										</tbody>
 									</table>
-                                <a th:href="@{/users/exportPDF}" class="btn btn-secondary btn-icon-split">Descargar PDF</a>
                                 </div>
                             </div>
                         </div>

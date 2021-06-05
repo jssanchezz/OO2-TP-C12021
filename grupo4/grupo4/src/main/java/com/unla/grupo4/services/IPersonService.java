@@ -11,6 +11,8 @@ public interface IPersonService {
 	
 	public PersonModel findById(int id);
 	
+	public Person findByDni(long dni);
+	
 	public PersonModel insertOrUpdate(PersonModel personModel);
 	
 }

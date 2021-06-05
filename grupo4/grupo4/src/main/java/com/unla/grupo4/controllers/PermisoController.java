@@ -26,6 +26,7 @@ import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.models.LugarModel;
 import com.unla.grupo4.models.PermisoDiarioModel;
 import com.unla.grupo4.models.PermisoPeriodoModel;
+import com.unla.grupo4.models.PersonModel;
 import com.unla.grupo4.services.ILugarService;
 import com.unla.grupo4.services.IPermisoDiarioService;
 import com.unla.grupo4.services.IPermisoPeriodoService;
@@ -119,14 +120,20 @@ public class PermisoController {
 		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);
 		mav.addObject("permisos", permisos);
 		return mav;
-	}
+	}	
 	
-	/***@GetMapping("/listPermisosPersona/{id}")
-	public ModelAndView mostrarListaPersona(@PathVariable("id") int id) {
-		ModelAndView mav = new ModelAndView("/person/listPermisosPersona");
-		List<Person> permisos = personService.findPermisosxPersona(id); 
-		mav.addObject("permisos", permisos);
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
+	@GetMapping("/listPermisosPorPersona")
+	public ModelAndView mostrarListaRodado(@RequestParam(name="dni",defaultValue = "0") long dni) {
+		ModelAndView mav = new ModelAndView("/permiso/listPermisosPersona");
+		Person persona = personService.findByDni(dni);
+		if(persona != null) {
+			List<PermisoPeriodo> permisosPeriodo = permisoPeriodoService.traerPermisosPorPersona(persona.getId());
+			mav.addObject("permisosPeriodo", permisosPeriodo);
+			List<PermisoDiario> permisosDiarios = permisoDiarioService.traerPermisosPorPersona(persona.getId());
+			mav.addObject("permisosDiarios", permisosDiarios);			
+		}
+		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
-	}*/
-	
+	}	
 }

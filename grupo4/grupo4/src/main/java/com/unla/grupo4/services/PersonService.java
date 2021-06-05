@@ -37,4 +37,9 @@ public class PersonService implements IPersonService {
 		return personConverter.entityToModel(person);
 	}
 
+	@Override
+	public Person findByDni(long dni) {
+		return personRepository.findByDni(dni);
+	}
+
 }

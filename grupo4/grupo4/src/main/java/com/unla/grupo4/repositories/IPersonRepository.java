@@ -12,4 +12,6 @@ import com.unla.grupo4.entities.Person;
 public interface IPersonRepository extends JpaRepository<Person, Serializable> {
 
 	abstract Person findById(int id);
+	
+	abstract Person findByDni(long dni);
 }

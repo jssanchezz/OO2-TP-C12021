@@ -15,4 +15,6 @@ public interface IPermisoPeriodoService {
 	
 	public List<PermisoPeriodo> findAllPermisosPeriodo();
 	
+	public abstract List<PermisoPeriodo> traerPermisosPorPersona(int id);
+	
 }
