@@ -78,6 +78,12 @@ public class Lugar {
 	public boolean equals(Object obj) {
 		return this.id == ((Lugar)obj).getId();
 	}
+	
+	public boolean equals(int id) {
+    	return this.id == id;
+    }
     
-    
+    public boolean equals(String lugar) {
+    	return this.lugar == lugar;
+    }
 }
