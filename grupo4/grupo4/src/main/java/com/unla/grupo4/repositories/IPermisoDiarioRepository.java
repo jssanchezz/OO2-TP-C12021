@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.unla.grupo4.entities.PermisoDiario;
+import com.unla.grupo4.entities.PermisoPeriodo;
 
 @Repository("permisoDiarioRepository")
 public interface IPermisoDiarioRepository extends JpaRepository<PermisoDiario, Serializable>{

@@ -1,6 +1,8 @@
 package com.unla.grupo4.controllers;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -119,13 +121,45 @@ public class PermisoController {
 		return "permiso/formFechas";
 	}
 	
-	
 	@PostMapping("/listPermisosFechaAFecha")
-	public ModelAndView mostrarListaRodado(@RequestParam("fechaInicio") LocalDate fechaInicio,
-										   @RequestParam("fechaFinal") LocalDate fechaFinal) {
+	public ModelAndView mostrarListaPermisoFechaAFecha(@RequestParam("fechaInicio") String fechaInicio,
+										   @RequestParam("fechaFinal") String fechaFinal) {
+		LocalDate fechaInicioConvert = LocalDate.parse(fechaInicio);
+		LocalDate fechaFinalConvert = LocalDate.parse(fechaFinal);
 		ModelAndView mav = new ModelAndView("permiso/listPermisosFechaAFecha");
-		List<PermisoDiario> permisos = permisoDiarioService.findByFechaAFecha(fechaInicio, fechaFinal);
-		mav.addObject("permisos", permisos);
+		
+		List<PermisoDiario> permisosDiarios = permisoDiarioService.findByFechaAFecha
+				(fechaInicioConvert, fechaFinalConvert);
+		List<PermisoPeriodo> permisosPeriodos = permisoPeriodoService.findByFechaAFecha
+				(fechaInicioConvert, fechaFinalConvert);
+		
+		mav.addObject("permisosDiarios", permisosDiarios);
+		mav.addObject("permisosPeriodos", permisosPeriodos);
+		return mav;
+	}
+	
+	@GetMapping("/requestFechasYPartida")
+	public ModelAndView formFechasYPartida() {
+		ModelAndView mav = new ModelAndView("permiso/formFechasYDesde");
+		mav.addObject("lugares", lugarService.getAll());
+		return mav;
+	}
+	
+	@PostMapping("/listPermisosFechaAFechaYPartida")
+	public ModelAndView mostrarListaPermisoFechaAFechaYPartida(@RequestParam("fechaInicio") String fechaInicio,
+															   @RequestParam("fechaFinal") String fechaFinal,
+															   @RequestParam("idDesde") int idDesde) {
+		LocalDate fechaInicioConvert = LocalDate.parse(fechaInicio);
+		LocalDate fechaFinalConvert = LocalDate.parse(fechaFinal);
+		ModelAndView mav = new ModelAndView("permiso/listPermisosFechaAFechaYPartida");
+		
+		List<PermisoDiario> permisosDiarios = permisoDiarioService.findByFechaAFechaAndFetchDesde
+				(fechaInicioConvert, fechaFinalConvert, idDesde);
+		List<PermisoPeriodo> permisosPeriodos = permisoPeriodoService.findByFechaAFechaAndFetchDesde
+		(fechaInicioConvert, fechaFinalConvert, idDesde);
+		
+		mav.addObject("permisosDiarios", permisosDiarios);
+		mav.addObject("permisosPeriodos", permisosPeriodos);
 		return mav;
 	}
 }

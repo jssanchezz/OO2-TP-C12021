@@ -49,4 +49,8 @@ public class LugarModel {
 	public boolean equals(Object obj) {
 		return this.id == ((LugarModel)obj).getId();
 	}
+	
+	public boolean equals(String lugar) {
+    	return this.lugar == lugar;
+    }
 }
