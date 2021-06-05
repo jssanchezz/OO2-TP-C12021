@@ -1,8 +1,6 @@
 package com.unla.grupo4.controllers;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.entities.Lugar;
-import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.entities.Person;
@@ -69,12 +67,22 @@ public class PermisoController {
 	
 	@PostMapping("/permisoDiarioProcess")
 	public RedirectView toNuevoPermisoDiario(@ModelAttribute("permisoDiario") PermisoDiarioModel permisoDiarioModel,
-											 @RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta) {
-		Set<Lugar> lugares = new HashSet<Lugar>();
-		lugares.add(lugarService.findById(idDesde));
-		lugares.add(lugarService.findById(idHasta));
-		permisoDiarioModel.setDesdeHasta(lugares);
-		permisoDiarioService.insertOrUpdate(permisoDiarioModel);
+											 @RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta,
+											 RedirectAttributes attribute) {
+		if(permisoDiarioModel.getMotivo() == null) {
+			attribute.addFlashAttribute("mensaje", "Debe ingresar un motivo");
+	        attribute.addFlashAttribute("clase", "warning");
+		}
+		
+		else {
+			attribute.addFlashAttribute("mensaje", "Permiso diario guardado");
+	        attribute.addFlashAttribute("clase", "success");
+			Set<Lugar> lugares = new HashSet<Lugar>();
+			lugares.add(lugarService.findById(idDesde));
+			lugares.add(lugarService.findById(idHasta));
+			permisoDiarioModel.setDesdeHasta(lugares);
+			permisoDiarioService.insertOrUpdate(permisoDiarioModel);
+		}
 		return new RedirectView(ViewRouteHelper.PERMISO_DIARIO_ROOT);
 	}
 
@@ -92,12 +100,22 @@ public class PermisoController {
 	
 	@PostMapping("/permisoPeriodoProcess")
 	public RedirectView toNuevoPermisoPeriodo(@ModelAttribute("permisoPeriodo") PermisoPeriodoModel permisoPeriodoModel, 
-			@RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta) {
-		Set<Lugar> lugares = new HashSet<Lugar>();
-		lugares.add(lugarService.findById(idDesde));
-		lugares.add(lugarService.findById(idHasta));
-		permisoPeriodoModel.setDesdeHasta(lugares);
-		permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
+			@RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta, RedirectAttributes attribute) {
+		
+		if(permisoPeriodoModel.getCantDias() <= 0) {
+			attribute.addFlashAttribute("mensaje", "La cantidad de dias debe ser mayor a 0");
+	        attribute.addFlashAttribute("clase", "warning");
+		}
+		else{
+			attribute.addFlashAttribute("mensaje", "Permiso por periodo guardado");
+	        attribute.addFlashAttribute("clase", "success");
+	        
+			Set<Lugar> lugares = new HashSet<Lugar>();
+			lugares.add(lugarService.findById(idDesde));
+			lugares.add(lugarService.findById(idHasta));
+			permisoPeriodoModel.setDesdeHasta(lugares);
+			permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
+		}
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}
 	

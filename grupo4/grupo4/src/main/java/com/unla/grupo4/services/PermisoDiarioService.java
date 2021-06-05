@@ -2,7 +2,6 @@ package com.unla.grupo4.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -14,10 +13,9 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.PermisoDiario;
-import com.unla.grupo4.entities.PermisoPeriodo;
+import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.models.PermisoDiarioModel;
 import com.unla.grupo4.repositories.IPermisoDiarioRepository;
-import com.unla.grupo4.services.IPermisoDiarioService;
 
 @Service("permisoDiarioService")
 public class PermisoDiarioService implements IPermisoDiarioService{
@@ -84,6 +82,16 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 			}
 		}
 		return permisosDiarioADevolver;
+	}
+
+	@Override
+	public PermisoDiario findById(int id) {
+		return permisoDiarioRepository.findById(id);
+	}
+
+	@Override
+	public PermisoDiario findByPerson(Person person) {
+		return permisoDiarioRepository.findByPerson(person);
 	}
 
 	

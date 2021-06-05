@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
-import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoPeriodo;
+import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.models.PermisoPeriodoModel;
 import com.unla.grupo4.repositories.IPermisoPeriodoRepository;
-import com.unla.grupo4.repositories.IPersonRepository;
-import com.unla.grupo4.services.IPermisoPeriodoService;
 
 @Service("permisoPeriodoService")
 public class PermisoPeriodoService implements IPermisoPeriodoService{
@@ -91,6 +89,18 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 			}
 		}
 		return permisosPeriodoADevolver;
+	}
+
+
+	@Override
+	public PermisoPeriodo findById(int id) {
+		return permisoPeriodoRepository.findById(id);
+	}
+
+
+	@Override
+	public PermisoPeriodo findByPerson(Person person) {
+		return permisoPeriodoRepository.findByPerson(person);
 	}
 	
 	

@@ -1,7 +1,6 @@
 package com.unla.grupo4.models;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
