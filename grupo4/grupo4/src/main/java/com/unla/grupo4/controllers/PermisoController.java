@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,6 +65,7 @@ public class PermisoController {
 	@GetMapping("/newPermisoDiario")
 	public ModelAndView nuevoPermisoDiario() {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
+		//List<Permiso> pepe = permisoPeriodoService.getAll();
 		mav.addObject("lugares", lugarService.getAll());
 		mav.addObject("personas", personService.getAll());
 		mav.addObject("permisoDiario", new PermisoDiario());
@@ -104,10 +106,17 @@ public class PermisoController {
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}
 	
-	@GetMapping("/listPermisosRodado/{id}")
-	public ModelAndView mostrarListaRodado(@PathVariable("id") int id) {
-		ModelAndView mav = new ModelAndView("/person/listPermisosRodado");
-		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(id); 
+	@GetMapping("/requestListPermisosRodado")
+	public ModelAndView requestRodado() {
+		ModelAndView mav = new ModelAndView("permiso/requestRodado");
+		mav.addObject(mav);
+		return mav;
+	}
+	
+	@PostMapping("/listPermisosRodado")
+	public ModelAndView mostrarListaRodado(@RequestParam(name="dominio", required = false) String dominio) {
+		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
+		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);
 		mav.addObject("permisos", permisos);
 		return mav;
 	}
