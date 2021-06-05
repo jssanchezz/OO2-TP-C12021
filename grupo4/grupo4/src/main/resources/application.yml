@@ -1,6 +1,6 @@
 spring:
   datasource:
-    password: 52868816
+    password: shinigami1234
     url: jdbc:mysql://localhost:3306/obj2_tp
     username: root
   jpa:
