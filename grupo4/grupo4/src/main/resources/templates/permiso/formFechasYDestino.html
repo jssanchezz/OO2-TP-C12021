@@ -143,11 +143,11 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Listado de Permisos por fecha</h6>
                                 </div>
                                 <div class="card-body">
-                                  	<form action="#" th:action="@{/permiso/listPermisosFechaAFechaYPartida}" method="post">
+                                  	<form action="#" th:action="@{/permiso/listPermisosFechaAFechaYDestino}" method="post">
                                   		<p> Inicio del rango: <input type="date" name="fechaInicio" /></p>
                                   		<p> Fin del rango: <input type="date" name="fechaFinal" /></p>
-                                  		<p> Lugar de partida:
-                                  			<select name="idDesde">
+                                  		<p> Lugar de destino:
+                                  			<select name="idHasta">
 												<option th:each="lugar : ${lugares}" 
 														th:value="${lugar.id}"
 														th:text="${lugar.lugar}">

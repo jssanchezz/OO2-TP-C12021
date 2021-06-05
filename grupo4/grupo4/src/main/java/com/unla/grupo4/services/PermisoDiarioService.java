@@ -41,9 +41,8 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 		return permisoDiarioRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public List<PermisoDiario> findByFechaAFechaAndFetchDesde(LocalDate fechaInicio, LocalDate fechaFinal, int lugar) {
+	public List<PermisoDiario> findByFechaAFechaAndFetchDesde(LocalDate fechaInicio, LocalDate fechaFinal, int idLugar) {
 		List<PermisoDiario> permisosDiario = permisoDiarioRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 		List<PermisoDiario> permisosDiarioADevolver = new ArrayList<PermisoDiario>();
 		int i=0;
@@ -53,7 +52,7 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 			//CON ESTO ENCUENTRO EL PRIMER ELEMENTO DEL SET
 			firstLugar = permisosDiario.get(i).getDesdeHasta().iterator().next();
 			//SI TIENEN EL MISMO NOMBRE LO AGREGO A LA LISTA QUE SE DEVOLVERÁ
-			if(firstLugar.equals(lugar)) {
+			if(firstLugar.equals(idLugar)) {
 				PermisoDiario pd = permisosDiario.get(i);
 				permisosDiarioADevolver.add(pd);
 			}

@@ -49,7 +49,7 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 	}
 	
 	@Override
-	public List<PermisoPeriodo> findByFechaAFechaAndFetchDesde(LocalDate fechaInicio, LocalDate fechaFinal, int lugar) {
+	public List<PermisoPeriodo> findByFechaAFechaAndFetchDesde(LocalDate fechaInicio, LocalDate fechaFinal, int idLugar) {
 		List<PermisoPeriodo> permisosPeriodo = permisoPeriodoRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 		List<PermisoPeriodo> permisosPeriodoADevolver = new ArrayList<PermisoPeriodo>();
 		int i=0;
@@ -58,7 +58,7 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 			//CON ESTO ENCUENTRO EL PRIMER ELEMENTO DEL SET
 			firstLugar = permisosPeriodo.get(i).getDesdeHasta().iterator().next();
 			//SI TIENEN EL MISMO ID LO AGREGO A LA LISTA QUE SE DEVOLVERÁ
-			if(firstLugar.equals(lugar)) {
+			if(firstLugar.equals(idLugar)) {
 				PermisoPeriodo pp = permisosPeriodo.get(i);
 				permisosPeriodoADevolver.add(pp);
 			}
@@ -67,9 +67,8 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 	}
 
 
-	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public List<PermisoPeriodo> findByFechaAFechaAndFetchHasta(LocalDate fechaInicio, LocalDate fechaFinal, int lugar) {
+	public List<PermisoPeriodo> findByFechaAFechaAndFetchHasta(LocalDate fechaInicio, LocalDate fechaFinal, int idLugar) {
 		List<PermisoPeriodo> permisosPeriodo = permisoPeriodoRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 		List<PermisoPeriodo> permisosPeriodoADevolver = new ArrayList<PermisoPeriodo>();
 		int i=0;
@@ -86,7 +85,7 @@ public class PermisoPeriodoService implements IPermisoPeriodoService{
 				lastLugar = iterator.next();
 			}
 			//SI TIENE EL MISMO ID, SE LE AGREGA A LA LISTA QUE SE DEVOLVERÁ
-			if(lastLugar.equals(lugar)) {
+			if(lastLugar.equals(idLugar)) {
 				PermisoPeriodo pp = permisosPeriodo.get(i);
 				permisosPeriodoADevolver.add(pp);
 			}

@@ -140,23 +140,64 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Permisos por fecha</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Permisos Diarios por fecha</h6>
                                 </div>
                                 <div class="card-body">
-                                  	<form action="#" th:action="@{/permiso/listPermisosFechaAFechaYPartida}" method="post">
-                                  		<p> Inicio del rango: <input type="date" name="fechaInicio" /></p>
-                                  		<p> Fin del rango: <input type="date" name="fechaFinal" /></p>
-                                  		<p> Lugar de partida:
-                                  			<select name="idDesde">
-												<option th:each="lugar : ${lugares}" 
-														th:value="${lugar.id}"
-														th:text="${lugar.lugar}">
-												</option>
-											</select>
-                                  		</p>
-                                  		<input type="submit"/>
-                                  	</form>
-                              	</div>
+                                    <table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Nombre y Apellido</th>
+												<th>DNI</th>
+                                                <th>Motivo</th>
+                                                <th>Desde</th>
+                                                <th>Hasta</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="permiso : ${permisosDiarios}">
+												<td><span th:text="${permiso.fecha}" /></td>
+												<td><span th:text="${permiso.person.name}" /></td>
+												 <td><span th:text="${permiso.person.dni}" /></td>
+                                                <td><span th:text="${permiso.motivo}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+											</tr>
+										</tbody>
+									</table>
+                                </div>
+                                
+								<div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Listado de Permisos por periodos por fecha</h6>
+                                </div>
+                                <div class="card-body">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Nombre y Apellido</th>
+												<th>DNI</th>
+                                                <th>¿Vacaciones?</th>
+                                                <th>Cantidad de dias</th>
+                                                <th>Patente del vehiculo</th>
+                                                <th>Desde</th>
+                                                <th>Hasta</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="permiso : ${permisosPeriodos}">
+												<td><span th:text="${permiso.fecha}" /></td>
+												<td><span th:text="${permiso.person.name}" /></td>
+                                                <td><span th:text="${permiso.person.dni}" /></td>
+                                                <td><span th:text="${permiso.vacaciones}" /></td>
+                                                <td><span th:text="${permiso.cantDias}" /></td>
+                                                <td><span th:text="${permiso.rodado.dominio}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
+                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+											</tr>
+										</tbody>
+									</table>
+                                </div>
                             </div>
                         </div>
                     </div>
