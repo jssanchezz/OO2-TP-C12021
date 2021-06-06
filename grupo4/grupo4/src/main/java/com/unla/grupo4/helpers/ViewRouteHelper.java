@@ -34,4 +34,26 @@ public class ViewRouteHelper {
 		public final static String USER_ROLE_ROOT = "/userRoles/";
 		public final static String USER_ROLE_DELETE_ROOT = "/userRoles/deleteRole";
 		public final static String USER_ROLE_INSERT_ROOT = "/userRoles/newRole";
+		
+	//Rodado
+		//Views
+		public final static String RODADO_INSERT = "rodado/rodado";
+		//Redirects
+		public final static String RODADO_ROOT = "/rodado/newRodado";
+		
+	//Person
+		//Views
+		public final static String PERSON_FORM = "person/form";
+		
+		//Redirects
+		public final static String ROUTE_PERSON_FORM = "/persons/newPerson";
+		
+	//Permiso
+		//Views
+		public final static String PERMISO_DIARIO_NEW = "permiso/permisoDiario";
+		public final static String PERMISO_PERIODO_NEW = "permiso/permisoPeriodo";
+		
+		//Redirects
+		public final static String PERMISO_DIARIO_ROOT = "/permiso/newPermisoDiario";
+		public final static String PERMISO_PERIODO_ROOT = "/permiso/newPermisoPeriodo";
 }

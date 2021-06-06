@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.unla.grupo4.converters.UserConverter;
 import com.unla.grupo4.entities.User;
@@ -94,5 +98,17 @@ public class UserService implements IUserService, UserDetailsService{
 			throw new UsernameNotFoundException("Usuario no encontrado");
 		}
 		return builder.build();
+	}
+	
+	public String getRoleOfUserLog() {
+		String roleUser = "";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    String currentUserName = authentication.getName();
+		    roleUser = userRepository.findByUserName(currentUserName).getRole().getRole();
+		}
+		
+		return roleUser;
 	}
 }

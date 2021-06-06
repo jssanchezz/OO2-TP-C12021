@@ -24,4 +24,6 @@ public interface IUserService {
 	public UserModel findById(int id);
 	
 	public boolean remove(int id);
+	
+	public String getRoleOfUserLog();
 }

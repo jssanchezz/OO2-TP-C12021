@@ -23,7 +23,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/loginsuccess")
-	public String loginChech() {
-		return "redirect:/index";
+	public String loginCheck() {
+		return "redirect:/home/index";
 	}
 }
