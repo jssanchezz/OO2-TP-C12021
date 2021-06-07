@@ -37,7 +37,7 @@ public abstract class Permiso {
 	@UpdateTimestamp
 	protected LocalDateTime updatedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="person_id", nullable=false)
 	protected Person person;
 	

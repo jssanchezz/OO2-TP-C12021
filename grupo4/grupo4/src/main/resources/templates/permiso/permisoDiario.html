@@ -24,28 +24,39 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
+					<!-- Buscador de persona por dni -->
+					<form id="buscarPersona" action="#" th:action="@{/permiso/newPermisoDiario}" method="GET"
+							class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<input type="text" name="dni" class="form-control bg-white border-0 small" placeholder="Ingrese dni..."
+									aria-label="Search" aria-describedby="basic-addon2">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="submit">
+										<i class="fas fa-search fa-sm"></i>
+									</button>
+								</div>
+							</div>
+					</form>
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Usuario</h1>
+					<h1 class="h3 mb-4 text-gray-800"></h1>
 
 					<div class="row">
 
 						<div class="col-lg-6">
 
-							<!-- Circle Buttons -->
+							<!-- Permiso Diario -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
 								</div>
-								<div class="card-body">
+								<div th:if="${flagBusqueda} == 'OK'" class="card-body">
 									<form id="save" action="#" th:action="@{/permiso/permisoDiarioProcess}"
 										th:object="${permisoDiario}" method="post">
 										<p>Persona:
-											<select th:field="*{person.id}">
-												<option th:each="persona : ${personas}" th:value="${persona.id}"
-													th:text="${persona.name}">
-												</option>
-											</select>
+											<p><input type="hidden" th:field="*{person.id}" disable="disable" /></p>
+											<p>Nombre: <input type="text" th:field="*{person.name}"  /></p>
+                                        	<p>Apellido: <input type="text" th:field="*{person.surname}"  /></p>
+                                        	<p>Dni: <input type="text" th:field="*{person.dni}" /></p>
 										</p>
 										<p>Desde:
 											<select name="idDesde">

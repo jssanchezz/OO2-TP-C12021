@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.grupo4.converters.PersonConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
@@ -64,13 +65,24 @@ public class PermisoController {
 	@Qualifier("userService")
 	private IUserService userService;
 	
+	@Autowired
+	@Qualifier("personConverter")
+	private PersonConverter personConverter;
+	
 	@GetMapping("/newPermisoDiario")
-	public ModelAndView nuevoPermisoDiario() {
+	public ModelAndView nuevoPermisoDiario(@RequestParam(name="dni", defaultValue = "0") long dni) {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
-		//List<Permiso> pepe = permisoPeriodoService.getAll();
 		mav.addObject("lugares", lugarService.getAll());
-		mav.addObject("personas", personService.getAll());
-		mav.addObject("permisoDiario", new PermisoDiario());
+		
+		PermisoDiario permisoDiario = new PermisoDiario();
+		
+		if(personService.findByDni(dni) != null)
+			permisoDiario.setPerson(personService.findByDni(dni));
+			
+		if(dni != 0)
+			mav.addObject("flagBusqueda", "OK");
+		
+		mav.addObject("permisoDiario", permisoDiario);
 		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
