@@ -49,14 +49,14 @@
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
 								</div>
-								<div th:if="${flagBusqueda} == 'OK'" class="card-body">
+								<div th:if="${existePersona} == 'OK'" class="card-body">
 									<form id="save" action="#" th:action="@{/permiso/permisoDiarioProcess}"
 										th:object="${permisoDiario}" method="post">
 										<p>Persona:
-											<p><input type="hidden" th:field="*{person.id}" disable="disable" /></p>
-											<p>Nombre: <input type="text" th:field="*{person.name}"  /></p>
-                                        	<p>Apellido: <input type="text" th:field="*{person.surname}"  /></p>
-                                        	<p>Dni: <input type="text" th:field="*{person.dni}" /></p>
+											<p><input type="hidden" th:field="*{person.id}" readonly="readonly"/></p>
+											<p>Nombre: <input type="text" th:field="*{person.name}" readonly="readonly" /></p>
+                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" readonly="readonly" /></p>
+                                        	<p>Dni: <input type="text" th:field="*{person.dni}" readonly="readonly" /></p>
 										</p>
 										<p>Desde:
 											<select name="idDesde">

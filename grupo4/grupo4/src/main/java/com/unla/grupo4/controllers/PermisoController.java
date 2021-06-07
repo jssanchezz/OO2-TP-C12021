@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.converters.PersonConverter;
@@ -74,13 +75,15 @@ public class PermisoController {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
 		mav.addObject("lugares", lugarService.getAll());
 		
-		PermisoDiario permisoDiario = new PermisoDiario();
+		PermisoDiarioModel permisoDiario = new PermisoDiarioModel();
 		
-		if(personService.findByDni(dni) != null)
+		if(personService.findByDni(dni) != null) {
 			permisoDiario.setPerson(personService.findByDni(dni));
-			
-		if(dni != 0)
-			mav.addObject("flagBusqueda", "OK");
+			mav.addObject("existePersona", "OK");
+		}else if (dni != 0) {
+			mav.addObject("mensaje", "Persona inexistente, por favor dar de alta.");
+	        mav.addObject("clase", "warning");
+		}
 		
 		mav.addObject("permisoDiario", permisoDiario);
 		mav.addObject("userlogrole", userService.getRoleOfUserLog());
