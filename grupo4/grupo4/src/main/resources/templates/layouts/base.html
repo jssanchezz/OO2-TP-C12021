@@ -99,6 +99,10 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Permisos:</h6>
 						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/persons/newPerson}">Alta persona</a>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
+							th:href="@{/rodado/newRodado}">Alta rodado</a>
+						<a th:if="${userlogrole} == ''" class="collapse-item"
 							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
 						<a th:if="${userlogrole} == ''" class="collapse-item"
 							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
