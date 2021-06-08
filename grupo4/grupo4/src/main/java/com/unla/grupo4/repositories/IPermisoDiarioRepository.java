@@ -17,8 +17,7 @@ public interface IPermisoDiarioRepository extends JpaRepository<PermisoDiario, S
 	public abstract PermisoDiario findById(int id);
 	public abstract PermisoDiario findByPerson(Person person);
 	
-	@Query("SELECT pd FROM PermisoDiario pd JOIN FETCH pd.person pe "
-			+ "JOIN FETCH pd.desdeHasta dh WHERE pe.id = :id")
+	@Query("SELECT pd FROM PermisoDiario pd JOIN FETCH pd.person pe WHERE pe.id = :id")
 	public abstract List<PermisoDiario> traerPermisosPorPersona(int id);
 	
 	@Query("SELECT pd FROM PermisoDiario pd JOIN FETCH pd.person pe WHERE pd.fecha BETWEEN (:fechaInicio) and (:fechaFinal)")

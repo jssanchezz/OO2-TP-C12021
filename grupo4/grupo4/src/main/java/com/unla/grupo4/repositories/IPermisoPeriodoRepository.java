@@ -25,8 +25,7 @@ public interface IPermisoPeriodoRepository extends JpaRepository<PermisoPeriodo,
 			+ "JOIN FETCH pp.desdeHasta dh")
 	public abstract List<PermisoPeriodo> findAllPermisosPeriodo();
 	
-	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado ro "
-			+ "JOIN FETCH pp.desdeHasta dh WHERE pe.id = :id")
+	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado ro WHERE pe.id = :id")
 	public abstract List<PermisoPeriodo> traerPermisosPorPersona(int id);
 	
 	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe  JOIN FETCH pp.rodado pr "
