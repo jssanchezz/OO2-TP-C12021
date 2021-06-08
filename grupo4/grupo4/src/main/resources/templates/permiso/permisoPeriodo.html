@@ -25,61 +25,66 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
+					<!-- Buscador de persona por dni -->
+					<form id="buscarPersona" action="#" th:action="@{/permiso/newPermisoPeriodo}" method="GET"
+							class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<input type="text" name="dni" class="form-control bg-white border-0 small" placeholder="Ingrese dni..."
+									aria-label="Search" aria-describedby="basic-addon2">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="submit">
+										<i class="fas fa-search fa-sm"></i>
+									</button>
+								</div>
+							</div>
+					</form>
+
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Usuario</h1>
+					<h1 class="h3 mb-4 text-gray-800"></h1>
 
 					<div class="row">
 
 						<div class="col-lg-6">
 
-							<!-- Circle Buttons -->
+						<!-- Permiso periodo -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso periodo</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
 								</div>
-								<div class="card-body">
+								<div th:if="${existePersona} == 'OK'" class="card-body">
 									<form id="save" action="#" th:action="@{/permiso/permisoPeriodoProcess}"
 										th:object="${permisoPeriodo}" method="post">
 										<p>Persona:
-											<select th:field="*{person.id}">
-												<option th:each="persona : ${personas}" th:value="${persona.id}"
-													th:text="${persona.name}">
+											<p><input type="hidden" th:field="*{person.id}" readonly="readonly"/></p>
+											<p>Nombre: <input type="text" th:field="*{person.name}" readonly="readonly" /></p>
+                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" readonly="readonly" /></p>
+                                        	<p>Dni: <input type="text" th:field="*{person.dni}" readonly="readonly" /></p>
+										</p>
+										<p>Desde:
+											<select name="idDesde">
+												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
+													th:text="${lugar.lugar}">
 												</option>
 											</select>
 										</p>
-										<p>Desde:										
-											<select name="idDesde">
-												<option th:each="lugar : ${lugares}" 
-														th:value="${lugar.id}"
-														th:text="${lugar.lugar}">
-												</option>
-											</select>
-										</p>										
 										<p>Hasta:
 											<select name="idHasta">
-												<option 
-													th:each="lugar : ${lugares}" 
-													th:value="${lugar.id}"
+												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
 													th:text="${lugar.lugar}">
 												</option>
 											</select>
 										</p>
 										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
 										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" /></p>
-										<p>Rodado:
-											<select th:field="*{rodado.id}">
-												<option th:each="road : ${rodados}" th:value="${road.id}"
-													th:text="${road.dominio}">
-												</option>
-											</select>
-										</p>
+										<p>Rodado: <input type="text" name="dominioRodado" /></p>
+
 										<a href="#" onclick="document.getElementById('save').submit()"
 											class="btn btn-success btn-circle">
 											<i class="fas fa-check"></i>
 										</a>
 									</form>
 								</div>
-							</div>
+							</div>							
 						</div>
 					</div>
 

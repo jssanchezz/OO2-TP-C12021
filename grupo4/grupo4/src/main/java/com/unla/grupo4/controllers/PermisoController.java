@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo4.converters.PersonConverter;
+import com.unla.grupo4.converters.RodadoConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
@@ -66,10 +67,6 @@ public class PermisoController {
 	@Qualifier("userService")
 	private IUserService userService;
 	
-	@Autowired
-	@Qualifier("personConverter")
-	private PersonConverter personConverter;
-	
 	@GetMapping("/newPermisoDiario")
 	public ModelAndView nuevoPermisoDiario(@RequestParam(name="dni", defaultValue = "0") long dni) {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
@@ -102,24 +99,40 @@ public class PermisoController {
 	}
 
 	@GetMapping("/newPermisoPeriodo")
-	public ModelAndView nuevoPermisoPeriodo() {
+	public ModelAndView nuevoPermisoPeriodo(@RequestParam(name="dni", defaultValue = "0") long dni) {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_PERIODO_NEW);
 		mav.addObject("lugares", lugarService.getAll());
-		mav.addObject("personas", personService.getAll());
-		mav.addObject("permisoPeriodo", new PermisoPeriodo());
-		mav.addObject("rodados", rodadoService.getAll());
+		
+		PermisoPeriodoModel permisoPeriodo = new PermisoPeriodoModel();
+		
+		if(personService.findByDni(dni) != null) {
+			permisoPeriodo.setPerson(personService.findByDni(dni));
+			mav.addObject("existePersona", "OK");
+		}else if (dni != 0) {
+			mav.addObject("mensaje", "Persona inexistente, por favor dar de alta.");
+	        mav.addObject("clase", "warning");
+		}
+		
+		mav.addObject("permisoPeriodo", permisoPeriodo);		
 		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
 	
 	@PostMapping("/permisoPeriodoProcess")
 	public RedirectView toNuevoPermisoPeriodo(@ModelAttribute("permisoPeriodo") PermisoPeriodoModel permisoPeriodoModel, 
-			@RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta) {
-		Set<Lugar> lugares = new HashSet<Lugar>();
-		lugares.add(lugarService.findById(idDesde));
-		lugares.add(lugarService.findById(idHasta));
-		permisoPeriodoModel.setDesdeHasta(lugares);
-		permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
+			@RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta, @RequestParam("dominioRodado") String dominioRodado, RedirectAttributes attribute) {
+		
+		if(rodadoService.findByDominio(dominioRodado) != null) {
+			permisoPeriodoModel.setRodado(rodadoService.findByDominio(dominioRodado));
+			Set<Lugar> lugares = new HashSet<Lugar>();
+			lugares.add(lugarService.findById(idDesde));
+			lugares.add(lugarService.findById(idHasta));
+			permisoPeriodoModel.setDesdeHasta(lugares);
+			permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
+		} else {
+			attribute.addFlashAttribute("mensaje", "Rodado inexistente, por favor dar de alta.");
+			attribute.addFlashAttribute("clase", "warning");
+		}		
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}
 	
