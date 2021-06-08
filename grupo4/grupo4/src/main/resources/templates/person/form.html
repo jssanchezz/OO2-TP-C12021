@@ -40,8 +40,11 @@
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/persons/createPerson}" th:object="${person}" method="post">
 										<p>Nombre: <input type="text" th:field="*{name}" /></p>
+										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></p>
                                         <p>Apellido: <input type="text" th:field="*{surname}" /></p>
-                                        <p>Dni: <input type="text" th:field="*{dni}" /></p>                                      
+                                        <p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span></p>
+                                        <p>Dni: <input type="text" th:field="*{dni}" /></p>
+                                        <p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span></p>                                      
 
 										<a href="#" onclick="document.getElementById('save').submit()" class="btn btn-success btn-circle">
 											<i class="fas fa-check"></i>

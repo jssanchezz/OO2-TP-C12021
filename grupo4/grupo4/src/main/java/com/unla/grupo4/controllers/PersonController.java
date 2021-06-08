@@ -1,8 +1,12 @@
 package com.unla.grupo4.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +33,9 @@ public class PersonController {
 	private IUserService userService;
 
 	@GetMapping("/newPerson")
-	public ModelAndView form() {
+	public ModelAndView form(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PERSON_FORM);
+		if(!model.containsAttribute("person"))
 		mAV.addObject("person", new PersonModel());
 		
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
@@ -38,7 +43,11 @@ public class PersonController {
 	}
 	
 	@PostMapping("/createPerson")
-	public RedirectView createPerson(@ModelAttribute("person") PersonModel personModel, RedirectAttributes attribute) {
+	public RedirectView createPerson(@Valid @ModelAttribute("person") PersonModel personModel, BindingResult bindingResult, RedirectAttributes attribute) {
+		if(bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("org.springframework.validation.BindingResult.person", bindingResult);
+			attribute.addFlashAttribute("person", personModel);
+		}else {
 		if(personService.findByDni(personModel.getDni()) == null) {
 			personService.insertOrUpdate(personModel);
 			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
@@ -47,7 +56,7 @@ public class PersonController {
 			attribute.addFlashAttribute("mensaje", "Persona ya existente con dni: " + personModel.getDni());
 	        attribute.addFlashAttribute("clase", "warning");
 		}
-		
+		}
 		return new RedirectView(ViewRouteHelper.ROUTE_PERSON_FORM);
 	}
 

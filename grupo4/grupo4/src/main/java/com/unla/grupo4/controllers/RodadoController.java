@@ -1,8 +1,12 @@
 package com.unla.grupo4.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,23 +33,29 @@ public class RodadoController {
 	private IUserService userService;
 	
 	@GetMapping("/newRodado")
-	public ModelAndView createRodado() {
+	public ModelAndView createRodado(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.RODADO_INSERT);
-		mAV.addObject("rodado", new RodadoModel());
+		if (!model.containsAttribute("rodado"))
+			mAV.addObject("rodado", new RodadoModel());
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
 	@PostMapping("/saveRodado")
-	public RedirectView save(@ModelAttribute("rodado") RodadoModel rodadoModel, RedirectAttributes attribute) {
-		
-		if(rodadoService.findByDominio(rodadoModel.getDominio()) == null) {
-			rodadoService.insertOrUpdate(rodadoModel);
-			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
-	        attribute.addFlashAttribute("clase", "success");
-		}else {
-			attribute.addFlashAttribute("mensaje", "Rodado ya existente con dominio: " + rodadoModel.getDominio());
-	        attribute.addFlashAttribute("clase", "warning");
+	public RedirectView save(@Valid @ModelAttribute("rodado") RodadoModel rodadoModel, BindingResult bindingResult,
+			RedirectAttributes attribute) {
+		if (bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("org.springframework.validation.BindingResult.rodado", bindingResult);
+			attribute.addFlashAttribute("rodado", rodadoModel);
+		} else {
+			if (rodadoService.findByDominio(rodadoModel.getDominio()) == null) {
+				rodadoService.insertOrUpdate(rodadoModel);
+				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+				attribute.addFlashAttribute("clase", "success");
+			} else {
+				attribute.addFlashAttribute("mensaje", "Rodado ya existente con dominio: " + rodadoModel.getDominio());
+				attribute.addFlashAttribute("clase", "warning");
+			}
 		}
 		return new RedirectView(ViewRouteHelper.RODADO_ROOT);
 	}

@@ -1,9 +1,13 @@
 package com.unla.grupo4.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class RodadoModel {
 	
 	private int id;
+	@NotBlank(message = "el campo dominio no debe estar vacio")
 	private String dominio;
+	@NotBlank(message = "el campo vehiculo no debe estar vacio")
 	private String vehiculo;
 	
 	public RodadoModel() {}
