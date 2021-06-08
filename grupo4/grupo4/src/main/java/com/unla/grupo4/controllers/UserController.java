@@ -7,12 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +43,7 @@ public class UserController {
 	@Autowired
 	@Qualifier("userService")
 	private IUserService userService;
-	
+
 	@Autowired
 	@Qualifier("userRoleService")
 	private IUserRoleService userRoleService;
@@ -49,45 +52,55 @@ public class UserController {
 	public String index() {
 		return ViewRouteHelper.USER_INDEX;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/newUser")
-	public ModelAndView form() {
+	public ModelAndView form(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
 		mAV.addObject("roles", userRoleService.getAll());
 		mAV.addObject("typeDoc", TypeDoc.values());
-		mAV.addObject("user", new UserModel());
+		if (!model.containsAttribute("user"))
+			mAV.addObject("user", new UserModel());
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/newUser")
-	public RedirectView createUser(@ModelAttribute("user") UserModel userModel, RedirectAttributes attribute) {
+	public RedirectView createUser(@Valid @ModelAttribute("user") UserModel userModel, BindingResult bindingResult,
+			RedirectAttributes attribute) {
 		userModel.setRole(userRoleService.findById(userModel.getRole().getId()));
-		if(userService.findByDni(userModel.getDni()) != null && (userService.findByDni(userModel.getDni())).getId() != userModel.getId()) {
-			attribute.addFlashAttribute("mensaje", "El DNI ya existe");
-	        attribute.addFlashAttribute("clase", "warning");
-		}else if(userService.findByEmail(userModel.getEmail()) != null && userService.findByEmail(userModel.getEmail()).getId() != userModel.getId()) {
-			attribute.addFlashAttribute("mensaje", "el Email ya esta tomado");
-	        attribute.addFlashAttribute("clase", "warning");
-		}else if(userService.findByUserName(userModel.getUserName()) != null && userService.findByUserName(userModel.getUserName()).getId() != userModel.getId()){
-			attribute.addFlashAttribute("mensaje", "el Usuario ya esta tomado");
-	        attribute.addFlashAttribute("clase", "warning");
+		if (bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("org.springframework.validation.BindingResult.user", bindingResult);
+			attribute.addFlashAttribute("user", userModel);
+		} else {
+			if (userService.findByDni(userModel.getDni()) != null
+					&& (userService.findByDni(userModel.getDni())).getId() != userModel.getId()) {
+				attribute.addFlashAttribute("mensaje", "El DNI ya existe");
+				attribute.addFlashAttribute("clase", "warning");
+			} else if (userService.findByEmail(userModel.getEmail()) != null
+					&& userService.findByEmail(userModel.getEmail()).getId() != userModel.getId()) {
+				attribute.addFlashAttribute("mensaje", "el Email ya esta tomado");
+				attribute.addFlashAttribute("clase", "warning");
+			} else if (userService.findByUserName(userModel.getUserName()) != null
+					&& userService.findByUserName(userModel.getUserName()).getId() != userModel.getId()) {
+				attribute.addFlashAttribute("mensaje", "el Usuario ya esta tomado");
+				attribute.addFlashAttribute("clase", "warning");
+			} else if (userModel.getUserPassword() == null) {
+				attribute.addFlashAttribute("mensaje", "el password es nulo");
+				attribute.addFlashAttribute("clase", "warning");
+			} else {
+				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+				attribute.addFlashAttribute("clase", "success");
+				BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+				userModel.setUserPassword(pe.encode(userModel.getUserPassword()));
+				userService.insertOrUpdate(userModel);
+			}
 		}
-		else if(userModel.getUserPassword() == null) {
-			attribute.addFlashAttribute("mensaje", "el password es nulo");
-	        attribute.addFlashAttribute("clase", "warning");
-		}else {
-			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
-	        attribute.addFlashAttribute("clase", "success");
-	        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-	        userModel.setUserPassword(pe.encode(userModel.getUserPassword()));
-	        userService.insertOrUpdate(userModel);
-		}
+
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_FORM);
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateUser")
 	public ModelAndView update() {
@@ -96,7 +109,7 @@ public class UserController {
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
@@ -109,7 +122,7 @@ public class UserController {
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/deleteUser")
 	public ModelAndView delete() {
@@ -118,20 +131,20 @@ public class UserController {
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/deleteUser/{id}")
 	public RedirectView deleteUser(@PathVariable("id") int id, RedirectAttributes attribute) {
-		if(userService.remove(id)) {
+		if (userService.remove(id)) {
 			attribute.addFlashAttribute("mensaje", "Eliminado correctamente");
-	        attribute.addFlashAttribute("clase", "success");
-		}else {
+			attribute.addFlashAttribute("clase", "success");
+		} else {
 			attribute.addFlashAttribute("mensaje", "Perfil no existente");
-	        attribute.addFlashAttribute("clase", "danger");
+			attribute.addFlashAttribute("clase", "danger");
 		}
 		return new RedirectView(ViewRouteHelper.ROUTE_USER_DELETE);
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/listUsers")
 	public ModelAndView listsUser() {
@@ -140,22 +153,22 @@ public class UserController {
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/exportPDF")
-	public void pdfExporter(HttpServletResponse response)throws DocumentException, IOException {
+	public void pdfExporter(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-         
-        List<User> listUsers = userService.findByEnabled(true);
-         
-        UserPDFExporter exporter = new UserPDFExporter(listUsers);
-        exporter.export(response);
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+
+		List<User> listUsers = userService.findByEnabled(true);
+
+		UserPDFExporter exporter = new UserPDFExporter(listUsers);
+		exporter.export(response);
 	}
-	
+
 }
