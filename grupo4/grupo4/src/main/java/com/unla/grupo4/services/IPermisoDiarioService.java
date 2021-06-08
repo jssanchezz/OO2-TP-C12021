@@ -11,7 +11,7 @@ public interface IPermisoDiarioService {
 	public abstract PermisoDiarioModel insertOrUpdate(PermisoDiarioModel permisoDiarioModel);
 	public abstract List<PermisoDiario> traerPermisosPorPersona(int id);
 	public abstract PermisoDiario findById(int id);
-	public abstract PermisoDiario findByPerson(Person person);
+	public abstract List<PermisoDiario> getAll();
 	public abstract List<PermisoDiario> findByFechaAFecha(LocalDate fechaInicio, LocalDate fechaFinal);
 	public abstract List<PermisoDiario> findByFechaAFechaAndFetchDesde(LocalDate fechaInicio, 
 			LocalDate fechaFinal, int lugar);

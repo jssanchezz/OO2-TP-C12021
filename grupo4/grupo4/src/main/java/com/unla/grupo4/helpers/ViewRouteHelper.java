@@ -56,4 +56,7 @@ public class ViewRouteHelper {
 		//Redirects
 		public final static String PERMISO_DIARIO_ROOT = "/permiso/newPermisoDiario";
 		public final static String PERMISO_PERIODO_ROOT = "/permiso/newPermisoPeriodo";
+		
+	//QR
+		public final static String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode";
 }

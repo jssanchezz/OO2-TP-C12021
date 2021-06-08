@@ -15,7 +15,7 @@ import com.unla.grupo4.entities.Person;
 @Repository("permisoPeriodoRepository")
 public interface IPermisoPeriodoRepository extends JpaRepository<PermisoPeriodo, Serializable>{
 	public abstract PermisoPeriodo findById(int id);
-	public abstract PermisoPeriodo findByPerson(Person person);
+	public abstract List<PermisoPeriodo> findAll();
 	
 	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe "
 			+ "JOIN FETCH pp.desdeHasta dh JOIN FETCH pp.rodado pr WHERE pr.dominio LIKE (:dominio)")

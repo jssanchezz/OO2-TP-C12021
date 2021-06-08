@@ -46,11 +46,6 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 	}
 
 	@Override
-	public PermisoDiario findByPerson(Person person) {
-		return permisoDiarioRepository.findByPerson(person);
-	}
-
-	@Override
 	public List<PermisoDiario> findByFechaAFecha(LocalDate fechaInicio, LocalDate fechaFinal) {
 		return permisoDiarioRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 	}
@@ -98,6 +93,11 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 			}
 		}
 		return permisosDiarioADevolver;
+	}
+
+	@Override
+	public List<PermisoDiario> getAll() {
+		return permisoDiarioRepository.findAll();
 	}
 	
 }

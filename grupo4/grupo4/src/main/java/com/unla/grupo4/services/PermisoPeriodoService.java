@@ -61,11 +61,6 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 	}
 
 	@Override
-	public PermisoPeriodo findByPerson(Person person) {
-		return permisoPeriodoRepository.findByPerson(person);
-	}
-
-	@Override
 	public List<PermisoPeriodo> findByFechaAFecha(LocalDate fechaInicio, LocalDate fechaFinal) {
 		return permisoPeriodoRepository.findByFechaAFecha(fechaInicio, fechaFinal);
 	}
@@ -113,5 +108,4 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 		}
 		return permisosPeriodoADevolver;
 	}
-
 }
