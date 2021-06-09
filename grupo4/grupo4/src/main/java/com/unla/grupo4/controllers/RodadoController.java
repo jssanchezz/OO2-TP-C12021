@@ -48,16 +48,23 @@ public class RodadoController {
 			attribute.addFlashAttribute("org.springframework.validation.BindingResult.rodado", bindingResult);
 			attribute.addFlashAttribute("rodado", rodadoModel);
 		} else {
-			if (rodadoService.findByDominio(rodadoModel.getDominio()) == null) {
-				rodadoService.insertOrUpdate(rodadoModel);
-				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
-				attribute.addFlashAttribute("clase", "success");
+			if (rodadoService.esValida(rodadoModel.getDominio())) {
+				if (rodadoService.findByDominio(rodadoModel.getDominio()) == null) {
+					rodadoService.insertOrUpdate(rodadoModel);
+					attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+					attribute.addFlashAttribute("clase", "success");
+				} else {
+					attribute.addFlashAttribute("mensaje",
+							"Rodado ya existente con dominio: " + rodadoModel.getDominio());
+					attribute.addFlashAttribute("clase", "warning");
+				}
 			} else {
-				attribute.addFlashAttribute("mensaje", "Rodado ya existente con dominio: " + rodadoModel.getDominio());
+				attribute.addFlashAttribute("mensaje",
+						"El dominio no esta bien escrito siga este patron: 'ABC123' o 'AB123CD'");
 				attribute.addFlashAttribute("clase", "warning");
 			}
 		}
 		return new RedirectView(ViewRouteHelper.RODADO_ROOT);
 	}
-	
+
 }
