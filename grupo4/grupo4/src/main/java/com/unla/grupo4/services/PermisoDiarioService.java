@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.PermisoDiario;
-import com.unla.grupo4.entities.Person;
+import com.unla.grupo4.miscelaneo.Funciones;
 import com.unla.grupo4.models.PermisoDiarioModel;
+import com.unla.grupo4.models.PersonModel;
 import com.unla.grupo4.repositories.IPermisoDiarioRepository;
-import com.unla.grupo4.services.IPermisoDiarioService;
 
 @Service("permisoDiarioService")
 public class PermisoDiarioService implements IPermisoDiarioService{
@@ -98,6 +98,26 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 	@Override
 	public List<PermisoDiario> getAll() {
 		return permisoDiarioRepository.findAll();
+	}
+
+	@Override
+	public String modelToURL(PermisoDiarioModel permisoDiarioModel, PersonModel person) {
+		//TRAER ELEMENTOS DEL SET
+			Set<Lugar> desdeHasta = permisoDiarioModel.getDesdeHasta();
+			Iterator<Lugar> iterator = desdeHasta.iterator();
+			String desde = iterator.next().getLugar();
+			String hasta = "";
+			
+			while(iterator.hasNext()) {
+				hasta = iterator.next().getLugar();
+			}
+			
+			return "tipo=0&fecha=" + Funciones.pasarFechaAFormatoEuropeo(permisoDiarioModel.getFecha()) + 
+					"&dni=" + person.getDni() + "&nombre=" + Funciones.cambiarEspaciosPorSignosMas(person.getName()) + 
+					"&apellido=" + Funciones.cambiarEspaciosPorSignosMas(person.getSurname()) + 
+					"&desde=" + Funciones.cambiarEspaciosPorSignosMas(desde) + 
+					"&hasta=" + Funciones.cambiarEspaciosPorSignosMas(hasta) + 
+					"&motivo=" + Funciones.cambiarEspaciosPorSignosMas(permisoDiarioModel.getMotivo());	
 	}
 	
 }

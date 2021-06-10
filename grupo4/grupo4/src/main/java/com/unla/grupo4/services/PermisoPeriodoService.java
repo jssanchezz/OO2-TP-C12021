@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
-import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoPeriodo;
-import com.unla.grupo4.entities.Person;
+import com.unla.grupo4.miscelaneo.Funciones;
 import com.unla.grupo4.models.PermisoPeriodoModel;
+import com.unla.grupo4.models.PersonModel;
+import com.unla.grupo4.models.RodadoModel;
 import com.unla.grupo4.repositories.IPermisoPeriodoRepository;
-import com.unla.grupo4.services.IPermisoPeriodoService;
 
 @Service("permisoPeriodoService")
 public class PermisoPeriodoService implements IPermisoPeriodoService {
@@ -107,5 +107,34 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 			}
 		}
 		return permisosPeriodoADevolver;
+	}
+
+	@Override
+	public String modelToURL(PermisoPeriodoModel permisoPeriodoModel,
+			RodadoModel rodado, PersonModel person) {
+		
+		//TRAER ELEMENTOS DEL SET
+		Set<Lugar> desdeHasta = permisoPeriodoModel.getDesdeHasta();
+		Iterator<Lugar> iterator = desdeHasta.iterator();
+		String desde = iterator.next().getLugar();
+		String hasta = "";
+		
+		while(iterator.hasNext()) {
+			hasta = iterator.next().getLugar();
+		}
+		
+		//VERIFICAR EL ESTADO DE LAS VACACIONES
+		String vacaciones = "";
+		if(permisoPeriodoModel.isVacaciones()) vacaciones = "SI";
+		else vacaciones = "NO";
+		
+		return "tipo=1&fecha=" + Funciones.pasarFechaAFormatoEuropeo(permisoPeriodoModel.getFecha()) + 
+				"&dni=" + person.getDni() + "&nombre=" + Funciones.cambiarEspaciosPorSignosMas(person.getName()) + 
+				"&apellido=" + Funciones.cambiarEspaciosPorSignosMas(person.getSurname() ) + 
+				"&desde=" + Funciones.cambiarEspaciosPorSignosMas(desde) + 
+				"&hasta=" + Funciones.cambiarEspaciosPorSignosMas(hasta) + 
+				"&vacaciones=" + vacaciones + 
+				"&dias=" + permisoPeriodoModel.getCantDias() +
+				"&dominio=" + rodado.getDominio();	
 	}
 }

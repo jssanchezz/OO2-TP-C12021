@@ -85,12 +85,17 @@ public class PermisoController {
 		permisoDiarioModel.setDesdeHasta(lugares);
 		permisoDiarioService.insertOrUpdate(permisoDiarioModel);
 		
-		int ultimoId = 1;
-		List<PermisoDiario> aux = permisoDiarioService.getAll();
-		ultimoId = aux.get(aux.size()-1).getId();
+//		int ultimoId = 1;
+//		List<PermisoDiario> aux = permisoDiarioService.getAll();
+//		ultimoId = aux.get(aux.size()-1).getId();
+//		
+//		qrCodeService.generateQRCodeImage("Permiso"+ ultimoId, 200, 200,
+//				ViewRouteHelper.QR_CODE_IMAGE_PATH + ultimoId +".png");
 		
-		qrCodeService.generateQRCodeImage("Permiso"+ ultimoId, 200, 200,
-				ViewRouteHelper.QR_CODE_IMAGE_PATH + ultimoId +".png");
+		qrCodeService.generateQRCodeImage(ViewRouteHelper.LINK +
+				permisoDiarioService.modelToURL(permisoDiarioModel,
+				personService.findById(permisoDiarioModel.getPerson().getId())), 200, 200, 
+				ViewRouteHelper.QR_CODE_IMAGE_PATH +"pruebaDiario.png");
 		
 		return new RedirectView(ViewRouteHelper.PERMISO_DIARIO_ROOT);
 	}
@@ -115,12 +120,18 @@ public class PermisoController {
 		permisoPeriodoModel.setDesdeHasta(lugares);
 		permisoPeriodoService.insertOrUpdate(permisoPeriodoModel);
 		
-		int ultimoId = 1;
-		List<PermisoPeriodo> aux = permisoPeriodoService.getAll();
-		ultimoId = aux.get(aux.size()-1).getId();
+//		int ultimoId = 1;
+//		List<PermisoPeriodo> aux = permisoPeriodoService.getAll();
+//		ultimoId = aux.get(aux.size()-1).getId();
+//		
+//		qrCodeService.generateQRCodeImage("Permiso"+ ultimoId, 200, 200,
+//				ViewRouteHelper.QR_CODE_IMAGE_PATH + ultimoId +".png");
 		
-		qrCodeService.generateQRCodeImage("Permiso"+ ultimoId, 200, 200,
-				ViewRouteHelper.QR_CODE_IMAGE_PATH + ultimoId +".png");
+		qrCodeService.generateQRCodeImage(ViewRouteHelper.LINK +
+				permisoPeriodoService.modelToURL(permisoPeriodoModel, 
+				rodadoService.findById(permisoPeriodoModel.getRodado().getId()),
+				personService.findById(permisoPeriodoModel.getPerson().getId())), 200, 200, 
+				ViewRouteHelper.QR_CODE_IMAGE_PATH +"prueba.png");
 		
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}

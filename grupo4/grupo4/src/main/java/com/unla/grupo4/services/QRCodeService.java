@@ -26,7 +26,7 @@ public class QRCodeService {
        
     }
 	
-	public static byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+	public byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
 	    QRCodeWriter qrCodeWriter = new QRCodeWriter();
 	    BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 	    

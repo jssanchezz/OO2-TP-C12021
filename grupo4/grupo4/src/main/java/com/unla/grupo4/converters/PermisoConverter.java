@@ -1,7 +1,11 @@
 package com.unla.grupo4.converters;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
+import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.PermisoDiario;
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.models.PermisoDiarioModel;

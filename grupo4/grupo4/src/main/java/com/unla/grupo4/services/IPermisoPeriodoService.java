@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.entities.Person;
+import com.unla.grupo4.entities.Rodado;
 import com.unla.grupo4.models.PermisoPeriodoModel;
+import com.unla.grupo4.models.PersonModel;
+import com.unla.grupo4.models.RodadoModel;
 
 public interface IPermisoPeriodoService {
 	public PermisoPeriodoModel insertOrUpdate(PermisoPeriodoModel permisoPeriodoModel);
@@ -23,4 +26,5 @@ public interface IPermisoPeriodoService {
 			LocalDate fechaFinal, int lugar);
 	public abstract List<PermisoPeriodo> findByFechaAFechaAndFetchHasta(LocalDate fechaInicio, 
 			LocalDate fechaFinal, int lugar);
+	public abstract String modelToURL(PermisoPeriodoModel permisoPeriodoModel, RodadoModel rodado, PersonModel person);
 }

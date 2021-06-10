@@ -59,4 +59,7 @@ public class ViewRouteHelper {
 		
 	//QR
 		public final static String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode";
+		
+	//Link de la pagina 
+		public final static String LINK = "https://jssanchezz.github.io/OO2-TP-E042021/docs/index?";
 }
