@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<title id="titlePestania">Validacion QR Permiso circular</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://argob.github.io/poncho-encode/bs4/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://form-ddjj.argentina.gob.ar/css/estilos.css">
+	
+	<script src="https://www.google.com/recaptcha/api.js?" async defer></script>
+    <script
+			  src="https://code.jquery.com/jquery-3.6.0.js"
+			  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+			  crossorigin="anonymous">
+    </script>
+
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-top navbar-default" role="navigation">
+			<div class="container">
+				<div class="col-sm-12 order-sm-1">
+					<div class="navbar-header">
+						<a class="navbar-brand">
+							<h2 class="text-center">Permiso Circular COVID-19</h2>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="panel-pane pane-imagen-destacada">
+		<div class="pane-content">
+			<section
+				style="background-color: #37bbed">
+			</section>
+		</div>
+	</div>
+	<section>
+		<div class="container" id="main-content">
+			<style>
+				#motivos-container li:before {
+					content: '\1F4C3';
+					margin-left: -20px;
+					margin-right: 10px;
+				}
+
+				@media (min-width:577px) {
+					.alert.alert-success .col-sm-4 {
+						text-align: right;
+					}
+				}
+			</style>
+			<div class="col-md-10 offset-md-1">
+				<div class="jumbotron_body jumbotron_body-lg">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-xs-12 col-md-8 col-md-offset-2 text-center">
+								<h2 class="text-center" id="tituloCertificado">Permiso de circulacion durante el
+									ahislamiento social, preventivo y obligatorio</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overlay"></div>
+				<hr>
+				<div class="alert alert-success">
+					<p class="text-center h4">Ciudadano habilitado para circular</p>
+					<dl class="row mt-5">
+						<dt class="col-sm-4">Valido fecha:</dt>
+						<dd id="fecha" class="col-sm-8"></dd>
+						<dt class="col-sm-4">DNI:</dt>
+						<dd id="dni" class="col-sm-8"></dd>
+						<dt class="col-sm-4">Nombre completo:</dt>
+						<dd id="nombreCompleto" class="col-sm-8"></dd>
+						<dt id="motivoCol" class="col-sm-4">Motivo circulación:</dt>
+						<dd id="motivo" class="col-sm-8"></dd>
+						<dt id="vacacionesCol"class="col-sm-4">Vacaciones:</dt>
+						<dd id="vacaciones" class="col-sm-8"></dd>
+						<dt id="cantDiasCol" class="col-sm-4">Cantidad de dias:</dt>
+						<dd id="cantDias" class="col-sm-8"></dd>
+						<dt id="dominioCol" class="col-sm-4">Dominio del vehiculo:</dt>
+						<dd id="dominio" class="col-sm-8"></dd>
+						<dt class="col-sm-4">Desde:</dt>
+						<dd id="desde" class="col-sm-8"></dd>
+						<dt class="col-sm-4">Hasta:</dt>
+						<dd id="hasta" class="col-sm-8"></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="main-footer">
+		<div class="container">
+			<section>
+				<div class="row justify-content-center">
+					<div class="col-12" style="text-align: center">
+						<h2 class="text-center">2021</h2>
+					</div>
+				</div>
+			</section>
+		</div>
+	</footer>	
+
+    <script>
+        const querystring = window.location.search
+        const params = new URLSearchParams(querystring)
+
+		//Tomo los parametros de la url y los guardo en variables
+		var fecha = params.get("fecha")
+        var dni = params.get("dni")
+        var nombre = params.get("nombre")
+        var apellido = params.get("apellido")        
+		var desde = params.get("desde")
+        var hasta = params.get("hasta")
+        
+		
+		if(params.get("tipo")==0){
+			var motivo = params.get("motivo")
+			$("#motivo").text(motivo);
+			$("#vacacionesCol").css("display", "none"); 
+			$("#cantDiasCol").css("display", "none"); 
+			$("#dominioCol").css("display", "none");
+			$("#vacaciones").css("display", "none"); 
+			$("#cantDias").css("display", "none"); 
+			$("#dominio").css("display", "none"); 
+		}else{
+			var vacaciones = params.get("vacaciones")        
+			var cantDias = params.get("dias")
+        	var dominio = params.get("dominio")
+			$("#vacaciones").text(vacaciones); 
+			$("#cantDias").text(cantDias); 
+			$("#dominio").text(dominio);
+			$("#motivoCol").css("display", "none");
+			$("#motivo").css("display", "none"); 
+		}
+
+		//Seteo cada uno de los campos del documento con su valor
+		$("#fecha").text(fecha);
+        $("#nombreCompleto").text(nombre + " " + apellido);
+        $("#dni").text(dni);        
+		$("#desde").text(desde);
+        $("#hasta").text(hasta);
+    </script>
+
+</html>
