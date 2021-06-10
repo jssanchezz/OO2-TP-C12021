@@ -5,10 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,47 +58,52 @@ public class PermisoController {
 	@Autowired
 	@Qualifier("lugarService")
 	private ILugarService lugarService;
-	
+
 	@Autowired
 	@Qualifier("personService")
 	private IPersonService personService;
-	
+
 	@Autowired
 	@Qualifier("rodadoService")
 	private IRodadoService rodadoService;
-	
+
 	@Autowired
 	@Qualifier("userService")
 	private IUserService userService;
-	
+
 	@GetMapping("/newPermisoDiario")
-	public ModelAndView nuevoPermisoDiario(@RequestParam(name="dni", defaultValue = "0") long dni) {
+	public ModelAndView nuevoPermisoDiario(@RequestParam(name = "dni", defaultValue = "0") long dni, Model model) {
 		ModelAndView mav = new ModelAndView(ViewRouteHelper.PERMISO_DIARIO_NEW);
 		mav.addObject("lugares", lugarService.getAll());
-		
+
 		PermisoDiarioModel permisoDiario = new PermisoDiarioModel();
-		
-		if(personService.findByDni(dni) != null) {
+
+		if (personService.findByDni(dni) != null) {
 			permisoDiario.setPerson(personService.findByDni(dni));
 			mav.addObject("existePersona", "OK");
-		}else if (dni != 0) {
+		} else if (dni != 0) {
 			mav.addObject("mensaje", "Persona inexistente, por favor dar de alta.");
-	        mav.addObject("clase", "warning");
+			mav.addObject("clase", "warning");
 		}
-		
 		mav.addObject("permisoDiario", permisoDiario);
 		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
-	
+
 	@PostMapping("/permisoDiarioProcess")
 	public RedirectView toNuevoPermisoDiario(@ModelAttribute("permisoDiario") PermisoDiarioModel permisoDiarioModel,
-											 @RequestParam("idDesde") int idDesde, @RequestParam("idHasta") int idHasta) {
-		Set<Lugar> lugares = new HashSet<Lugar>();
-		lugares.add(lugarService.findById(idDesde));
-		lugares.add(lugarService.findById(idHasta));
-		permisoDiarioModel.setDesdeHasta(lugares);
-		permisoDiarioService.insertOrUpdate(permisoDiarioModel);
+			BindingResult bindingResult, RedirectAttributes attribute, @RequestParam("idDesde") int idDesde,
+			@RequestParam("idHasta") int idHasta) {
+		if (bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("org.springframework.validation.BindingResult.permisoDiario", bindingResult);
+			attribute.addFlashAttribute("permisoDiario", permisoDiarioModel);
+		} else {
+			Set<Lugar> lugares = new HashSet<Lugar>();
+			lugares.add(lugarService.findById(idDesde));
+			lugares.add(lugarService.findById(idHasta));
+			permisoDiarioModel.setDesdeHasta(lugares);
+			permisoDiarioService.insertOrUpdate(permisoDiarioModel);
+		}
 		return new RedirectView(ViewRouteHelper.PERMISO_DIARIO_ROOT);
 	}
 
@@ -137,19 +146,23 @@ public class PermisoController {
 	}
 	
 	@GetMapping("/requestListPermisosRodado")
-	public ModelAndView requestRodado() {
-		ModelAndView mav = new ModelAndView("permiso/requestRodado");
-		mav.addObject(mav);
+	public ModelAndView requestRodado(@RequestParam(name = "dominio", required = false) String dominio) {
+		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
+		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);		
+		mav.addObject("permisos", permisos);
+		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
 	
+	/**
 	@PostMapping("/listPermisosRodado")
 	public ModelAndView mostrarListaRodado(@RequestParam(name="dominio", required = false) String dominio) {
 		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
 		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);
 		mav.addObject("permisos", permisos);
+		
 		return mav;
-	}	
+	}*/
 	
 	@GetMapping("/listPermisosPorPersona")
 	public ModelAndView mostrarListaRodado(@RequestParam(name="dni",defaultValue = "0") long dni) {

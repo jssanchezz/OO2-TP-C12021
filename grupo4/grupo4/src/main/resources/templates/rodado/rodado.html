@@ -40,7 +40,9 @@
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/rodado/saveRodado}" th:object="${rodado}" method="post">
 										<p>Dominio: <input type="text" th:field="*{dominio}" /></p>
-                                        <p>Vehiculo: <input type="text" th:field="*{vehiculo}" /></p>                                        
+										<p><span th:if="${#fields.hasErrors('dominio')}" th:errors="*{dominio}"></span></p>
+                                        <p>Vehiculo: <input type="text" th:field="*{vehiculo}" /></p>
+                                        <p><span th:if="${#fields.hasErrors('vehiculo')}" th:errors="*{vehiculo}"></span></p>                                        
 										<a href="#" onclick="document.getElementById('save').submit()" class="btn btn-success btn-circle">
 											<i class="fas fa-check"></i>
 										</a>

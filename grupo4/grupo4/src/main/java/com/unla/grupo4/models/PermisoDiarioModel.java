@@ -3,10 +3,13 @@ package com.unla.grupo4.models;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.validation.constraints.Size;
+
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.Person;
 
 public class PermisoDiarioModel extends PermisoModel{
+	@Size(min = 4,max = 50, message = "el motivo debe tener entre 4 y 50 caracteres de largo")
 	private String motivo;
 
 	public PermisoDiarioModel() {}

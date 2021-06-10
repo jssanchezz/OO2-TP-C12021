@@ -14,4 +14,6 @@ public interface IRodadoService {
 	public Rodado findByDominio(String dominio);
 	
 	public RodadoModel insertOrUpdate(RodadoModel rodadoModel);
+	
+	public boolean esValida(String dominio);
 }

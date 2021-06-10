@@ -1,9 +1,16 @@
 package com.unla.grupo4.models;
 
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+
 public class UserRoleModel {
 	
 	
 	private int id;
+	
+	@NotBlank(message = "el campo rol no debe estar vacio")
 	private String role;
 	
 	public UserRoleModel() { }

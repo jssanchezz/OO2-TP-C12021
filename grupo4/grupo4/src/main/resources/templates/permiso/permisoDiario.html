@@ -74,6 +74,7 @@
 										</p>
 										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
 										<p>Motivo: <input type="text" th:field="*{motivo}" /></p>
+										<p><span th:if="${#fields.hasErrors('motivo')}" th:errors="*{motivo}"></span></p>
 
 										<a href="#" onclick="document.getElementById('save').submit()"
 											class="btn btn-success btn-circle">
