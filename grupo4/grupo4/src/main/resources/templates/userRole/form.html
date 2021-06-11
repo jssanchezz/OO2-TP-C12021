@@ -42,7 +42,7 @@
 										th:object="${userRole}" method="post">
 										<p><input type="hidden" th:field="*{id}" /></p>
 										<p>Perfil: <input type="text" th:field="*{role}" /></p>
-										<p><span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span></p>
+										<p><span th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:errorclass="error"></span></p>
 										<a href="#" onclick="document.getElementById('save').submit()"
 											class="btn btn-success btn-icon-split">
 											<span class="icon text-white-50">

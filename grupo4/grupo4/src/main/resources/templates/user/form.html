@@ -40,9 +40,9 @@
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/users/newUser}" th:object="${user}" method="post">
 										<p>Nombre: <input type="text" th:field="*{name}" /></p>
-										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></p>
+										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></span></p>
                                         <p>Apellido: <input type="text" th:field="*{surname}" /></p>
-                                        <p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span></p>
+                                        <p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:errorclass="error"></span></p>
                                         <p>Tipo
                                             <select th:field="*{typeDoc}">
                                                 <option th:each="typeDo : ${typeDoc}"
@@ -52,9 +52,9 @@
                                             </select>
                                         
                                         Dni: <input type="text" th:field="*{dni}" /></p>
-                                        <p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span></p>
+                                        <p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" th:errorclass="error"></span></p>
                                         <p>Email: <input type="text" th:field="*{email}" /></p>
-                                        <p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></p>
+                                        <p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span></p>
                                         <p>Nombre de usuario: <input type="text" th:field="*{userName}" /></p>
                                         <p>Clave: <input type="password" th:field="*{userPassword}" /></p>
                                        
