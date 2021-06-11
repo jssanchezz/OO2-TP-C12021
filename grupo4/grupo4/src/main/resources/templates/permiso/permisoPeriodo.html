@@ -49,7 +49,7 @@
 						<!-- Permiso periodo -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso por periodo</h6>
 								</div>
 								<div th:if="${existePersona} == 'OK'" class="card-body">
 									<form id="save" action="#" th:action="@{/permiso/permisoPeriodoProcess}"
@@ -75,7 +75,9 @@
 											</select>
 										</p>
 										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
-										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" /></p>
+										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" />
+											¿Vacaciones?: <input type="checkbox" th:field="*{vacaciones}"/>
+										</p>
 										<p>Rodado: <input type="text" name="dominioRodado" /></p>
 
 										<a href="#" onclick="document.getElementById('save').submit()"
