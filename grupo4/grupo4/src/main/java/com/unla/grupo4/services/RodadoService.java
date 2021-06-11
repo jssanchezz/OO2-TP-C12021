@@ -34,8 +34,8 @@ public class RodadoService implements IRodadoService{
 	}
 
 	@Override
-	public RodadoModel findByDominio(String dominio) {
-		return rodadoConverter.entityToModel(rodadoRepository.findByDominio(dominio));
+	public Rodado findByDominio(String dominio) {
+		return rodadoRepository.findByDominio(dominio);
 	}
 
 	@Override
@@ -43,4 +43,21 @@ public class RodadoService implements IRodadoService{
 		Rodado rodado = rodadoRepository.save(rodadoConverter.modelToEntity(rodadoModel));
 		return rodadoConverter.entityToModel(rodado);
 	}
+
+	@Override
+	public boolean esValida(String dominio) {
+		boolean esValida = false;
+		String patron = "";
+		if(dominio.length() == 6) {
+			patron = "^[a-zA-Z]{3}[0-9]{3}$";
+			esValida = dominio.matches(patron);
+		}else {
+			patron = "^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}$";
+			esValida = dominio.matches(patron);
+		}
+		return esValida;
+	}
+	
+	
+	
 }

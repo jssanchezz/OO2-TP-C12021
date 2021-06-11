@@ -3,11 +3,14 @@ package com.unla.grupo4.models;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.validation.constraints.Positive;
+
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.entities.Rodado;
 
 public class PermisoPeriodoModel extends PermisoModel{
+	@Positive
 	private int cantDias;
 	private boolean vacaciones;
 	private Rodado rodado;

@@ -1,5 +1,6 @@
 package com.unla.grupo4.models;
 
+
 public class LugarModel {
 	private int id;
 	private String lugar;

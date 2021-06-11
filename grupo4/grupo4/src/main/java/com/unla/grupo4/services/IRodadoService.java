@@ -11,7 +11,9 @@ public interface IRodadoService {
 	
 	public RodadoModel findById(int id);
 	
-	public RodadoModel findByDominio(String dominio);
+	public Rodado findByDominio(String dominio);
 	
 	public RodadoModel insertOrUpdate(RodadoModel rodadoModel);
+	
+	public boolean esValida(String dominio);
 }

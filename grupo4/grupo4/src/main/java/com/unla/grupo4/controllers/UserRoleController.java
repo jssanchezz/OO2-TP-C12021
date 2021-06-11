@@ -7,11 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,28 +52,34 @@ public class UserRoleController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/newRole")
-	public ModelAndView newRole() {
+	public ModelAndView newRole(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
-		mAV.addObject("userRole", new UserRoleModel());
+		if (!model.containsAttribute("userRole"))
+			mAV.addObject("userRole", new UserRoleModel());
 		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/saveRole")
-	public RedirectView save(@ModelAttribute("userRole") UserRoleModel userRoleModel, RedirectAttributes attribute) {
-		
-		if(userRoleService.findByRole(userRoleModel.getRole()) == null) {
-			userRoleService.insertOrUpdate(userRoleModel);
-			attribute.addFlashAttribute("mensaje", "Guardado correctamente");
-	        attribute.addFlashAttribute("clase", "success");
-		}else {
-			attribute.addFlashAttribute("mensaje", "Perfil ya existente: " + userRoleModel.getRole());
-	        attribute.addFlashAttribute("clase", "warning");
+	public RedirectView save(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel,
+			BindingResult bindingResult, RedirectAttributes attribute) {
+		if (bindingResult.hasErrors()) {
+			attribute.addFlashAttribute("org.springframework.validation.BindingResult.userRole", bindingResult);
+			attribute.addFlashAttribute("userRole", userRoleModel);
+		} else {
+			if (userRoleService.findByRole(userRoleModel.getRole()) == null) {
+				userRoleService.insertOrUpdate(userRoleModel);
+				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
+				attribute.addFlashAttribute("clase", "success");
+			} else {
+				attribute.addFlashAttribute("mensaje", "Perfil ya existente: " + userRoleModel.getRole());
+				attribute.addFlashAttribute("clase", "warning");
+			}
 		}
 		return new RedirectView(ViewRouteHelper.USER_ROLE_INSERT_ROOT);
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/updateRole")
 	public ModelAndView updateRole() {
