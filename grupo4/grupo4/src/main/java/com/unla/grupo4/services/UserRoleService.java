@@ -31,7 +31,9 @@ public class UserRoleService implements IUserRoleService{
 	@Override
 	public boolean remove(int id) {
 		try {
-			userRoleRepository.deleteById(id);
+			UserRole userRole = userRoleRepository.findById(id);
+			userRole.setEnabled(false);
+			userRoleRepository.save(userRole);
 			return true;
 		}catch (Exception e) {
 			return false;

@@ -30,6 +30,9 @@ public class UserRole {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@Column(name = "enabled", columnDefinition = "boolean default true")
+	private boolean enabled = true;
+	
 	public UserRole() { }
 
 	public UserRole(int id, String role) {
@@ -58,6 +61,14 @@ public class UserRole {
 		return role;
 	}	
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
     public int hashCode() {
         final int prime = 31;
