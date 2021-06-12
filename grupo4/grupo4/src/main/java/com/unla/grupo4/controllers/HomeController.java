@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
 	
-@GetMapping("/index")
+@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.INDEX);
 		return modelAndView;

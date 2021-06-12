@@ -24,6 +24,6 @@ public class LoginController {
 	
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
-		return "redirect:/home/index";
+		return "redirect:/";
 	}
 }
