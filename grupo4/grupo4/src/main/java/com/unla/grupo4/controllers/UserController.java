@@ -61,7 +61,6 @@ public class UserController {
 		mAV.addObject("typeDoc", TypeDoc.values());
 		if (!model.containsAttribute("user"))
 			mAV.addObject("user", new UserModel());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -106,7 +105,6 @@ public class UserController {
 	public ModelAndView update() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -119,7 +117,6 @@ public class UserController {
 		mAV.addObject("roles", roles);
 		mAV.addObject("user", user);
 		mAV.addObject("typeDoc", TypeDoc.values());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -128,7 +125,6 @@ public class UserController {
 	public ModelAndView delete() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_DELETE);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -150,7 +146,6 @@ public class UserController {
 	public ModelAndView listsUser() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_LIST);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 

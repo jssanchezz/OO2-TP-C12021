@@ -40,10 +40,6 @@ public class UserRoleController {
 	@Qualifier("userRoleService")
 	private IUserRoleService userRoleService;
 	
-	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
-	
 	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INDEX);
@@ -56,7 +52,6 @@ public class UserRoleController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
 		if (!model.containsAttribute("userRole"))
 			mAV.addObject("userRole", new UserRoleModel());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -85,7 +80,6 @@ public class UserRoleController {
 	public ModelAndView updateRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_UPDATE);
 		mAV.addObject("userRoles",userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -102,7 +96,6 @@ public class UserRoleController {
 	public ModelAndView deleteRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_DELETE);
 		mAV.addObject("userRoles",userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -124,7 +117,6 @@ public class UserRoleController {
 	public ModelAndView listar() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_LIST);
 		mAV.addObject("userRoles", userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
