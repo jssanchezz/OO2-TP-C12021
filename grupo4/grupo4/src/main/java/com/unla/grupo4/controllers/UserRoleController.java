@@ -79,7 +79,7 @@ public class UserRoleController {
 	@GetMapping("/updateRole")
 	public ModelAndView updateRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_UPDATE);
-		mAV.addObject("userRoles",userRoleService.getAll());
+		mAV.addObject("userRoles",userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -95,7 +95,7 @@ public class UserRoleController {
 	@GetMapping("/deleteRole")
 	public ModelAndView deleteRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_DELETE);
-		mAV.addObject("userRoles",userRoleService.getAll());
+		mAV.addObject("userRoles",userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -116,7 +116,7 @@ public class UserRoleController {
 	@GetMapping("/listRoles")
 	public ModelAndView listar() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_LIST);
-		mAV.addObject("userRoles", userRoleService.getAll());
+		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -131,7 +131,7 @@ public class UserRoleController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
          
-        List<UserRole> listUserRoles = userRoleService.getAll();
+        List<UserRole> listUserRoles = userRoleService.findByEnabled(true);
          
         UserRolePDFExporter exporter = new UserRolePDFExporter(listUserRoles);
         exporter.export(response);         

@@ -55,4 +55,9 @@ public class UserRoleService implements IUserRoleService{
 	public UserRole findByRole(String role) {
 		return userRoleRepository.findByRole(role);
 	}
+
+	@Override
+	public List<UserRole> findByEnabled(boolean enabled) {
+		return userRoleRepository.findByEnabled(enabled);
+	}
 }

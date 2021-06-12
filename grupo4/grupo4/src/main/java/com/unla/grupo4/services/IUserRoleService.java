@@ -9,6 +9,8 @@ public interface IUserRoleService {
 	
 	public List<UserRole> getAll();
 	
+	public List<UserRole> findByEnabled(boolean enabled);
+	
 	public UserRoleModel findById(int id);
 	
 	public UserRole findByRole(String role);
