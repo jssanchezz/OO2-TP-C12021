@@ -7,11 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,10 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.converters.PersonConverter;
 import com.unla.grupo4.entities.Lugar;
-import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.entities.Person;
@@ -161,16 +160,6 @@ public class PermisoController {
 		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
-	
-	/**
-	@PostMapping("/listPermisosRodado")
-	public ModelAndView mostrarListaRodado(@RequestParam(name="dominio", required = false) String dominio) {
-		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
-		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);
-		mav.addObject("permisos", permisos);
-		
-		return mav;
-	}*/
 	
 	@GetMapping("/listPermisosPorPersona")
 	public ModelAndView mostrarListaRodado(@RequestParam(name="dni",defaultValue = "0") long dni) {
