@@ -18,5 +18,5 @@ public interface IPermisoDiarioService {
 			LocalDate fechaFinal, int lugar);
 	public abstract List<PermisoDiario> findByFechaAFechaAndFetchHasta(LocalDate fechaInicio, 
 			LocalDate fechaFinal, int idLugar);
-	public abstract String modelToURL(PermisoDiarioModel permisoDiarioModel, PersonModel person);
+	public abstract String modelToURL(PermisoDiarioModel permisoDiarioModel);
 }

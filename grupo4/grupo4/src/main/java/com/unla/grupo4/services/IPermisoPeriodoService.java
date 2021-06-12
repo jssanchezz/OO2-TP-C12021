@@ -13,6 +13,8 @@ import com.unla.grupo4.models.RodadoModel;
 public interface IPermisoPeriodoService {
 	public PermisoPeriodoModel insertOrUpdate(PermisoPeriodoModel permisoPeriodoModel);
 	
+	public abstract PermisoPeriodoModel findById(int id);
+	
 	public abstract List<PermisoPeriodo> findPermisosxRodado(String dominio);
 	
 	public abstract List<PermisoPeriodo> getAll();
@@ -26,5 +28,5 @@ public interface IPermisoPeriodoService {
 			LocalDate fechaFinal, int lugar);
 	public abstract List<PermisoPeriodo> findByFechaAFechaAndFetchHasta(LocalDate fechaInicio, 
 			LocalDate fechaFinal, int lugar);
-	public abstract String modelToURL(PermisoPeriodoModel permisoPeriodoModel, RodadoModel rodado, PersonModel person);
+	public abstract String modelToURL(PermisoPeriodoModel permisoPeriodoModel);
 }

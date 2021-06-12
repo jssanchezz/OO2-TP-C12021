@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.PermisoPeriodo;
+import com.unla.grupo4.entities.Person;
+import com.unla.grupo4.entities.Rodado;
 import com.unla.grupo4.miscelaneo.Funciones;
 import com.unla.grupo4.models.PermisoPeriodoModel;
 import com.unla.grupo4.models.PersonModel;
@@ -110,12 +112,13 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 	}
 
 	@Override
-	public String modelToURL(PermisoPeriodoModel permisoPeriodoModel,
-			RodadoModel rodado, PersonModel person) {
+	public String modelToURL(PermisoPeriodoModel permisoPeriodoModel) {
 		
 		//TRAER ELEMENTOS DEL SET
 		Set<Lugar> desdeHasta = permisoPeriodoModel.getDesdeHasta();
 		Iterator<Lugar> iterator = desdeHasta.iterator();
+		Person person = permisoPeriodoModel.getPerson();
+		Rodado rodado = permisoPeriodoModel.getRodado();
 		String desde = iterator.next().getLugar();
 		String hasta = "";
 		
@@ -136,5 +139,10 @@ public class PermisoPeriodoService implements IPermisoPeriodoService {
 				"&vacaciones=" + vacaciones + 
 				"&dias=" + permisoPeriodoModel.getCantDias() +
 				"&dominio=" + rodado.getDominio();	
+	}
+
+	@Override
+	public PermisoPeriodoModel findById(int id) {
+		return permisoConverter.entityToModel(permisoPeriodoRepository.findById(id));
 	}
 }

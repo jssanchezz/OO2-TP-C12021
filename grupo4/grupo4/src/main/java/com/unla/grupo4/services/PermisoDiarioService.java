@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.entities.Lugar;
 import com.unla.grupo4.entities.PermisoDiario;
+import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.miscelaneo.Funciones;
 import com.unla.grupo4.models.PermisoDiarioModel;
 import com.unla.grupo4.models.PersonModel;
@@ -101,13 +102,14 @@ public class PermisoDiarioService implements IPermisoDiarioService{
 	}
 
 	@Override
-	public String modelToURL(PermisoDiarioModel permisoDiarioModel, PersonModel person) {
+	public String modelToURL(PermisoDiarioModel permisoDiarioModel) {
 		//TRAER ELEMENTOS DEL SET
 			Set<Lugar> desdeHasta = permisoDiarioModel.getDesdeHasta();
 			Iterator<Lugar> iterator = desdeHasta.iterator();
+			Person person = permisoDiarioModel.getPerson();
 			String desde = iterator.next().getLugar();
 			String hasta = "";
-			
+						
 			while(iterator.hasNext()) {
 				hasta = iterator.next().getLugar();
 			}

@@ -59,6 +59,7 @@
                                                 <th>Motivo</th>
                                                 <th>Desde</th>
                                                 <th>Hasta</th>
+                                                <th>Detalles</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -70,6 +71,16 @@
                                                 <td><span th:text="${permiso.motivo}" /></td>
                                                 <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
                                                 <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+                                                <td>
+													<form id="#" th:id="${permiso.id}" action="#" th:action="@{/permiso/permisoDiarioDetalle/} + ${permiso.id}" th:object="${permiso}" method="get">
+														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${permiso.id}" class="btn btn-danger btn-icon-split btn-sm">
+															<span class="icon text-white-50">
+																<i class="fas fa-trash"></i>
+															</span>
+															<span class="text">Ver</span>
+														</a>														
+													</form>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -89,6 +100,7 @@
                                                 <th>Patente del vehiculo</th>
                                                 <th>Desde</th>
                                                 <th>Hasta</th>
+                                                <th>Detalles</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -101,6 +113,16 @@
                                                 <td><span th:text="${permiso.rodado.dominio}" /></td>
                                                 <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
                                                 <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+                                                <td>
+													<form id="#" th:id="${permiso.id}" action="#" th:action="@{/permiso/permisoPeriodoDetalle/} + ${permiso.id}" method="get">
+														<a onclick="myFunction(name, '¿Esta seguro de eliminar?')" name="#" th:name="${permiso.id}" class="btn btn-danger btn-icon-split btn-sm">
+															<span class="icon text-white-50">
+																<i class="fas fa-trash"></i>
+															</span>
+															<span class="text">Ver</span>
+														</a>														
+													</form>
+												</td>
 											</tr>
 										</tbody>
 									</table>

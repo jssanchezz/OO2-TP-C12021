@@ -15,7 +15,8 @@
 			  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 			  crossorigin="anonymous">
     </script>
-
+	
+	
 </head>
 
 <body>
@@ -69,25 +70,23 @@
 				<hr>
 				<div class="alert alert-success">
 					<p class="text-center h4">Ciudadano habilitado para circular</p>
+					<div class="col-auto" style='text-align:center'>
+						<img class="outline-inset mb-2 rounded"
+							th:src="@{/permiso/getqr/} + ${permiso.id} + '/diario'" width="200" height="200">
+					</div>
 					<dl class="row mt-5">
 						<dt class="col-sm-4">Valido fecha:</dt>
-						<dd id="fecha" class="col-sm-8"></dd>
+						<dd id="fecha" class="col-sm-8" th:text="${permiso.fecha}"></dd>
 						<dt class="col-sm-4">DNI:</dt>
-						<dd id="dni" class="col-sm-8"></dd>
+						<dd id="dni" class="col-sm-8" th:text="${permiso.person.dni}"></dd>
 						<dt class="col-sm-4">Nombre completo:</dt>
-						<dd id="nombreCompleto" class="col-sm-8"></dd>
+						<dd id="nombreCompleto" class="col-sm-8" th:text="${permiso.person.name} + ' ' + ${permiso.person.surname}"></dd>
 						<dt id="motivoCol" class="col-sm-4">Motivo circulación:</dt>
-						<dd id="motivo" class="col-sm-8"></dd>
-						<dt id="vacacionesCol"class="col-sm-4">Vacaciones:</dt>
-						<dd id="vacaciones" class="col-sm-8"></dd>
-						<dt id="cantDiasCol" class="col-sm-4">Cantidad de dias:</dt>
-						<dd id="cantDias" class="col-sm-8"></dd>
-						<dt id="dominioCol" class="col-sm-4">Dominio del vehiculo:</dt>
-						<dd id="dominio" class="col-sm-8"></dd>
+						<dd id="motivo" class="col-sm-8" th:text=${permiso.motivo}></dd>
 						<dt class="col-sm-4">Desde:</dt>
-						<dd id="desde" class="col-sm-8"></dd>
+						<dd id="desde" class="col-sm-8" th:text=${permiso.desdeHasta[0].lugar}></dd>
 						<dt class="col-sm-4">Hasta:</dt>
-						<dd id="hasta" class="col-sm-8"></dd>
+						<dd id="hasta" class="col-sm-8" th:text=${permiso.desdeHasta[1].lugar}></dd>
 					</dl>
 				</div>
 			</div>
@@ -104,47 +103,6 @@
 				</div>
 			</section>
 		</div>
-	</footer>	
-
-    <script>
-        const querystring = window.location.search
-        const params = new URLSearchParams(querystring)
-
-		//Tomo los parametros de la url y los guardo en variables
-		var fecha = params.get("fecha")
-        var dni = params.get("dni")
-        var nombre = params.get("nombre")
-        var apellido = params.get("apellido")        
-		var desde = params.get("desde")
-        var hasta = params.get("hasta")
-        
-		
-		if(params.get("tipo")==0){
-			var motivo = params.get("motivo")
-			$("#motivo").text(motivo);
-			$("#vacacionesCol").css("display", "none"); 
-			$("#cantDiasCol").css("display", "none"); 
-			$("#dominioCol").css("display", "none");
-			$("#vacaciones").css("display", "none"); 
-			$("#cantDias").css("display", "none"); 
-			$("#dominio").css("display", "none"); 
-		}else{
-			var vacaciones = params.get("vacaciones")        
-			var cantDias = params.get("dias")
-        	var dominio = params.get("dominio")
-			$("#vacaciones").text(vacaciones); 
-			$("#cantDias").text(cantDias); 
-			$("#dominio").text(dominio);
-			$("#motivoCol").css("display", "none");
-			$("#motivo").css("display", "none"); 
-		}
-
-		//Seteo cada uno de los campos del documento con su valor
-		$("#fecha").text(fecha);
-        $("#nombreCompleto").text(nombre + " " + apellido);
-        $("#dni").text(dni);        
-		$("#desde").text(desde);
-        $("#hasta").text(hasta);
-    </script>
+	</footer>
 
 </html>
