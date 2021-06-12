@@ -17,7 +17,7 @@ public class LoginController {
 		return ViewRouteHelper.LOGIN;
 	}
 	
-	@GetMapping("/logout")
+	@GetMapping("/logoutsuccess")
 	public String logout(Model model) {
 		return ViewRouteHelper.LOGOUT;
 	}

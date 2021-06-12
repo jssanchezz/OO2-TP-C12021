@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.unla.grupo4.services.UserService;
 
@@ -36,6 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.usernameParameter("username").passwordParameter("password")
 			.defaultSuccessUrl("/loginsuccess",true).permitAll()
 		.and()
-			.logout().logoutUrl("/logout").logoutSuccessUrl("/logout").permitAll();
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/logoutsuccess").permitAll();
 	}
 }
