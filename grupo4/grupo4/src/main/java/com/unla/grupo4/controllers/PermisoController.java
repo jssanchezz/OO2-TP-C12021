@@ -170,7 +170,8 @@ public class PermisoController {
 	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/requestFechas")
 	public String formFechas() {
-		return "permiso/formFechas";
+		
+		return ViewRouteHelper.PERMISO_FECHA_FORM;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_AUDITOR')")

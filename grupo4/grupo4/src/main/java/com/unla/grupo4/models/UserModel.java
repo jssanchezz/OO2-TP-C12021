@@ -7,9 +7,9 @@ import javax.validation.constraints.Size;
 public class UserModel {
 	
 	private int id;
-	@Size(min = 8, max = 40, message = "el nombre tiene que tener entre 8 y 40 caracteres de largo")
+	@Size(min = 3, max = 40, message = "el nombre tiene que tener entre 3 y 40 caracteres de largo")
 	private String name;
-	@Size(min = 5, max = 40, message = "el apellido tiene que tener entre 5 y 40 caracteres de largo")
+	@Size(min = 4, max = 40, message = "el apellido tiene que tener entre 4 y 40 caracteres de largo")
 	private String surname;
 	@NotBlank(message = "no debe estar vacio")
 	private String dni;

@@ -35,16 +35,16 @@
 							<!-- Circle Buttons -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Agregar Usuario</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Editar Usuario</h6>
 								</div>
 								<div class="card-body">
 									<form id="save" action="#" th:action="@{/users/newUser}" th:object="${user}"
 										method="post">
 										<p><input type="hidden" th:field="*{id}" /></p>
 										<p>Nombre: <input type="text" th:field="*{name}" class="form-control" required></p>
-										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></p>
+										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></span></p>
 										<p>Apellido: <input type="text" th:field="*{surname}" class="form-control" required></p>
-										<p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span></p>
+										<p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:errorclass="error"></span></p>
 										<p>Tipo
 											<select th:field="*{typeDoc}"class="form-select" required>
 												<option th:each="typeDo : ${typeDoc}" th:value="${typeDo}"
@@ -53,9 +53,9 @@
 											</select>
 										</p>
 										<p>Dni: <input type="text" th:field="*{dni}" class="form-control" required></p>
-										<p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span></p>
+										<p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" th:errorclass="error"></span></p>
 										<p>Email: <input type="text" th:field="*{email}" class="form-control" required></p>
-										<p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></p>
+										<p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span></p>
 										<p>Nombre de Usuario: <input type="text" th:field="*{userName}" class="form-control" required></p>
 										<p>Clave: <input type="password" th:field="*{userPassword}" class="form-control" required></p>
 
