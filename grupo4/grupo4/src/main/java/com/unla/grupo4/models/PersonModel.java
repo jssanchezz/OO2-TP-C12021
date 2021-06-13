@@ -8,12 +8,10 @@ import javax.validation.constraints.Size;
 public class PersonModel {
 	
 	private int id;
-	@Size(min = 4, max = 40, message = "el nombre tiene que tener entre 4 y 40 caracteres de largo")
+	@Size(min = 3, max = 40, message = "el nombre tiene que tener entre 3 y 40 caracteres de largo")
 	private String name;
-	@Size(min = 5, max = 40, message = "el apellido tiene que tener entre 4 y 40 caracteres de largo")
+	@Size(min = 4, max = 40, message = "el apellido tiene que tener entre 4 y 40 caracteres de largo")
 	private String surname;
-	// TODO preguntarle a los chicos : "Failed to convert property value of type java.lang.String to required type long for property dni; nested exception is java.lang.NumberFormatException: For input string: "" "
-	// Es necesario que sea long, o puede ser String
 	private long dni;
 	
 	public PersonModel() {

@@ -40,10 +40,6 @@ public class UserRoleController {
 	@Qualifier("userRoleService")
 	private IUserRoleService userRoleService;
 	
-	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
-	
 	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INDEX);
@@ -56,7 +52,6 @@ public class UserRoleController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INSERT);
 		if (!model.containsAttribute("userRole"))
 			mAV.addObject("userRole", new UserRoleModel());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	
@@ -72,9 +67,13 @@ public class UserRoleController {
 				userRoleService.insertOrUpdate(userRoleModel);
 				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
 				attribute.addFlashAttribute("clase", "success");
-			} else {
+			} else if (userRoleService.findByRole(userRoleModel.getRole()).isEnabled()){
 				attribute.addFlashAttribute("mensaje", "Perfil ya existente: " + userRoleModel.getRole());
 				attribute.addFlashAttribute("clase", "warning");
+			} else {
+				userRoleService.toEnable(userRoleService.findByRole(userRoleModel.getRole()).getId());
+				attribute.addFlashAttribute("mensaje", "El perfil ya existia pero deshabilitado. Se reactivo correctamente.");
+				attribute.addFlashAttribute("clase", "success");
 			}
 		}
 		return new RedirectView(ViewRouteHelper.USER_ROLE_INSERT_ROOT);
@@ -84,8 +83,7 @@ public class UserRoleController {
 	@GetMapping("/updateRole")
 	public ModelAndView updateRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_UPDATE);
-		mAV.addObject("userRoles",userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
+		mAV.addObject("userRoles",userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -101,8 +99,7 @@ public class UserRoleController {
 	@GetMapping("/deleteRole")
 	public ModelAndView deleteRole() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_DELETE);
-		mAV.addObject("userRoles",userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
+		mAV.addObject("userRoles",userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -123,8 +120,7 @@ public class UserRoleController {
 	@GetMapping("/listRoles")
 	public ModelAndView listar() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_LIST);
-		mAV.addObject("userRoles", userRoleService.getAll());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
+		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	

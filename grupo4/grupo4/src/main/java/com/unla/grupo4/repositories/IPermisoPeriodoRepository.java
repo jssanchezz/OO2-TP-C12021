@@ -15,7 +15,7 @@ import com.unla.grupo4.entities.Person;
 @Repository("permisoPeriodoRepository")
 public interface IPermisoPeriodoRepository extends JpaRepository<PermisoPeriodo, Serializable>{
 	public abstract PermisoPeriodo findById(int id);
-	public abstract PermisoPeriodo findByPerson(Person person);
+	public abstract List<PermisoPeriodo> findAll();
 	
 	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe "
 			+ "JOIN FETCH pp.rodado pr WHERE pr.dominio LIKE (:dominio)")
@@ -28,7 +28,7 @@ public interface IPermisoPeriodoRepository extends JpaRepository<PermisoPeriodo,
 	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado ro WHERE pe.id = :id")
 	public abstract List<PermisoPeriodo> traerPermisosPorPersona(int id);
 	
-	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe  JOIN FETCH pp.rodado pr "
+	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado pr "
 			+ "WHERE pp.fecha BETWEEN (:fechaInicio) and (:fechaFinal)")
 	public abstract List<PermisoPeriodo> findByFechaAFecha(@Param("fechaInicio")LocalDate fechaInicio,
 														  @Param("fechaFinal")LocalDate fechaFinal);

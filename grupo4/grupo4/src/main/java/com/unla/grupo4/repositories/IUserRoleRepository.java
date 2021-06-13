@@ -1,6 +1,7 @@
 package com.unla.grupo4.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface IUserRoleRepository extends JpaRepository<UserRole, Serializabl
 	public abstract UserRole findById(int id);
 	
 	public abstract UserRole findByRole(String role);
+	
+	public abstract List<UserRole> findByEnabled(boolean enabled);
 }

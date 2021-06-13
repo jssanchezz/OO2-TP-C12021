@@ -14,13 +14,13 @@ public class UserConverter {
 	public UserModel entityToModel(User user) {
 		return new UserModel(user.getId(), user.getName(), user.getSurname(), user.getTypeDoc(), user.getDni(), user.getEmail(),
 				user.getUserName(), user.getUserPassword(),
-				new UserRoleModel(user.getRole().getId(), user.getRole().getRole()));
+				new UserRoleModel(user.getRole().getId(), user.getRole().getRole(), user.getRole().isEnabled()));
 	}
 
 	public User modelToEntity(UserModel userModel) {
 		return new User(userModel.getId() ,userModel.getName(), userModel.getSurname(), userModel.getTypeDoc(), userModel.getDni(),
 				userModel.getEmail(), userModel.getUserName(), userModel.getUserPassword(),
-				new UserRole(userModel.getRole().getId(), userModel.getRole().getRole()));
+				new UserRole(userModel.getRole().getId(), userModel.getRole().getRole(), userModel.getRole().isEnabled()));
 	}
 
 }

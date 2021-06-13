@@ -39,9 +39,9 @@
                                 </div>
                                 <div class="card-body">
                                   	<form action="#" th:action="@{/permiso/listPermisosFechaAFecha}" method="post">
-                                  		<p> Inicio del rango: <input type="date" name="fechaInicio" /></p>
-                                  		<p> Fin del rango: <input type="date" name="fechaFinal" /></p>
-                                  		<input type="submit"/>
+                                  		<p> Inicio del rango: <input type="date" name="fechaInicio" class="form-control" required></p>
+                                  		<p> Fin del rango: <input type="date" name="fechaFinal" class="form-control" required></p>
+                                  		<input type="submit" value="Buscar permisos">
                                   	</form>
                               	</div>
                             </div>

@@ -50,31 +50,45 @@
                                     
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered">
+									<table class="table table-bordered">
 										<thead>
 											<tr>
-                                                <th>Nombre</th>
-												<th>Apellido</th>
-												<th>Dni</th>
-                                                <th>Cant. de dias</th>
-                                                <th>Vacaciones</th>
-                                                <th>Dominio</th>
-                                                <th>Vehiculo</th>
+												<th>Fecha</th>
+												<th>Nombre y Apellido</th>
+												<th>DNI</th>
+												<th>¿Vacaciones?</th>
+												<th>Cantidad de dias</th>
+												<th>Patente del vehiculo</th>
+												<th>Desde</th>
+												<th>Hasta</th>
+												<th>QR</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="permiso : ${permisos}">
-												<td><span th:text="${permiso.person.name}" /></td>
-                                                <td><span th:text="${permiso.person.surname}" /></td>
-                                                <td><span th:text="${permiso.person.dni}" /></td>
-                                                <td><span th:text="${permiso.cantDias}" /></td>
-												<td><span th:text="${permiso.vacaciones}" /></td>
-                                                <td><span th:text="${permiso.rodado.dominio}" /></td>
-                                                <td><span th:text="${permiso.rodado.vehiculo}" /></td>
+												<td><span th:text="${permiso.fecha}"></td>
+												<td><span th:text="${permiso.person.name}"></td>
+												<td><span th:text="${permiso.person.dni}"></td>
+												<td><span th:text="${permiso.vacaciones} ? 'SI' : 'NO'"></td>
+												<td><span th:text="${permiso.cantDias}"></td>
+												<td><span th:text="${permiso.rodado.dominio}"></td>
+												<td><span th:text="${permiso.desdeHasta[0].lugar}"></td>
+												<td><span th:text="${permiso.desdeHasta[1].lugar}"></td>
+												<td>
+													<input type="hidden" id="newsid">
+													<input type="hidden" id="newstype">
+													<a href="#" onclick="NewsDetail(name, 'periodo')" name="#"
+														th:name="${permiso.id}">
+														<span class="icon text-gray-600">
+															<i class="fas fa-arrow-right"></i>
+														</span>
+														<span class="text">Ver Qr</span>
+													</a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
-                                </div>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -96,6 +110,9 @@
 
 	<!-- Logout Modal-->
 	<div th:replace="/layouts/base::logout-modal"></div>
+
+	<!-- Qr Modal-->
+	<div th:replace="/layouts/base::qrModal"></div>
 
 	<!-- Scripts-->
 	<div th:replace="/layouts/base::scripts"></div>

@@ -57,11 +57,10 @@ public class UserController {
 	@GetMapping("/newUser")
 	public ModelAndView form(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_FORM);
-		mAV.addObject("roles", userRoleService.getAll());
+		mAV.addObject("roles", userRoleService.findByEnabled(true));
 		mAV.addObject("typeDoc", TypeDoc.values());
 		if (!model.containsAttribute("user"))
 			mAV.addObject("user", new UserModel());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -106,7 +105,6 @@ public class UserController {
 	public ModelAndView update() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -114,12 +112,11 @@ public class UserController {
 	@GetMapping("/updateUser/{id}")
 	public ModelAndView updateUser(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE_FORM);
-		List<UserRole> roles = userRoleService.getAll();
+		List<UserRole> roles = userRoleService.findByEnabled(true);
 		UserModel user = userService.findById(id);
 		mAV.addObject("roles", roles);
 		mAV.addObject("user", user);
 		mAV.addObject("typeDoc", TypeDoc.values());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -128,7 +125,6 @@ public class UserController {
 	public ModelAndView delete() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_DELETE);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 
@@ -150,7 +146,6 @@ public class UserController {
 	public ModelAndView listsUser() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_LIST);
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 

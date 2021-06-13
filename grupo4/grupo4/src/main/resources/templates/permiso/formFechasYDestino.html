@@ -39,8 +39,8 @@
                                 </div>
                                 <div class="card-body">
                                   	<form action="#" th:action="@{/permiso/listPermisosFechaAFechaYDestino}" method="post">
-                                  		<p> Inicio del rango: <input type="date" name="fechaInicio" /></p>
-                                  		<p> Fin del rango: <input type="date" name="fechaFinal" /></p>
+                                  		<p> Inicio del rango: <input type="date" name="fechaInicio" class="form-control" required></p>
+                                  		<p> Fin del rango: <input type="date" name="fechaFinal" class="form-control" required></p>
                                   		<p> Lugar de destino:
                                   			<select name="idHasta">
 												<option th:each="lugar : ${lugares}" 
@@ -49,7 +49,7 @@
 												</option>
 											</select>
                                   		</p>
-                                  		<input type="submit"/>
+                                  		<input type="submit" value="Buscar permisos">
                                   	</form>
                               	</div>
                             </div>

@@ -53,33 +53,32 @@
 									<form id="save" action="#" th:action="@{/permiso/permisoDiarioProcess}"
 										th:object="${permisoDiario}" method="post">
 										<p>Persona:
-											<p><input type="hidden" th:field="*{person.id}" readonly="readonly"/></p>
-											<p>Nombre: <input type="text" th:field="*{person.name}" readonly="readonly" /></p>
-                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" readonly="readonly" /></p>
-                                        	<p>Dni: <input type="text" th:field="*{person.dni}" readonly="readonly" /></p>
+											<p><input type="hidden" th:field="*{person.id}" class="form-control" readonly="readonly"/></p>
+											<p>Nombre: <input type="text" th:field="*{person.name}" class="form-control" readonly="readonly" /></p>
+                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" class="form-control" readonly="readonly" /></p>
+                                        	<p>Dni: <input type="text" th:field="*{person.dni}" class="form-control" readonly="readonly" /></p>
 										</p>
 										<p>Desde:
-											<select name="idDesde">
+											<select name="idDesde" class="form-select" required>
 												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
-													th:text="${lugar.lugar}">
+													th:text="${lugar.lugar}" class="form-select">
 												</option>
 											</select>
 										</p>
 										<p>Hasta:
-											<select name="idHasta">
+											<select name="idHasta" class="form-select" required>
 												<option th:each="lugar : ${lugares}" th:value="${lugar.id}"
 													th:text="${lugar.lugar}">
 												</option>
 											</select>
 										</p>
-										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
-										<p>Motivo: <input type="text" th:field="*{motivo}" /></p>
+										<p>Fecha: <input type="date" th:field="*{fecha}" class="form-control" required></p>
+										<p>Motivo: <input type="text" th:field="*{motivo}" class="form-control" required></p>
 										<p><span th:if="${#fields.hasErrors('motivo')}" th:errors="*{motivo}"></span></p>
-
-										<a href="#" onclick="document.getElementById('save').submit()"
-											class="btn btn-success btn-circle">
-											<i class="fas fa-check"></i>
-										</a>
+										<div class="card-footer">
+											<input id="submit-btn" type="submit" value="Guardar" class="btn btn-success">
+											<a class="btn btn-secondary pl-2" th:href="@{/}">Cancelar</a>
+										</div>
 									</form>
 								</div>
 							</div>

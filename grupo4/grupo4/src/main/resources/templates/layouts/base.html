@@ -31,11 +31,11 @@
 		<ul th:fragment="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/home/index}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">Gestion</div>
+				<div class="sidebar-brand-text mx-3">Permiso cuidar</div>
 			</a>
 
 			<!-- Divider -->
@@ -43,11 +43,10 @@
 
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Interface
 			</div>
 
 			<!-- Barra de navegacion - Opciones desplegables segun role -->
-			<li th:if="${userlogrole} != ''" class="nav-item">
+			<li sec:authorize="isAuthenticated()" class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
 					aria-expanded="true" aria-controls="collapseThree">
 					<i class="fas fa-fw fa-cog"></i>
@@ -56,19 +55,19 @@
 				<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Administrar perfiles:</h6>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/userRoles/newRole}">Agregar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/userRoles/updateRole}">Editar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/userRoles/deleteRole}">Eliminar</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
 							th:href="@{/userRoles/listRoles}">Listar perfiles</a>
 					</div>
 				</div>
 			</li>
 
-			<li th:if="${userlogrole} != ''" class="nav-item">
+			<li sec:authorize="isAuthenticated()" class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
 					aria-expanded="true" aria-controls="collapseThree">
 					<i class="fas fa-fw fa-cog"></i>
@@ -77,19 +76,19 @@
 				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Administrar Usuarios:</h6>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/users/newUser}">Agregar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/users/updateUser}">Editar</a>
-						<a th:if="${userlogrole} == 'ROLE_ADMIN'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="collapse-item"
 							th:href="@{/users/deleteUser}">Eliminar</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
 							th:href="@{/users/listUsers}">Listar usuarios</a>
 					</div>
 				</div>
 			</li>
 
-			<li th:if="${userlogrole} == 'ROLE_AUDITOR' or ${userlogrole} == ''" class="nav-item">
+			<li class="nav-item" sec:authorize="isAnonymous() or hasRole('ROLE_AUDITOR')">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
 					aria-expanded="true" aria-controls="collapseThree">
 					<i class="fas fa-fw fa-cog"></i>
@@ -98,24 +97,24 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Permisos:</h6>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
+						<a sec:authorize="isAnonymous()" class="collapse-item"
 							th:href="@{/persons/newPerson}">Alta persona</a>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
+						<a sec:authorize="isAnonymous()" class="collapse-item"
 							th:href="@{/rodado/newRodado}">Alta rodado</a>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
+						<a sec:authorize="isAnonymous()" class="collapse-item"
 							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
-						<a th:if="${userlogrole} == ''" class="collapse-item"
+						<a sec:authorize="isAnonymous()" class="collapse-item"
 							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR' or ${userlogrole} == ''" class="collapse-item"
-							th:href="@{/permiso/listPermisosPorPersona}">Buscar permiso por persona</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/permiso/requestListPermisosRodado}">Buscar permiso por rodado</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/permiso/requestFechas}">Permiso por fecha</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/permiso/requestFechasYPartida}">Permiso por fecha y partida</a>
-						<a th:if="${userlogrole} == 'ROLE_AUDITOR'" class="collapse-item"
-							th:href="@{/permiso/requestFechasYDestino}">Permiso por fecha y destino</a>
+						<a sec:authorize="hasRole('ROLE_AUDITOR') or isAnonymous()" class="collapse-item"
+							th:href="@{/permiso/listPermisosPorPersona}">Buscar por persona</a>
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
+							th:href="@{/permiso/requestListPermisosRodado}">Buscar por rodado</a>
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
+							th:href="@{/permiso/requestFechas}">Buscar por fecha</a>
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
+							th:href="@{/permiso/requestFechasYPartida}">Buscar desde</a>
+						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
+							th:href="@{/permiso/requestFechasYDestino}">Buscar hasta</a>
 					</div>
 				</div>
 			</li>
@@ -149,19 +148,21 @@
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
+								<span sec:authorize="isAnonymous()" class="mr-2 d-none d-lg-inline text-gray-600 small">Invitado</span>
+								<span sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" class="mr-2 d-none d-lg-inline text-gray-600 small">Administrador</span>
+								<span sec:authorize="isAuthenticated() and hasRole('ROLE_AUDITOR')" class="mr-2 d-none d-lg-inline text-gray-600 small">Auditor</span>
 								<img class="img-profile rounded-circle" src="/img/undraw_profile.svg">
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<div class="dropdown-divider"></div>
-								<a th:if="${userlogrole} == ''" class="dropdown-item" th:href="@{/login}">
+								<a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{/login}">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Iniciar sesión
 								</a>
 								<div class="dropdown-divider"></div>
-								<a th:if="${userlogrole} != ''" class="dropdown-item" href="#" data-toggle="modal"
+								<a sec:authorize="isAuthenticated()" class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
@@ -204,6 +205,28 @@
 		</div>
 	</div>
 
+	<!-- Qr Modal-->
+	<div th:fragment="qrModal" id="qrModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="qrModalLabel">Qr permiso</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body" style='text-align:center'>
+					<img id="imagenQR" class="outline-inset mb-2 rounded" th:src="@{/permiso/getqr/} + '0' + '/' + 'tipo'"
+						width="200" height="200"></img>
+				</div>
+				<div class="modal-footer">
+					<a href="" download="QR.png" class="btn btn-primary" type="button">Descargar</a>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Salir</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
     <div th:fragment="scripts">
 
         <!-- Bootstrap core JavaScript-->
@@ -231,6 +254,28 @@
                 }
             }
         </script>
+
+		<script type="text/javascript">
+
+			$(function () {
+				// Cómo vincular la visualización del cuadro modal 
+				window.NewsDetail = function (id, type) {
+					$("#newsid").val(id);
+					$("#newstype").val(type);
+					$('#qrModal').modal('show');
+				}
+				$('#qrModal').on('show.bs.modal', function (event) {
+					var newid = $("#newsid").val();
+					var newtype = $("#newstype").val();
+					console.log("newid="+newid);
+					console.log("newid="+newtype);
+					var modal = $(this);  //get modal itself
+					console.log(modal)
+					modal.find('.modal-body img').attr("src", "/permiso/getqr/" + newid + "/" + newtype);
+					modal.find('.modal-footer a').attr("href", "/permiso/getqr/" + newid + "/" + newtype);
+				});
+			})
+		</script>
 
     </div>
 

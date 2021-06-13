@@ -52,8 +52,15 @@ public class ViewRouteHelper {
 		//Views
 		public final static String PERMISO_DIARIO_NEW = "permiso/permisoDiario";
 		public final static String PERMISO_PERIODO_NEW = "permiso/permisoPeriodo";
+		public final static String PERMISO_FECHA_FORM = "permiso/formFechas";
 		
 		//Redirects
 		public final static String PERMISO_DIARIO_ROOT = "/permiso/newPermisoDiario";
 		public final static String PERMISO_PERIODO_ROOT = "/permiso/newPermisoPeriodo";
+		
+	//QR
+		public final static String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode";
+		
+	//Link de la pagina 
+		public final static String LINK = "https://jssanchezz.github.io/OO2-TP-E042021/docs/index?";
 }

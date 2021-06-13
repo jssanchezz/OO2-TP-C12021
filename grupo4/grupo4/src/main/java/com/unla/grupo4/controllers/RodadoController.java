@@ -28,16 +28,11 @@ public class RodadoController {
 	@Qualifier("rodadoService")
 	private IRodadoService rodadoService;
 	
-	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
-	
 	@GetMapping("/newRodado")
 	public ModelAndView createRodado(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.RODADO_INSERT);
 		if (!model.containsAttribute("rodado"))
 			mAV.addObject("rodado", new RodadoModel());
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	

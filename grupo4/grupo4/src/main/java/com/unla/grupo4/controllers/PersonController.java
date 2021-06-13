@@ -18,7 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo4.helpers.ViewRouteHelper;
 import com.unla.grupo4.models.PersonModel;
 import com.unla.grupo4.services.IPersonService;
-import com.unla.grupo4.services.IUserService;
 
 @Controller
 @RequestMapping("/persons")
@@ -28,17 +27,12 @@ public class PersonController {
 	@Qualifier("personService")
 	private IPersonService personService;
 	
-	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
-
 	@GetMapping("/newPerson")
 	public ModelAndView form(Model model) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PERSON_FORM);
 		if(!model.containsAttribute("person"))
 		mAV.addObject("person", new PersonModel());
 		
-		mAV.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mAV;
 	}
 	

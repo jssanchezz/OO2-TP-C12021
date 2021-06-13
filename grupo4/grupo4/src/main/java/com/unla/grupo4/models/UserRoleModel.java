@@ -10,14 +10,17 @@ public class UserRoleModel {
 	
 	private int id;
 	
-	@NotBlank(message = "el campo rol no debe estar vacio")
+	@NotBlank(message = "El campo no debe estar vacio")
 	private String role;
+	
+	private boolean enabled = true;
 	
 	public UserRoleModel() { }
 
-	public UserRoleModel(int id, String role) {
+	public UserRoleModel(int id, String role, boolean enabled) {
 		this.id = id;
 		this.role = role;
+		this.enabled = enabled;
 	}
 
 	public int getId() {
@@ -34,24 +37,18 @@ public class UserRoleModel {
 
 	public void setRole(String role) {
 		this.role = role;
+	}	
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
 	public String toString() {
 		return role;
 	}
-	
-	@Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.id == ((UserRoleModel)obj).id;
-    }
-	
 }

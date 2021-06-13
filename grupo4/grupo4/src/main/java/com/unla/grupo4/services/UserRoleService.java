@@ -31,7 +31,9 @@ public class UserRoleService implements IUserRoleService{
 	@Override
 	public boolean remove(int id) {
 		try {
-			userRoleRepository.deleteById(id);
+			UserRole userRole = userRoleRepository.findById(id);
+			userRole.setEnabled(false);
+			userRoleRepository.save(userRole);
 			return true;
 		}catch (Exception e) {
 			return false;
@@ -52,5 +54,22 @@ public class UserRoleService implements IUserRoleService{
 	@Override
 	public UserRole findByRole(String role) {
 		return userRoleRepository.findByRole(role);
+	}
+
+	@Override
+	public List<UserRole> findByEnabled(boolean enabled) {
+		return userRoleRepository.findByEnabled(enabled);
+	}
+
+	@Override
+	public boolean toEnable(int id) {
+		try {
+			UserRole userRole = userRoleRepository.findById(id);
+			userRole.setEnabled(true);
+			userRoleRepository.save(userRole);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 }

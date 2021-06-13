@@ -49,16 +49,16 @@
 						<!-- Permiso periodo -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso diario</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Alta de permiso por periodo</h6>
 								</div>
 								<div th:if="${existePersona} == 'OK'" class="card-body">
 									<form id="save" action="#" th:action="@{/permiso/permisoPeriodoProcess}"
 										th:object="${permisoPeriodo}" method="post">
 										<p>Persona:
-											<p><input type="hidden" th:field="*{person.id}" readonly="readonly"/></p>
-											<p>Nombre: <input type="text" th:field="*{person.name}" readonly="readonly" /></p>
-                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" readonly="readonly" /></p>
-                                        	<p>Dni: <input type="text" th:field="*{person.dni}" readonly="readonly" /></p>
+											<p><input type="hidden" th:field="*{person.id}" class="form-control" readonly="readonly"/></p>
+											<p>Nombre: <input type="text" th:field="*{person.name}" class="form-control" readonly="readonly" /></p>
+                                        	<p>Apellido: <input type="text" th:field="*{person.surname}" class="form-control" readonly="readonly" /></p>
+                                        	<p>Dni: <input type="text" th:field="*{person.dni}" class="form-control" readonly="readonly" /></p>
 										</p>
 										<p>Desde:
 											<select name="idDesde">
@@ -74,14 +74,15 @@
 												</option>
 											</select>
 										</p>
-										<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
-										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" /></p>
-										<p>Rodado: <input type="text" name="dominioRodado" /></p>
+										<p>Fecha: <input type="date" th:field="*{fecha}" class="form-control" required></p>
+										<p>Cantidad de dias: <input type="number" th:field="*{cantDias}" class="form-control" required></p>
+										<p>¿Vacaciones?: <input type="checkbox" th:field="*{vacaciones}"></p>
+										<p>Rodado: <input type="text" name="dominioRodado" class="form-control" required></p>
 
-										<a href="#" onclick="document.getElementById('save').submit()"
-											class="btn btn-success btn-circle">
-											<i class="fas fa-check"></i>
-										</a>
+										<div class="card-footer">
+											<input id="submit-btn" type="submit" value="Guardar" class="btn btn-success">
+											<a class="btn btn-secondary pl-2" th:href="@{/}">Cancelar</a>
+										</div>
 									</form>
 								</div>
 							</div>							

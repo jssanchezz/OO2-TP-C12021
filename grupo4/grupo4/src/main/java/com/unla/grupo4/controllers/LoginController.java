@@ -17,13 +17,13 @@ public class LoginController {
 		return ViewRouteHelper.LOGIN;
 	}
 	
-	@GetMapping("/logout")
+	@GetMapping("/logoutsuccess")
 	public String logout(Model model) {
 		return ViewRouteHelper.LOGOUT;
 	}
 	
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
-		return "redirect:/home/index";
+		return "redirect:/";
 	}
 }

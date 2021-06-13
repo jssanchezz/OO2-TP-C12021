@@ -39,13 +39,20 @@ public class UserRolePDFExporter {
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Nombre", font));
-        table.addCell(cell);   
+        table.addCell(cell);
+        
+        cell.setPhrase(new Phrase("Activo", font));
+        table.addCell(cell);  
     }
      
     private void writeTableData(PdfPTable table) {
         for (UserRole ur : this.listUserRoles) {
 			table.addCell(String.valueOf(ur.getId()));
-            table.addCell(ur.getRole());            
+            table.addCell(ur.getRole());
+            if(ur.isEnabled())
+            	table.addCell("SI");
+            else
+            	table.addCell("NO");
         }
     }
      
@@ -63,9 +70,9 @@ public class UserRolePDFExporter {
          
         document.add(p);
          
-        PdfPTable table = new PdfPTable(2);
+        PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 3.5f});
+        table.setWidths(new float[] {1f, 2.5f, 1f});
         table.setSpacingBefore(10);
          
         writeTableHeader(table);

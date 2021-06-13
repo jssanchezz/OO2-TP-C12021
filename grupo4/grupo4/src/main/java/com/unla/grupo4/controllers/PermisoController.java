@@ -1,11 +1,12 @@
 package com.unla.grupo4.controllers;
 
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,25 +24,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+
+import com.unla.grupo4.converters.PermisoConverter;
 import com.unla.grupo4.converters.PersonConverter;
-import com.unla.grupo4.converters.RodadoConverter;
 import com.unla.grupo4.entities.Lugar;
-import com.unla.grupo4.entities.Permiso;
 import com.unla.grupo4.entities.PermisoDiario;
 import com.unla.grupo4.entities.PermisoPeriodo;
 import com.unla.grupo4.entities.Person;
 import com.unla.grupo4.helpers.ViewRouteHelper;
-import com.unla.grupo4.models.LugarModel;
+import com.unla.grupo4.miscelaneo.QrZXing;
 import com.unla.grupo4.models.PermisoDiarioModel;
 import com.unla.grupo4.models.PermisoPeriodoModel;
-import com.unla.grupo4.models.PersonModel;
 import com.unla.grupo4.services.ILugarService;
 import com.unla.grupo4.services.IPermisoDiarioService;
 import com.unla.grupo4.services.IPermisoPeriodoService;
 import com.unla.grupo4.services.IPersonService;
 import com.unla.grupo4.services.IRodadoService;
-import com.unla.grupo4.services.IUserService;
-import com.unla.grupo4.services.UserService;
 
 @Controller
 @RequestMapping("/permiso")
@@ -66,10 +64,14 @@ public class PermisoController {
 	@Autowired
 	@Qualifier("rodadoService")
 	private IRodadoService rodadoService;
-
+	
 	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
+	@Qualifier("permisoConverter")
+	private PermisoConverter permisoConverter;
+	
+	@Autowired
+	@Qualifier("personConverter")
+	private PersonConverter personConverter;
 
 	@GetMapping("/newPermisoDiario")
 	public ModelAndView nuevoPermisoDiario(@RequestParam(name = "dni", defaultValue = "0") long dni, Model model) {
@@ -86,7 +88,6 @@ public class PermisoController {
 			mav.addObject("clase", "warning");
 		}
 		mav.addObject("permisoDiario", permisoDiario);
-		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
 
@@ -122,8 +123,7 @@ public class PermisoController {
 	        mav.addObject("clase", "warning");
 		}
 		
-		mav.addObject("permisoPeriodo", permisoPeriodo);		
-		mav.addObject("userlogrole", userService.getRoleOfUserLog());
+		mav.addObject("permisoPeriodo", permisoPeriodo);
 		return mav;
 	}
 	
@@ -145,24 +145,14 @@ public class PermisoController {
 		return new RedirectView(ViewRouteHelper.PERMISO_PERIODO_ROOT);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/requestListPermisosRodado")
 	public ModelAndView requestRodado(@RequestParam(name = "dominio", required = false) String dominio) {
 		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
 		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);		
 		mav.addObject("permisos", permisos);
-		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}
-	
-	/**
-	@PostMapping("/listPermisosRodado")
-	public ModelAndView mostrarListaRodado(@RequestParam(name="dominio", required = false) String dominio) {
-		ModelAndView mav = new ModelAndView("/permiso/listPermisosRodado");
-		List<PermisoPeriodo> permisos = permisoPeriodoService.findPermisosxRodado(dominio);
-		mav.addObject("permisos", permisos);
-		
-		return mav;
-	}*/
 	
 	@GetMapping("/listPermisosPorPersona")
 	public ModelAndView mostrarListaRodado(@RequestParam(name="dni",defaultValue = "0") long dni) {
@@ -174,15 +164,17 @@ public class PermisoController {
 			List<PermisoDiario> permisosDiarios = permisoDiarioService.traerPermisosPorPersona(persona.getId());
 			mav.addObject("permisosDiarios", permisosDiarios);			
 		}
-		mav.addObject("userlogrole", userService.getRoleOfUserLog());
 		return mav;
 	}	
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/requestFechas")
 	public String formFechas() {
-		return "permiso/formFechas";
+		
+		return ViewRouteHelper.PERMISO_FECHA_FORM;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@PostMapping("/listPermisosFechaAFecha")
 	public ModelAndView mostrarListaPermisoFechaAFecha(@RequestParam("fechaInicio") String fechaInicio,
 										   @RequestParam("fechaFinal") String fechaFinal) {
@@ -200,6 +192,7 @@ public class PermisoController {
 		return mav;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/requestFechasYPartida")
 	public ModelAndView formFechasYPartida() {
 		ModelAndView mav = new ModelAndView("permiso/formFechasYDesde");
@@ -207,6 +200,7 @@ public class PermisoController {
 		return mav;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@PostMapping("/listPermisosFechaAFechaYPartida")
 	public ModelAndView mostrarListaPermisoFechaAFechaYPartida(@RequestParam("fechaInicio") String fechaInicio,
 															   @RequestParam("fechaFinal") String fechaFinal,
@@ -225,6 +219,7 @@ public class PermisoController {
 		return mav;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@GetMapping("/requestFechasYDestino")
 	public ModelAndView formFechasYDestino() {
 		ModelAndView mav = new ModelAndView("permiso/formFechasYDestino");
@@ -232,6 +227,7 @@ public class PermisoController {
 		return mav;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AUDITOR')")
 	@PostMapping("/listPermisosFechaAFechaYDestino")
 	public ModelAndView mostrarListaPermisoFechaAFechaYDestino(@RequestParam("fechaInicio") String fechaInicio,
 															   @RequestParam("fechaFinal") String fechaFinal,
@@ -248,5 +244,40 @@ public class PermisoController {
 		mav.addObject("permisosDiarios", permisosDiarios);
 		mav.addObject("permisosPeriodos", permisosPeriodos);
 		return mav;
+	}
+	
+
+	@GetMapping("/permisoDiarioDetalle/{id}")
+	public ModelAndView permisoDiarioDetalle(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/permiso/permisoDiarioDetalle");
+		mav.addObject("permiso", permisoDiarioService.findById(id));
+		return mav;
+	}
+	
+	@GetMapping("/permisoPeriodoDetalle/{id}")
+	public ModelAndView permisoPeriodoDetalle(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/permiso/permisoPeriodoDetalle");
+		mav.addObject("permiso", permisoPeriodoService.findById(id));
+		return mav;
+	}	
+
+	@GetMapping("/getqr/{id}/{tipoPermiso}")
+	public void crearQR(HttpServletResponse response, @PathVariable String tipoPermiso, @PathVariable int id) 
+	{			
+		try
+		{
+			String url;
+			if(tipoPermiso.equals("diario"))
+				url = ViewRouteHelper.LINK + permisoDiarioService.modelToURL(permisoConverter.entityToModel(permisoDiarioService.findById(id)));
+			else
+				url = ViewRouteHelper.LINK + permisoPeriodoService.modelToURL(permisoPeriodoService.findById(id));
+			OutputStream outPutStream = response.getOutputStream();
+			outPutStream.write(QrZXing.getQRCodeImage(url, 200, 200));
+			outPutStream.flush();
+			outPutStream.close();			
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 }

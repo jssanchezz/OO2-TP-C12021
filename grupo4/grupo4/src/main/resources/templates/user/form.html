@@ -39,38 +39,37 @@
                                 </div>
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/users/newUser}" th:object="${user}" method="post">
-										<p>Nombre: <input type="text" th:field="*{name}" /></p>
+										<p>Nombre: <input type="text" th:field="*{name}" class="form-control" required></p>
 										<p><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></span></p>
-                                        <p>Apellido: <input type="text" th:field="*{surname}" /></p>
+                                        <p>Apellido: <input type="text" th:field="*{surname}" class="form-control" required></p>
                                         <p><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:errorclass="error"></span></p>
                                         <p>Tipo
-                                            <select th:field="*{typeDoc}">
+                                            <select th:field="*{typeDoc}" class="form-select" required>
                                                 <option th:each="typeDo : ${typeDoc}"
                                                         th:value="${typeDo}"
                                                         th:text="${typeDo}">
                                                 </option>
                                             </select>
-                                        
-                                        Dni: <input type="text" th:field="*{dni}" /></p>
-                                        <p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" th:errorclass="error"></span></p>
-                                        <p>Email: <input type="text" th:field="*{email}" /></p>
-                                        <p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span></p>
-                                        <p>Nombre de usuario: <input type="text" th:field="*{userName}" /></p>
-                                        <p>Clave: <input type="password" th:field="*{userPassword}" /></p>
-                                       
-                                        <p>Rol:
-                                           
-                                        <select th:field="*{role.id}">
-                                            <option th:each="rol : ${roles}" 
-                                                    th:value="${rol.id}"
-                                                    th:text="${rol.role}">
-                                            </option>
-                                        </select>
-                                    
                                         </p>
-										<a href="#" onclick="document.getElementById('save').submit()" class="btn btn-success btn-circle">
-											<i class="fas fa-check"></i>
-										</a>
+                                        <p>Dni: <input type="text" th:field="*{dni}" class="form-control" required></p>
+                                        <p><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" th:errorclass="error"></span></p>
+                                        <p>Email: <input type="text" th:field="*{email}" th:errorclass="error" class="form-control" required></p>
+                                        <p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span></p>
+                                        <p>Nombre de usuario: <input type="text" th:field="*{userName}" class="form-control" required></p>
+                                        <p>Clave: <input type="password" th:field="*{userPassword}" class="form-control" required></p>
+                                       
+                                        <p>Rol:                                           
+                                            <select th:field="*{role.id}" class="form-select" required>
+                                                <option th:each="rol : ${roles}" 
+                                                        th:value="${rol.id}"
+                                                        th:text="${rol.role}">
+                                                </option>
+                                            </select>                                    
+                                        </p>
+										<div class="card-footer">
+											<input id="submit-btn" type="submit" value="Guardar" class="btn btn-success">
+											<a class="btn btn-secondary pl-2" th:href="@{/}">Cancelar</a>
+										</div>
 									</form>
                                 </div>
                             </div>

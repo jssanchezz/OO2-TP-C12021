@@ -15,7 +15,7 @@ import com.unla.grupo4.entities.Person;
 @Repository("permisoDiarioRepository")
 public interface IPermisoDiarioRepository extends JpaRepository<PermisoDiario, Serializable>{
 	public abstract PermisoDiario findById(int id);
-	public abstract PermisoDiario findByPerson(Person person);
+	public abstract List<PermisoDiario> findAll();
 	
 	@Query("SELECT pd FROM PermisoDiario pd JOIN FETCH pd.person pe WHERE pe.id = :id")
 	public abstract List<PermisoDiario> traerPermisosPorPersona(int id);

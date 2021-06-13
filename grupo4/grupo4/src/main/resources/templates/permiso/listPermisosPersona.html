@@ -19,96 +19,120 @@
 			<div id="content">
 
 				<!-- Topbar -->
-				<nav th:replace="/layouts/base::topbar"></nav>					
+				<nav th:replace="/layouts/base::topbar"></nav>
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
-                <div class="container-fluid">
+				<div class="container-fluid">
 					<form id="buscarPersona" action="#" th:action="@{/permiso/listPermisosPorPersona}" method="GET"
-							class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-							<div class="input-group">
-								<input type="text" name="dni" class="form-control bg-white border-0 small" placeholder="Ingrese dni..."
-									aria-label="Search" aria-describedby="basic-addon2">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="submit">
-										<i class="fas fa-search fa-sm"></i>
-									</button>
-								</div>
+						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+						<div class="input-group">
+							<input type="text" name="dni" class="form-control bg-white border-0 small"
+								placeholder="Ingrese dni..." aria-label="Search" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="submit">
+									<i class="fas fa-search fa-sm"></i>
+								</button>
 							</div>
+						</div>
 					</form>
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800"></h1>
+					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800"></h1>
 
-                    <div class="row1">
+					<div class="row1">
 
-                        <div class="modified-table">
+						<div class="modified-table">
 
-                            <!-- Circle Buttons -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Permisos Diarios</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-bordered">
+							<!-- Circle Buttons -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Permisos Diarios</h6>
+								</div>
+								<div class="card-body">
+									<table class="table table-bordered">
 										<thead>
 											<tr>
 												<th>Fecha</th>
 												<th>Nombre</th>
 												<th>Apellido</th>
 												<th>DNI</th>
-                                                <th>Motivo</th>
-                                                <th>Desde</th>
-                                                <th>Hasta</th>
+												<th>Motivo</th>
+												<th>Desde</th>
+												<th>Hasta</th>
+												<th>QR</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="permiso : ${permisosDiarios}">
-												<td><span th:text="${permiso.fecha}" /></td>
-												<td><span th:text="${permiso.person.name}" /></td>
-												<td><span th:text="${permiso.person.surname}" /></td>
-												<td><span th:text="${permiso.person.dni}" /></td>
-                                                <td><span th:text="${permiso.motivo}" /></td>
-                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
-                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+												<td><span th:text="${permiso.fecha}"></td>
+												<td><span th:text="${permiso.person.name}"></td>
+												<td><span th:text="${permiso.person.surname}"></td>
+												<td><span th:text="${permiso.person.dni}"></td>
+												<td><span th:text="${permiso.motivo}"></td>
+												<td><span th:text="${permiso.desdeHasta[0].lugar}"></td>
+												<td><span th:text="${permiso.desdeHasta[1].lugar}"></td>
+												<td>
+													<input type="hidden" id="newsid">
+													<input type="hidden" id="newstype">
+													<a href="#" onclick="NewsDetail(name, 'diario')" name="#"
+														th:name="${permiso.id}">
+														<span class="icon text-gray-600">
+															<i class="fas fa-arrow-right"></i>
+														</span>
+														<span class="text">Ver Qr</span>
+													</a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
-                                </div>                                
+								</div>
 								<div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Permisos por periodo</h6>
-                                </div>
-                                <div class="card-body">
+									<h6 class="m-0 font-weight-bold text-primary">Permisos por periodo</h6>
+								</div>
+								<div class="card-body">
 									<table class="table table-bordered">
 										<thead>
 											<tr>
 												<th>Fecha</th>
 												<th>Nombre y Apellido</th>
 												<th>DNI</th>
-                                                <th>¿Vacaciones?</th>
-                                                <th>Cantidad de dias</th>
-                                                <th>Patente del vehiculo</th>
-                                                <th>Desde</th>
-                                                <th>Hasta</th>
+												<th>¿Vacaciones?</th>
+												<th>Cantidad de dias</th>
+												<th>Patente del vehiculo</th>
+												<th>Desde</th>
+												<th>Hasta</th>
+												<th>QR</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="permiso : ${permisosPeriodo}">
-												<td><span th:text="${permiso.fecha}" /></td>
-												<td><span th:text="${permiso.person.name}" /></td>
-                                                <td><span th:text="${permiso.person.dni}" /></td>
-                                                <td><span th:text="${permiso.vacaciones}" /></td>
-                                                <td><span th:text="${permiso.cantDias}" /></td>
-                                                <td><span th:text="${permiso.rodado.dominio}" /></td>
-                                                <td><span th:text="${permiso.desdeHasta[0].lugar}" /></td>
-                                                <td><span th:text="${permiso.desdeHasta[1].lugar}" /></td>
+												<td><span th:text="${permiso.fecha}"></td>
+												<td><span th:text="${permiso.person.name}"></td>
+												<td><span th:text="${permiso.person.dni}"></td>
+												<td><span th:text="${permiso.vacaciones} ? 'SI' : 'NO'"></td>
+												<td><span th:text="${permiso.cantDias}"></td>
+												<td><span th:text="${permiso.rodado.dominio}"></td>
+												<td><span th:text="${permiso.desdeHasta[0].lugar}"></td>
+												<td><span th:text="${permiso.desdeHasta[1].lugar}"></td>
+												<td>
+													<input type="hidden" id="newsid">
+													<input type="hidden" id="newstype">
+													<a href="#" onclick="NewsDetail(name, 'periodo')" name="#"
+														th:name="${permiso.id}">
+														<span class="icon text-gray-600">
+															<i class="fas fa-arrow-right"></i>
+														</span>
+														<span class="text">Ver Qr</span>
+													</a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- End Page Content -->
 			</div>
 			<!-- End of Main Content -->
@@ -126,6 +150,10 @@
 	<!-- Logout Modal-->
 	<div th:replace="/layouts/base::logout-modal"></div>
 
+	<!-- Qr Modal-->
+	<div th:replace="/layouts/base::qrModal"></div>
+
 	<!-- Scripts-->
-	<div th:replace="/layouts/base::scripts"></div>
+	<div th:replace="/layouts/base::scripts"></div>	
+	
 </body>
