@@ -40,9 +40,9 @@
                                 <div class="card-body">
                                     <form id="save" action="#" th:action="@{/rodado/saveRodado}" th:object="${rodado}" method="post">
 										<p>Dominio: <input type="text" th:field="*{dominio}" class="form-control" required></p>
-										<p><span th:if="${#fields.hasErrors('dominio')}" th:errors="*{dominio}"></span></p>
+										<p><span th:if="${#fields.hasErrors('dominio')}" th:errors="*{dominio}" th:errorclass="error"></span></p>
                                         <p>Vehiculo: <input type="text" th:field="*{vehiculo}" class="form-control" required></p>
-                                        <p><span th:if="${#fields.hasErrors('vehiculo')}" th:errors="*{vehiculo}"></span></p>                                        
+                                        <p><span th:if="${#fields.hasErrors('vehiculo')}" th:errors="*{vehiculo}" th:errorclass="error"></span></p>                                        
 										<div class="card-footer">
 											<input id="submit-btn" type="submit" value="Guardar" class="btn btn-success">
 											<a class="btn btn-secondary pl-2" th:href="@{/}">Cancelar</a>
