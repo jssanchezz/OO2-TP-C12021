@@ -28,7 +28,7 @@ public interface IPermisoPeriodoRepository extends JpaRepository<PermisoPeriodo,
 	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado ro WHERE pe.id = :id")
 	public abstract List<PermisoPeriodo> traerPermisosPorPersona(int id);
 	
-	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe  JOIN FETCH pp.rodado pr "
+	@Query("SELECT pp FROM PermisoPeriodo pp JOIN FETCH pp.person pe JOIN FETCH pp.rodado pr "
 			+ "WHERE pp.fecha BETWEEN (:fechaInicio) and (:fechaFinal)")
 	public abstract List<PermisoPeriodo> findByFechaAFecha(@Param("fechaInicio")LocalDate fechaInicio,
 														  @Param("fechaFinal")LocalDate fechaFinal);
