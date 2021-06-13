@@ -99,16 +99,4 @@ public class UserService implements IUserService, UserDetailsService{
 		}
 		return builder.build();
 	}
-	
-	public String getRoleOfUserLog() {
-		String roleUser = "";
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-		    String currentUserName = authentication.getName();
-		    roleUser = userRepository.findByUserName(currentUserName).getRole().getRole();
-		}
-		
-		return roleUser;
-	}
 }

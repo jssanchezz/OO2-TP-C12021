@@ -105,7 +105,7 @@
 							th:href="@{/permiso/newPermisoDiario}">Alta permiso diario</a>
 						<a sec:authorize="isAnonymous()" class="collapse-item"
 							th:href="@{/permiso/newPermisoPeriodo}">Alta permiso periodo</a>
-						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
+						<a sec:authorize="hasRole('ROLE_AUDITOR') or isAnonymous()" class="collapse-item"
 							th:href="@{/permiso/listPermisosPorPersona}">Buscar por persona</a>
 						<a sec:authorize="hasRole('ROLE_AUDITOR')" class="collapse-item"
 							th:href="@{/permiso/requestListPermisosRodado}">Buscar por rodado</a>

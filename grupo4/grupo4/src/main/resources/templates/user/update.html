@@ -51,11 +51,11 @@
 										</thead>
 										<tbody>
 											<tr th:each="user : ${users}">
-												<td><span th:text="${user.name}" /></td>
-												<td><span th:text="${user.surname}" /></td>
-                                                <td><span th:text="${user.dni}" /></td>
-                                                <td><span th:text="${user.email}" /></td>
-                                                <td><span th:text="${user.userName}" /></td>
+												<td><span th:text="${user.name}" ></td>
+												<td><span th:text="${user.surname}" ></td>
+                                                <td><span th:text="${user.dni}" ></td>
+                                                <td><span th:text="${user.email}" ></td>
+                                                <td><span th:text="${user.userName}"></td>
 												<td>
 													<form iid="#" th:id="${user.id}" action="#" th:action="@{/users/updateUser/{id}(id=${user.id})}" th:object="${user}" method="get">
 														<a href="#" onclick="myFunction(name, '¿Esta seguro que quiere editar este usuario?')" name="#" th:name="${user.id}" class="btn btn-light btn-icon-split btn-sm">

@@ -41,21 +41,12 @@
 									<form id="save" action="#" th:action="@{/userRoles/saveRole}"
 										th:object="${userRole}" method="post">
 										<p><input type="hidden" th:field="*{id}" /></p>
-										<p>Perfil: <input type="text" th:field="*{role}" /></p>
+										<p>Perfil: <input type="text" th:field="*{role}" class="form-control" required></p>
 										<p><span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span></p>
-										<a href="#" onclick="document.getElementById('save').submit()"
-											class="btn btn-success btn-icon-split">
-											<span class="icon text-white-50">
-												<i class="fas fa-check"></i>
-											</span>
-											<span class="text">Guardar</span>
-											<a th:href="@{/userRoles/}" class="btn btn-warning btn-icon-split">
-												<span class="icon text-white-50">
-													<i class="fas fa-exclamation-triangle"></i>
-												</span>
-												<span class="text">Cancelar</span>
-											</a>
-										</a>
+										<div class="card-footer">
+											<input id="submit-btn" type="submit" value="Guardar" class="btn btn-success">
+											<a class="btn btn-secondary pl-2" th:href="@{/}">Cancelar</a>
+										</div>
 									</form>
 								</div>
 							</div>
