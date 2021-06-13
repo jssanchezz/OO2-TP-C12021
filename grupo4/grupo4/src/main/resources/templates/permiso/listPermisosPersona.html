@@ -109,7 +109,7 @@
 												<td><span th:text="${permiso.fecha}"></td>
 												<td><span th:text="${permiso.person.name}"></td>
 												<td><span th:text="${permiso.person.dni}"></td>
-												<td><span th:text="${permiso.vacaciones}"></td>
+												<td><span th:text="${permiso.vacaciones} ? 'SI' : 'NO'"></td>
 												<td><span th:text="${permiso.cantDias}"></td>
 												<td><span th:text="${permiso.rodado.dominio}"></td>
 												<td><span th:text="${permiso.desdeHasta[0].lugar}"></td>

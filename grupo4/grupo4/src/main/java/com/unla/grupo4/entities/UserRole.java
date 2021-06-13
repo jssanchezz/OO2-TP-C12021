@@ -32,7 +32,6 @@ public class UserRole {
 	
 	@Column(name = "enabled", columnDefinition = "boolean default true")
 	private boolean enabled = true;
-	//@Column(name = "enabled")
 	
 	public UserRole() { }
 
