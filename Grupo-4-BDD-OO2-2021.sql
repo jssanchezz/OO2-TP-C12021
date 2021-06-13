@@ -110,20 +110,20 @@ INSERT INTO `obj2_tp`.`user`(`id`,`createdat`,`dni`,`email`,`enabled`,`name`,`su
 VALUES(2,NOW(),'10000001','auditor@gmail.com',1,'Auditor','Auditor','DNI','auditor','$2a$10$47nUVb6oTrUSvZO14NBBs.g/hD4ecMWfk3Td.0w9/zftynsMxM/LO',2);
 
 -- LUGARES
-INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (1, "1846",now(), "ADROGUÉ");
+INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (1, "1846",now(), "ADROGUE");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (2, "1846",now(), "ALMIRANTE BROWN");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (3, "1852",now(), "BURZACO");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (4, "1849",now(), "CLAYPOLE");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (5, "1856",now(), "GLEW");
-INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (6, "1846",now(), "JOSÉ MARMOL");
+INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (6, "1846",now(), "JOSE MARMOL");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (7, "1854",now(), "LONGCHAMPS");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (8, "1852",now(), "MINISTRO RIVADAVIA");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (9, "1847",now(), "RAFAEL CALZADA");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (10, "1870",now(), "AVELLANEDA");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (11, "1871",now(), "DOCK SUD");
-INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (12, "1872",now(), "SARANDÍ");
+INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (12, "1872",now(), "SARANDI");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (13, "1875",now(), "WILDE");
-INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (14, "1824",now(), "LANÚS");
+INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (14, "1824",now(), "LANUS");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (15, "1828",now(), "BANFIELD");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (16, "1836",now(), "LLAVALLOL");
 INSERT INTO `obj2_tp`.`lugar`(`id`,`codigo_postal`,`createdat`,`lugar`) VALUES (17, "1832",now(), "LOMAS DE ZAMORA");
