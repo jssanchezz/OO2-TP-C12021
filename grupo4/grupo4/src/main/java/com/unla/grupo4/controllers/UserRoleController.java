@@ -135,7 +135,7 @@ public class UserRoleController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
          
-        List<UserRole> listUserRoles = userRoleService.findByEnabled(true);
+        List<UserRole> listUserRoles = userRoleService.getAll();
          
         UserRolePDFExporter exporter = new UserRolePDFExporter(listUserRoles);
         exporter.export(response);         
