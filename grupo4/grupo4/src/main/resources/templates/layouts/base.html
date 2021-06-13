@@ -216,11 +216,11 @@
 					</button>
 				</div>
 				<div class="modal-body" style='text-align:center'>
-					<img class="outline-inset mb-2 rounded" th:src="@{/permiso/getqr/} + '0' + '/' + 'tipo'"
+					<img id="imagenQR" class="outline-inset mb-2 rounded" th:src="@{/permiso/getqr/} + '0' + '/' + 'tipo'"
 						width="200" height="200"></img>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-primary" type="button" data-dismiss="modal">Descargar</button>
+					<a href="" download="QR.png" class="btn btn-primary" type="button">Descargar</a>
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Salir</button>
 				</div>
 			</div>
@@ -272,6 +272,7 @@
 					var modal = $(this);  //get modal itself
 					console.log(modal)
 					modal.find('.modal-body img').attr("src", "/permiso/getqr/" + newid + "/" + newtype);
+					modal.find('.modal-footer a').attr("href", "/permiso/getqr/" + newid + "/" + newtype);
 				});
 			})
 		</script>
