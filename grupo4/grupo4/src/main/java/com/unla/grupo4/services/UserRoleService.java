@@ -60,4 +60,16 @@ public class UserRoleService implements IUserRoleService{
 	public List<UserRole> findByEnabled(boolean enabled) {
 		return userRoleRepository.findByEnabled(enabled);
 	}
+
+	@Override
+	public boolean toEnable(int id) {
+		try {
+			UserRole userRole = userRoleRepository.findById(id);
+			userRole.setEnabled(true);
+			userRoleRepository.save(userRole);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
 }

@@ -32,12 +32,14 @@ public class UserRole {
 	
 	@Column(name = "enabled", columnDefinition = "boolean default true")
 	private boolean enabled = true;
+	@Column(name = "enabled")
 	
 	public UserRole() { }
 
-	public UserRole(int id, String role) {
+	public UserRole(int id, String role, boolean enabled) {
 		this.id = id;
 		this.role = role;
+		this.enabled = enabled;
 	}
 
 	public int getId() {
@@ -67,19 +69,21 @@ public class UserRole {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}	
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	@Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
-    }
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        return this.id == ((UserRole)obj).id;
-    }
-	
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}	
 }

@@ -17,5 +17,7 @@ public interface IUserRoleService {
 	
 	public UserRoleModel insertOrUpdate(UserRoleModel userRoleModel);
 	
+	public boolean toEnable(int id);
+	
 	public boolean remove(int id);
 }

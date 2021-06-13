@@ -67,9 +67,13 @@ public class UserRoleController {
 				userRoleService.insertOrUpdate(userRoleModel);
 				attribute.addFlashAttribute("mensaje", "Guardado correctamente");
 				attribute.addFlashAttribute("clase", "success");
-			} else {
+			} else if (userRoleService.findByRole(userRoleModel.getRole()).isEnabled()){
 				attribute.addFlashAttribute("mensaje", "Perfil ya existente: " + userRoleModel.getRole());
 				attribute.addFlashAttribute("clase", "warning");
+			} else {
+				userRoleService.toEnable(userRoleService.findByRole(userRoleModel.getRole()).getId());
+				attribute.addFlashAttribute("mensaje", "El perfil ya existia pero deshabilitado. Se reactivo correctamente.");
+				attribute.addFlashAttribute("clase", "success");
 			}
 		}
 		return new RedirectView(ViewRouteHelper.USER_ROLE_INSERT_ROOT);
